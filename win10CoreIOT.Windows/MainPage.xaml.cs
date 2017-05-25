@@ -25,6 +25,19 @@ namespace win10CoreIOT.Windows
         public MainPage()
         {
             this.InitializeComponent();
+            
+
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            Wv1.Navigate(new Uri("http://www.cnn.com"));
+        }
+
+        private void Address_LostFocus(object sender, RoutedEventArgs e)
+        {
+
+            Wv1.Navigate(new Uri(Address.Text));
         }
     }
 }
