@@ -15,8 +15,7 @@ namespace ClassLibrary
         }
         public IList<T> ReadData<T>(string storedProcedure)
         {
-            IList<T> members = new List<T>();
-            //string constr = "Data Source=DESKTOP-726BCQD;Initial Catalog=RichExample;Integrated Security=True;MultipleActiveResultSets=True";
+            IList<T> members = new List<T>();           
             using (var connection = new SqlConnection(_constr))
             using (var command = new SqlCommand(storedProcedure, connection))
             {
