@@ -1,4 +1,4 @@
-﻿namespace ClassLibrary
+﻿namespace win10Core.Business.Model
 {
     public class Customer
     {
@@ -14,13 +14,12 @@
         {
         }
 
-
         public string Name()
         {
             return _firstName + ", "+ _lastName;
         }
 
-        public int CustomerID { get; set; }
+        public int CustomerId { get; set; }
         public string FirstName { get; set; }       
         public string LastName { get; set; }
 

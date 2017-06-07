@@ -1,4 +1,4 @@
-﻿namespace ClassLibrary
+﻿namespace win10Core.Business.Model
 {
     public class Client
     {

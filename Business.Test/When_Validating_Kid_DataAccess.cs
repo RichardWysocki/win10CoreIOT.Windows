@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace WebApplication.Tests.DataAcess
+namespace Business.Test
 {
     // Given_When_Then
     [TestFixture]

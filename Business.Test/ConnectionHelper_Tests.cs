@@ -1,11 +1,11 @@
 ﻿using System;
-using ClassLibrary;
 using NUnit.Framework;
+using win10Core.Business;
 
-namespace WebApplication.Tests.Business
+namespace Business.Test
 {
     [TestFixture]
-    public class ConnectionHelper_Tests
+    public class ConnectionHelperTests
     {
         [Test]
         [TestCase("InValidKey")]

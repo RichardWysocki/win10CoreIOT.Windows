@@ -3,11 +3,11 @@ using System.Data;
 using System.Data.SqlClient;
 using AutoMapper;
 
-namespace ClassLibrary
+namespace win10Core.Business.DataAccess
 {
     public class DataAccess : IDataAccess
     {
-        readonly string _constr = ""; //"Data Source=DESKTOP-726BCQD;Initial Catalog=RichExample;Integrated Security=True;MultipleActiveResultSets=True";
+        readonly string _constr;
 
         public DataAccess(string connectionstring)
         {

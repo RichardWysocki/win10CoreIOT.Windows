@@ -3,94 +3,97 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using AutoMapper;
-using ClassLibrary;
+using win10Core.Business.Model;
 
-namespace win10Core.Business
+namespace win10Core.Business.DataAccess
 {
-    public class ClientDataAccess
+    public class CustomerDataAccess
     {
-        readonly string _constr; 
+        readonly string _constr;
 
-        public ClientDataAccess(string connectionstring)
+        public CustomerDataAccess(string connectionstring)
         {
             _constr = connectionstring;
         }
 
-
-        public bool Insert(Client client)
+        public bool Insert(Customer Customer)
         {
             bool insertSuccessful;
 
-            if (client == null) // || !kid.IsValidNew())
+            if (Customer == null) // || !kid.IsValidNew())
                 throw new ArgumentException();
 
-            var cmd = DbUtility.SqlCommand(_constr, "Client_Insert");
-            // Start a local transaction.
-            var transaction = cmd.Connection.BeginTransaction(IsolationLevel.ReadCommitted, "Client_Insert");
-            cmd.Transaction = transaction;
 
-            try
+            using (var connection = new SqlConnection(_constr))
+            using (var cmd = new SqlCommand("Customer_Insert", connection))
             {
-                cmd.Parameters.Add("@ClientName", SqlDbType.Text, 50);
-                cmd.Parameters.Add("@Email", SqlDbType.Text, 150);
-                cmd.Parameters["@ClientName"].Value = client.FirstName;
-                cmd.Parameters["@Email"].Value = client.LastName;
+                cmd.CommandType = CommandType.StoredProcedure;
+                connection.Open();
+                // Start a local transaction.
+                var transaction = cmd.Connection.BeginTransaction(IsolationLevel.ReadCommitted, "Customer_Insert");
+                cmd.Transaction = transaction;
 
-                int returnValue = cmd.ExecuteNonQuery();
-                transaction.Commit();
-                if (returnValue < 0)
-                {
-                    throw new Exception("Error Text Added to the Database: " + returnValue.ToString());
-                }
-                else
-                {
-                    insertSuccessful = true;
-                }
-            }
-            catch (Exception e)
-            {
                 try
                 {
-                    transaction.Rollback();
-                }
-                catch (SqlException ex)
-                {
-                    if (transaction.Connection != null)
+                    cmd.Parameters.Add("@FirstName", SqlDbType.Text, 50);
+                    cmd.Parameters.Add("@LastName", SqlDbType.Text, 150);
+                    cmd.Parameters["@FirstName"].Value = Customer.FirstName;
+                    cmd.Parameters["@LastName"].Value = Customer.LastName;
+
+                    int returnValue = cmd.ExecuteNonQuery();
+                    transaction.Commit();
+                    if (returnValue < 0)
                     {
-                        Console.WriteLine("An exception of type " + ex.GetType() +
-                            " was encountered while attempting to roll back the transaction.");
+                        throw new Exception("Error Text Added to the Database: " + returnValue.ToString());
                     }
+                    insertSuccessful = true;
                 }
+                catch (Exception e)
+                {
+                    try
+                    {
+                        transaction.Rollback();
+                    }
+                    catch (SqlException ex)
+                    {
+                        if (transaction.Connection != null)
+                        {
+                            Console.WriteLine("An exception of type " + ex.GetType() +
+                                              " was encountered while attempting to roll back the transaction.");
+                        }
+                    }
 
-                Console.WriteLine("An exception of type " + e.GetType() +
-                    " was encountered while inserting the data.");
-                Console.WriteLine("Neither record was written to database.");
-                insertSuccessful = false;
+                    Console.WriteLine("An exception of type " + e.GetType() +
+                                      " was encountered while inserting the data.");
+                    Console.WriteLine("Neither record was written to database.");
+                    insertSuccessful = false;
+                }
             }
-            return insertSuccessful;
 
+            return insertSuccessful;
         }
 
-        public bool Update(Client updateKid)
+
+        public bool Update(Customer updateCustomer)
         {
             bool updateSuccessful;
 
-            if (updateKid == null) // || !updateKid.IsValidUpdate())
+            if (updateCustomer == null) // || !updateKid.IsValidUpdate())
                 throw new ArgumentException();
 
-            var cmd = DbUtility.SqlCommand(_constr, "Client_Update");
+            var cmd = DbUtility.SqlCommand(_constr, "Customer_Update");
             SqlTransaction transaction;
             // Start a local transaction.
-            transaction = cmd.Connection.BeginTransaction(IsolationLevel.ReadCommitted, "Client_Update");
+            transaction = cmd.Connection.BeginTransaction(IsolationLevel.ReadCommitted, "Customer_Update");
             cmd.Transaction = transaction;
             try
             {
                 cmd.Parameters.Add("@KidID", SqlDbType.Int);
                 cmd.Parameters.Add("@Name", SqlDbType.Text, 50);
                 cmd.Parameters.Add("@Email", SqlDbType.Text, 150);
-                cmd.Parameters["@KidID"].Value = updateKid.CustomerID;
-                cmd.Parameters["@Name"].Value = updateKid.FirstName;
-                cmd.Parameters["@Email"].Value = updateKid.LastName;
+                cmd.Parameters["@KidID"].Value = updateCustomer.CustomerId;
+                cmd.Parameters["@Name"].Value = updateCustomer.FirstName;
+                cmd.Parameters["@Email"].Value = updateCustomer.LastName;
 
                 int returnValue = cmd.ExecuteNonQuery();
                 transaction.Commit();
@@ -98,7 +101,6 @@ namespace win10Core.Business
                 if (returnValue < 0)
                 {
                     throw new Exception("Error Text Added to the Database: " + returnValue.ToString());
-
                 }
                 else
                 {
@@ -133,16 +135,16 @@ namespace win10Core.Business
             if (deleteId == 0)
                 throw new ArgumentException();
 
-            var cmd = DbUtility.SqlCommand(_constr, "Client_Delete");
+            var cmd = DbUtility.SqlCommand(_constr, "Customer_Delete");
 
             SqlTransaction transaction;
             // Start a local transaction.
-            transaction = cmd.Connection.BeginTransaction(IsolationLevel.ReadCommitted, "Client_Delete");
+            transaction = cmd.Connection.BeginTransaction(IsolationLevel.ReadCommitted, "Customer_Delete");
             cmd.Transaction = transaction;
             try
             {
-                cmd.Parameters.Add("@ClientID", SqlDbType.Int, 50);
-                cmd.Parameters["@ClientID"].Value = deleteId;
+                cmd.Parameters.Add("@CustomerID", SqlDbType.Int, 50);
+                cmd.Parameters["@CustomerID"].Value = deleteId;
 
                 int returnValue = cmd.ExecuteNonQuery();
                 transaction.Commit();
@@ -155,13 +157,14 @@ namespace win10Core.Business
             }
             catch (Exception e)
             {
-                Console.WriteLine("An exception of type " + e.GetType() + " was encountered while attempting to delete the transaction.");
+                Console.WriteLine("An exception of type " + e.GetType() +
+                                  " was encountered while attempting to delete the transaction.");
                 throw;
             }
 
             return true;
         }
-       
+
         public IList<T> ReadData<T>(string storedProcedure)
         {
             IList<T> members = new List<T>();

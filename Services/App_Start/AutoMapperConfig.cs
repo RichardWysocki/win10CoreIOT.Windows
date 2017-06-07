@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Web;
+﻿using System.Data;
 using AutoMapper;
-using ClassLibrary;
+using win10Core.Business.Model;
 
-namespace Services.App_Start
+namespace Services
 {
     public class AutoMapperConfig
     {
@@ -15,7 +11,7 @@ namespace Services.App_Start
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<IDataRecord, Customer>()
-                .ForMember(source => source.CustomerID, source => source.MapFrom(s => s.GetValue(s.GetOrdinal("CustomerID"))))
+                .ForMember(source => source.CustomerId, source => source.MapFrom(s => s.GetValue(s.GetOrdinal("CustomerID"))))
                 .ForMember(dest => dest.FirstName, source => source.MapFrom(s => s.GetValue(s.GetOrdinal("FirstName"))))
                 .ForMember(dest => dest.LastName, source => source.MapFrom(s => s.GetValue(s.GetOrdinal("LastName"))));
 

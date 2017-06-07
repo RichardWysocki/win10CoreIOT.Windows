@@ -44,14 +44,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Client.cs" />
-    <Compile Include="ClientDataAccess.cs" />
+    <Compile Include="Model\Client.cs" />
+    <Compile Include="DataAccess\ClientDataAccess.cs" />
     <Compile Include="ConfigHelper.cs" />
-    <Compile Include="Customer.cs" />
-    <Compile Include="CustomerDataAccess.cs" />
-    <Compile Include="DataAccess.cs" />
+    <Compile Include="Model\Customer.cs" />
+    <Compile Include="DataAccess\CustomerDataAccess.cs" />
+    <Compile Include="DataAccess\DataAccess.cs" />
     <Compile Include="DBUtility.cs" />
-    <Compile Include="IDataAccess.cs" />
+    <Compile Include="DataAccess\IDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
