@@ -12,37 +12,51 @@ namespace Services.Controllers
 {
     public class CustomerController : ApiController
     {
+        private CustomerDataAccess clientAccess;
+
+        public CustomerController()
+        {
+             clientAccess = new CustomerDataAccess(ConfigHelper.GetSetting("DBConnection"));
+        }
         // GET api/<controller>
         public IEnumerable<Customer> Get()
         {
-            var connection = ConfigHelper.GetSetting("DBConnections");
 
-            var clientAccess = new CustomerDataAccess(connection);
 
             var getdata = clientAccess.ReadData<Customer>("Customer_List").ToList();
-            return getdata; //.AsEnumerable();
-            //new string[] { "value1", "value2" };
+            return getdata; 
         }
 
         // GET api/<controller>/5
-        public string Get(int id)
+        public Customer Get(int id)
         {
-            return "value";
+
+
+
+            var getdata = clientAccess.ReadData<Customer>("Customer_List").Where(c => c.CustomerId == id).Single();
+            return getdata;
         }
 
         // POST api/<controller>
-        public void Post([FromBody]string value)
+        public void Post(Customer customer)
         {
+            var getdata = clientAccess.Insert(customer);
         }
 
         // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, Customer customer)
         {
+            
+            var getdata = clientAccess.Update(customer);
+
         }
 
         // DELETE api/<controller>/5
         public void Delete(int id)
         {
+
+             clientAccess.Delete(id);
+
         }
     }
 }
