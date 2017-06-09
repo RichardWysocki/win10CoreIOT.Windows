@@ -30,8 +30,13 @@ namespace Services.Controllers
         // GET api/<controller>/5
         public Customer Get(int id)
         {
+            DBContext db = new DBContext();
 
-
+            var list = db.customer.ToList();
+            foreach (var VARIABLE in list)
+            {
+                Console.WriteLine(VARIABLE.CustomerId);
+            }
 
             var getdata = clientAccess.ReadData<Customer>("Customer_List").Where(c => c.CustomerId == id).Single();
             return getdata;
