@@ -8,17 +8,17 @@ namespace Business.Test
     public class ConnectionHelperTests
     {
         [Test]
-        [TestCase("InValidKey")]
+        [TestCase("InvalidKey")]
         public void Given_No_Configuration_ThrowFaultException(string configKey)
         {
             //Arrange
 
 
-            //var test = ConfigHelper.GetSetting("InValidKey");
+            //var test = ConfigHelper.GetSetting("InvalidKey");
             //Act
 
             var ex = Assert.Throws<Exception>(() => ConfigHelper.GetSetting(configKey));
-            Assert.That(ex.Message == $"InValid Configuration for {configKey}");
+            Assert.That(ex.Message == $"Invalid Configuration for {configKey}");
         }
 
         [Test]

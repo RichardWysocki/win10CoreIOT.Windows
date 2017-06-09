@@ -7,7 +7,7 @@ using win10Core.Business.Model;
 
 namespace win10Core.Business.DataAccess
 {
-    public class CustomerDataAccess
+    public class CustomerDataAccess : ICustomerDataAccess
     {
         readonly string _constr;
 
@@ -16,11 +16,11 @@ namespace win10Core.Business.DataAccess
             _constr = connectionstring;
         }
 
-        public bool Insert(Customer Customer)
+        public bool Insert(Customer customer)
         {
             bool insertSuccessful;
 
-            if (Customer == null) // || !kid.IsValidNew())
+            if (customer == null) // || !kid.IsValidNew())
                 throw new ArgumentException();
 
 
@@ -37,8 +37,8 @@ namespace win10Core.Business.DataAccess
                 {
                     cmd.Parameters.Add("@FirstName", SqlDbType.Text, 50);
                     cmd.Parameters.Add("@LastName", SqlDbType.Text, 150);
-                    cmd.Parameters["@FirstName"].Value = Customer.FirstName;
-                    cmd.Parameters["@LastName"].Value = Customer.LastName;
+                    cmd.Parameters["@FirstName"].Value = customer.FirstName;
+                    cmd.Parameters["@LastName"].Value = customer.LastName;
 
                     int returnValue = cmd.ExecuteNonQuery();
                     transaction.Commit();
@@ -80,52 +80,56 @@ namespace win10Core.Business.DataAccess
 
             if (updateCustomer == null) // || !updateKid.IsValidUpdate())
                 throw new ArgumentException();
-
-            var cmd = DbUtility.SqlCommand(_constr, "Customer_Update");
-            SqlTransaction transaction;
-            // Start a local transaction.
-            transaction = cmd.Connection.BeginTransaction(IsolationLevel.ReadCommitted, "Customer_Update");
-            cmd.Transaction = transaction;
-            try
+            using (var connection = new SqlConnection(_constr))
+            using (var cmd = new SqlCommand("Customer_Update", connection))
             {
-                cmd.Parameters.Add("@KidID", SqlDbType.Int);
-                cmd.Parameters.Add("@Name", SqlDbType.Text, 50);
-                cmd.Parameters.Add("@Email", SqlDbType.Text, 150);
-                cmd.Parameters["@KidID"].Value = updateCustomer.CustomerId;
-                cmd.Parameters["@Name"].Value = updateCustomer.FirstName;
-                cmd.Parameters["@Email"].Value = updateCustomer.LastName;
+                cmd.CommandType = CommandType.StoredProcedure;
+                connection.Open();
+                // Start a local transaction.
+                var transaction = cmd.Connection.BeginTransaction(IsolationLevel.ReadCommitted, "Customer_Update");
+                cmd.Transaction = transaction;
 
-                int returnValue = cmd.ExecuteNonQuery();
-                transaction.Commit();
-
-                if (returnValue < 0)
-                {
-                    throw new Exception("Error Text Added to the Database: " + returnValue.ToString());
-                }
-                else
-                {
-                    updateSuccessful = true;
-                }
-            }
-            catch (Exception e)
-            {
                 try
                 {
-                    transaction.Rollback();
-                }
-                catch (SqlException ex)
-                {
-                    if (transaction.Connection != null)
+                    cmd.Parameters.Add("@CustomerId", SqlDbType.Int);
+                    cmd.Parameters.Add("@FirstName", SqlDbType.Text, 50);
+                    cmd.Parameters.Add("@LastName", SqlDbType.Text, 150);
+                    cmd.Parameters["@CustomerId"].Value = updateCustomer.CustomerId;
+                    cmd.Parameters["@FirstName"].Value = updateCustomer.FirstName;
+                    cmd.Parameters["@LastName"].Value = updateCustomer.LastName;
+
+                    int returnValue = cmd.ExecuteNonQuery();
+                    transaction.Commit();
+
+                    if (returnValue < 0)
                     {
-                        Console.WriteLine("An exception of type " + ex.GetType() +
-                                          " was encountered while attempting to roll back the transaction.");
+                        throw new Exception("Error Text Added to the Database: " + returnValue.ToString());
+                    }
+                    else
+                    {
+                        updateSuccessful = true;
                     }
                 }
+                catch (Exception e)
+                {
+                    try
+                    {
+                        transaction.Rollback();
+                    }
+                    catch (SqlException ex)
+                    {
+                        if (transaction.Connection != null)
+                        {
+                            Console.WriteLine("An exception of type " + ex.GetType() +
+                                              " was encountered while attempting to roll back the transaction.");
+                        }
+                    }
 
-                Console.WriteLine("An exception of type " + e.GetType() +
-                                  " was encountered while inserting the data.");
-                Console.WriteLine("Neither record was written to database.");
-                updateSuccessful = false;
+                    Console.WriteLine("An exception of type " + e.GetType() +
+                                      " was encountered while inserting the data.");
+                    Console.WriteLine("Neither record was written to database.");
+                    updateSuccessful = false;
+                }
             }
             return updateSuccessful;
         }
@@ -135,38 +139,43 @@ namespace win10Core.Business.DataAccess
             if (deleteId == 0)
                 throw new ArgumentException();
 
-            var cmd = DbUtility.SqlCommand(_constr, "Customer_Delete");
-
-            SqlTransaction transaction;
-            // Start a local transaction.
-            transaction = cmd.Connection.BeginTransaction(IsolationLevel.ReadCommitted, "Customer_Delete");
-            cmd.Transaction = transaction;
-            try
+            using (var connection = new SqlConnection(_constr))
+            using (var cmd = new SqlCommand("Customer_Delete", connection))
             {
-                cmd.Parameters.Add("@CustomerID", SqlDbType.Int, 50);
-                cmd.Parameters["@CustomerID"].Value = deleteId;
-
-                int returnValue = cmd.ExecuteNonQuery();
-                transaction.Commit();
-
-                if (returnValue < 1)
+                cmd.CommandType = CommandType.StoredProcedure;
+                connection.Open();
+                // Start a local transaction.
+                var transaction = cmd.Connection.BeginTransaction(IsolationLevel.ReadCommitted, "Customer_Delete");
+                cmd.Transaction = transaction;
+                try
                 {
-                    throw new Exception("Error Text Added to the Database: " + returnValue.ToString());
-                }
-                //System.Web.HttpContext.Current.Cache.Remove("PLUList");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("An exception of type " + e.GetType() +
-                                  " was encountered while attempting to delete the transaction.");
-                throw;
-            }
+                    cmd.Parameters.Add("@CustomerId", SqlDbType.Int, 50);
+                    cmd.Parameters["@CustomerId"].Value = deleteId;
 
+                    int returnValue = cmd.ExecuteNonQuery();
+                    transaction.Commit();
+
+                    if (returnValue < 1)
+                    {
+                        throw new Exception("Error Text Added to the Database: " + returnValue.ToString());
+                    }
+                    //System.Web.HttpContext.Current.Cache.Remove("PLUList");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("An exception of type " + e.GetType() +
+                                      " was encountered while attempting to delete the transaction.");
+                    throw;
+                }
+            }
             return true;
         }
 
+
         public IList<T> ReadData<T>(string storedProcedure)
         {
+
+
             IList<T> members = new List<T>();
             using (var connection = new SqlConnection(_constr))
             using (var command = new SqlCommand(storedProcedure, connection))

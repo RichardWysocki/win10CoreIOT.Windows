@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\ICustomerDataAccess.cs" />
     <Compile Include="Model\Client.cs" />
     <Compile Include="DataAccess\ClientDataAccess.cs" />
     <Compile Include="ConfigHelper.cs" />
