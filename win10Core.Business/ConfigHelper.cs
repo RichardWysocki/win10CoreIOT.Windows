@@ -10,7 +10,7 @@ namespace win10Core.Business
             var response = ConfigurationManager.AppSettings[configName];
             if (string.IsNullOrEmpty(response))
 {
-                throw new Exception($"InValid Configuration for {configName}");
+                throw new Exception($"Invalid Configuration for {configName}");
             }
             return response;
         }

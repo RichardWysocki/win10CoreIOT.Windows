@@ -5,7 +5,8 @@ namespace win10Core.Business.DataAccess
 {
     public interface IDBContext
     {
-        DbSet<Customer> customer { get; set; }
+        DbSet<Customer> Customer { get; set; }
+        DbSet<LogError> LogError { get; set; }
 
         void SaveChanges();
     }

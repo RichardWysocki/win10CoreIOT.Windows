@@ -32,7 +32,7 @@ namespace Services.Controllers
         {
             DBContext db = new DBContext();
 
-            var list = db.customer.ToList();
+            var list = db.Customer.ToList();
             foreach (var VARIABLE in list)
             {
                 Console.WriteLine(VARIABLE.CustomerId);
