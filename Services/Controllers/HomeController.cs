@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http.Batch;
 using System.Web.Mvc;
-using Contracts;
+using Contract;
 using win10Core.Business.DataAccess;
 
 namespace Services.Controllers

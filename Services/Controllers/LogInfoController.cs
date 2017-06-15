@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Web.Http;
 using win10Core.Business.DataAccess;
-using LogInfo = Contracts.LogInfo;
+using LogInfo = Contract.LogInfo;
 
 namespace Services.Controllers
 {
