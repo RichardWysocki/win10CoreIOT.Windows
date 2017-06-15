@@ -1,0 +1,61 @@
+Opened connection at 6/14/2017 12:14:10 PM -04:00
+select cast(serverproperty('EngineEdition') as int)
+-- Executing at 6/14/2017 12:14:10 PM -04:00
+-- Completed in 47 ms with result: SqlDataReader
+
+Closed connection at 6/14/2017 12:14:10 PM -04:00
+Opened connection at 6/14/2017 12:14:11 PM -04:00
+IF db_id(N'DEV_Build') IS NOT NULL SELECT 1 ELSE SELECT Count(*) FROM sys.databases WHERE [name]=N'DEV_Build'
+-- Executing at 6/14/2017 12:14:11 PM -04:00
+-- Completed in 23 ms with result: 1
+
+Closed connection at 6/14/2017 12:14:11 PM -04:00
+Opened connection at 6/14/2017 12:14:12 PM -04:00
+SELECT 
+    [GroupBy1].[A1] AS [C1]
+    FROM ( SELECT 
+        COUNT(1) AS [A1]
+        FROM [dbo].[__MigrationHistory] AS [Extent1]
+        WHERE [Extent1].[ContextKey] = @p__linq__0
+    )  AS [GroupBy1]
+-- p__linq__0: 'Integration.Utilities.win10Core.Business.DataAccess.DBContextHelper' (Type = String, Size = 4000)
+-- Executing at 6/14/2017 12:14:13 PM -04:00
+-- Completed in 38 ms with result: SqlDataReader
+
+Closed connection at 6/14/2017 12:14:13 PM -04:00
+Opened connection at 6/14/2017 12:14:13 PM -04:00
+SELECT TOP (1) 
+    [Project1].[C1] AS [C1], 
+    [Project1].[MigrationId] AS [MigrationId], 
+    [Project1].[Model] AS [Model], 
+    [Project1].[ProductVersion] AS [ProductVersion]
+    FROM ( SELECT 
+        [Extent1].[MigrationId] AS [MigrationId], 
+        [Extent1].[Model] AS [Model], 
+        [Extent1].[ProductVersion] AS [ProductVersion], 
+        1 AS [C1]
+        FROM [dbo].[__MigrationHistory] AS [Extent1]
+        WHERE [Extent1].[ContextKey] = @p__linq__0
+    )  AS [Project1]
+    ORDER BY [Project1].[MigrationId] DESC
+-- p__linq__0: 'Integration.Utilities.win10Core.Business.DataAccess.DBContextHelper' (Type = String, Size = 4000)
+-- Executing at 6/14/2017 12:14:13 PM -04:00
+-- Completed in 1 ms with result: SqlDataReader
+
+Closed connection at 6/14/2017 12:14:13 PM -04:00
+Opened connection at 6/14/2017 12:14:13 PM -04:00
+SELECT TOP (1) 
+    [Extent1].[Id] AS [Id], 
+    [Extent1].[ModelHash] AS [ModelHash]
+    FROM [dbo].[EdmMetadata] AS [Extent1]
+    ORDER BY [Extent1].[Id] DESC
+-- Executing at 6/14/2017 12:14:14 PM -04:00
+-- Failed in 3 ms with error: Invalid object name 'dbo.EdmMetadata'.
+
+Closed connection at 6/14/2017 12:14:14 PM -04:00
+Opened connection at 6/14/2017 12:14:14 PM -04:00
+Select CustomerID, FirstName, LastName from Customer
+-- Executing at 6/14/2017 12:14:14 PM -04:00
+-- Completed in 0 ms with result: SqlDataReader
+
+Closed connection at 6/14/2017 12:14:14 PM -04:00

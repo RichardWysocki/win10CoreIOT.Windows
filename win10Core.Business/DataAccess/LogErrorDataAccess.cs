@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using win10Core.Business.Model;
 
 namespace win10Core.Business.DataAccess
@@ -23,6 +24,9 @@ namespace win10Core.Business.DataAccess
             var logError = Get(id);
             db.LogError.Remove(logError);
             db.SaveChanges();
+
+            
+
         }
 
         /// <summary>
@@ -75,5 +79,12 @@ namespace win10Core.Business.DataAccess
             }
             db.SaveChanges();
         }
+
+
+        //public List<Customer> Mytest()
+        //{
+        //    var response = db.GetQuery<Customer>("test");
+        //    return response;
+        //}
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace win10Core.Business.Engine
 {
-    class CustomerEngine
+    public class CustomerEngine
     {
     }
 }

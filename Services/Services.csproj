@@ -184,6 +184,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\ClientController.cs" />
+    <Compile Include="Controllers\LogInfoController.cs" />
     <Compile Include="Controllers\CustomerEFController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -267,6 +268,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Contracts\Contracts.csproj">
+      <Project>{7a8846a5-b54c-48ae-aca5-7e2e0fbdb104}</Project>
+      <Name>Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\win10Core.Business\win10Core.Business.csproj">
       <Project>{3c410f47-19c3-4b4b-8f6d-7e9fd4c56a10}</Project>
       <Name>win10Core.Business</Name>

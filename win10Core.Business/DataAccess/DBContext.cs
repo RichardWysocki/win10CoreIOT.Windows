@@ -1,5 +1,8 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Linq;
 using win10Core.Business.Model;
 
 namespace win10Core.Business.DataAccess
@@ -13,7 +16,10 @@ namespace win10Core.Business.DataAccess
 
         public DbSet<Customer> Customer { get; set; }
         public DbSet<LogError> LogError { get; set; }
-       
+        public DbSet<LogInfo> LogInfo { get; set; }
+
+
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
@@ -24,6 +30,10 @@ namespace win10Core.Business.DataAccess
             base.SaveChanges();
         }
 
+        //public List<T> GetQuery<T>(string Sql)
+        //{
+        //    return base.Database.SqlQuery<T>("Select CustomerID, FirstName, LastName from Customer").ToList();
+        //}
 
     }
 

@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using win10Core.Business.Model;
 
 namespace win10Core.Business.DataAccess
@@ -7,7 +8,9 @@ namespace win10Core.Business.DataAccess
     {
         DbSet<Customer> Customer { get; set; }
         DbSet<LogError> LogError { get; set; }
+        DbSet<LogInfo> LogInfo { get; set; }
 
         void SaveChanges();
+        //List<T> GetQuery(string Sql);
     }
 }

@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http.Batch;
 using System.Web.Mvc;
+using Contracts;
+using win10Core.Business.DataAccess;
 
 namespace Services.Controllers
 {
@@ -10,9 +13,11 @@ namespace Services.Controllers
     {
         public ActionResult Index()
         {
+            var logInfoDataAccess = new LogInfoDataAccess(new DBContext());
+            logInfoDataAccess.Insert(new win10Core.Business.Model.LogInfo { Method = "", Message = "Starting... Index" });
             ViewBag.Title = "Home Page";
 
-            //var response = GetData();
+            var response = GetData();
 
 
 
@@ -20,11 +25,11 @@ namespace Services.Controllers
             return View();
         }
 
-        private static string GetData()
+        private static List<LogInfo> GetData()
         {
             var getData = new HttpClient();
-            var response = getData.GetAsync(new Uri("http://localhost:34909/api/Client")).Result;
-            var data = response.Content.ReadAsStringAsync().Result;
+            var response = getData.GetAsync(new Uri("http://localhost:34909/api/LogInfo")).Result;
+            var data = response.Content.ReadAsAsync<List<LogInfo>>().Result;
 
             return data;
         }
