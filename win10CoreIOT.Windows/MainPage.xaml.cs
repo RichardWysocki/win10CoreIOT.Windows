@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.Web.Http;
-using Contract;
+using Contracts;
 using Newtonsoft.Json;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -35,7 +35,7 @@ namespace win10CoreIOT.Windows
             //Wv1.Navigate(new Uri(Address.Text));
         }
 
-        private static async System.Threading.Tasks.Task<List<LogInfo>> GetDataAsync()
+        private static async void GetDataAsync()
         {
             List<LogInfo> sampleClass = null ;
             var getData = new HttpClient();
@@ -44,7 +44,7 @@ namespace win10CoreIOT.Windows
             var jsonResponse = await data.Content.ReadAsStringAsync();
             if (jsonResponse != null)
                 sampleClass = JsonConvert.DeserializeObject<List<LogInfo>>(jsonResponse);
-            return sampleClass;
+            return;
         }
     }
 }

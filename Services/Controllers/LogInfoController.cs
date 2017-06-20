@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using Contracts;
 using win10Core.Business.DataAccess;
-using LogInfo = Contract.LogInfo;
 
 namespace Services.Controllers
 {

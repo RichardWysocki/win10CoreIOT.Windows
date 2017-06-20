@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Threading.Tasks;
-using System.Web.Http.Batch;
 using System.Web.Mvc;
-using Contract;
+using Contracts;
 using win10Core.Business.DataAccess;
 
 namespace Services.Controllers

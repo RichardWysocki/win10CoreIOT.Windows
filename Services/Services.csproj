@@ -268,9 +268,9 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Contract\Contract.csproj">
-      <Project>{a7f654e6-b574-4414-b267-df01872fe79f}</Project>
-      <Name>Contract</Name>
+    <ProjectReference Include="..\Contracts\Contracts.csproj">
+      <Project>{8c44cd29-eb50-4f5f-a18b-61a8799fb831}</Project>
+      <Name>Contracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\win10Core.Business\win10Core.Business.csproj">
       <Project>{3c410f47-19c3-4b4b-8f6d-7e9fd4c56a10}</Project>
