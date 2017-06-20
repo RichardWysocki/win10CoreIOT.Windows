@@ -11,8 +11,9 @@ namespace Services.Controllers
     {
         public ActionResult Index()
         {
-            var logInfoDataAccess = new LogInfoDataAccess(new DBContext());
-            logInfoDataAccess.Insert(new win10Core.Business.Model.LogInfo { Method = "", Message = "Starting... Index" });
+            //var logInfoDataAccess = new LogInfoDataAccess(new DBContext());
+            //logInfoDataAccess.Insert(new win10Core.Business.Model.LogInfo { Method = "", Message = "Starting... Index" });
+            SendData();
             ViewBag.Title = "Home Page";
 
             var response = GetData();
@@ -32,5 +33,17 @@ namespace Services.Controllers
             return data;
         }
 
+
+        private static void SendData()
+        {
+            var getData = new HttpClient();
+            var objectData = new LogInfo { Method = "SendData", Message = "MyFirstMessage"};
+            var response = getData.PostAsJsonAsync(new Uri("http://localhost:34909/api/LogInfo"), objectData).Result;
+            if (!response.IsSuccessStatusCode) 
+                throw new Exception("This didn't work!!!");
+//            var data = response.Content.ReadAsAsync<List<LogInfo>>().Result;
+
+ //           return data;
+        }
     };
 }
