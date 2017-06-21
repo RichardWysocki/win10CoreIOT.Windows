@@ -1,6 +1,8 @@
 ﻿using System.Web.Mvc;
+using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Services.Controllers;
+using Services.Library;
 
 namespace Services.Tests.Controllers
 {
@@ -11,7 +13,8 @@ namespace Services.Tests.Controllers
         public void Index()
         {
             // Arrange
-            HomeController controller = new HomeController();
+            var context = A.Fake<IServiceLayer>();
+            HomeController controller = new HomeController(context);
 
             // Act
             ViewResult result = controller.Index() as ViewResult;
