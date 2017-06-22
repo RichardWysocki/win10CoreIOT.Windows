@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using win10Core.Business.Model;
 
@@ -15,12 +14,21 @@ namespace win10Core.Business.DataAccess
             _db = dbcontext;
         }
 
+        /// <summary>
+        /// Get All LogInfo Records.  Potential Performance Issues if Records grow too big.
+        /// </summary>
+        /// <returns></returns>
         public IList<LogInfo> Get()
         {
             var getList = _db.LogInfo.ToList();
             return getList;
         }
 
+        /// <summary>
+        /// Get One LogInfo Record based on id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public LogInfo Get(int id)
         {
             if (id == 0)
@@ -31,17 +39,22 @@ namespace win10Core.Business.DataAccess
             return logInfo;
         }
 
-        public void Insert(LogInfo logInfo)
+        /// <summary>
+        /// Insert LogInfo Record.
+        /// </summary>
+        /// <param name="logInfo"></param>
+        /// <returns></returns>
+        public LogInfo Insert(LogInfo logInfo)
         {
-            StackTrace stackTrace = new StackTrace();
-            StackFrame stackFrame = stackTrace.GetFrame(1);
-            var methodBase = stackFrame.GetMethod();
+            //StackTrace stackTrace = new StackTrace();
+            //StackFrame stackFrame = stackTrace.GetFrame(1);
+            //var methodBase = stackFrame.GetMethod();
 
-            logInfo.Method = methodBase.Name;
+            //logInfo.Method = methodBase.Name;
 
             _db.LogInfo.Add(logInfo);
             _db.SaveChanges();
-            int id = logInfo.LogInfoId;
+            return logInfo;
 
         }
     }

@@ -8,7 +8,7 @@ namespace win10Core.Business.DataAccess
         void Delete(int id);
         IList<LogError> Get();
         LogError Get(int id);
-        void Insert(LogError logError);
-        void Update(LogError logError);
+        LogError Insert(LogError logError);
+        bool Update(LogError logError);
     }
 }

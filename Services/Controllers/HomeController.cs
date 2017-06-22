@@ -10,8 +10,7 @@ namespace Services.Controllers
 {
     public class HomeController : Controller
     {
-        private IServiceLayer _serviceLayer;
-
+        private readonly IServiceLayer _serviceLayer;
 
         public HomeController(IServiceLayer serviceLayer)
         {

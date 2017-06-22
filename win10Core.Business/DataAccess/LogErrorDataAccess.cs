@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
 using win10Core.Business.Model;
 
 namespace win10Core.Business.DataAccess
 {
     public class LogErrorDataAccess : ILogErrorDataAccess
     {
-        private readonly IDBContext db;
+        private readonly IDBContext _db;
 
         public LogErrorDataAccess(IDBContext dbcontext)
         {
-            db = dbcontext;
+            _db = dbcontext;
         }
 
         /// <summary>
@@ -22,11 +21,8 @@ namespace win10Core.Business.DataAccess
         public void Delete(int id)
         {
             var logError = Get(id);
-            db.LogError.Remove(logError);
-            db.SaveChanges();
-
-            
-
+            _db.LogError.Remove(logError);
+            _db.SaveChanges();
         }
 
         /// <summary>
@@ -35,7 +31,7 @@ namespace win10Core.Business.DataAccess
         /// <returns></returns>
         public IList<LogError> Get()
         {
-            var list = db.LogError.ToList();
+            var list = _db.LogError.ToList();
             return list;
         }
 
@@ -48,7 +44,7 @@ namespace win10Core.Business.DataAccess
         {
             if (id == 0)
                 throw new ArgumentException("Invalid id Paramter"); 
-            var logError = db.LogError.Where(LogError => LogError.LogErrorId == id).SingleOrDefault();
+            var logError = _db.LogError.Where(LogError => LogError.LogErrorId == id).SingleOrDefault();
             if (logError == null)
                 throw new Exception("Error getting LogError record.");
             return logError;
@@ -58,26 +54,30 @@ namespace win10Core.Business.DataAccess
         ///  Insert LogError Table
         /// </summary>
         /// <param name="logError"></param>
-        public void Insert(LogError logError)
+        public LogError Insert(LogError logError)
         {
-            var data = db.LogError.Add(logError);
-            db.SaveChanges();
+            _db.LogError.Add(logError);
+            _db.SaveChanges();
+            return logError;
         }
 
         /// <summary>
         /// Update ErrorLog Table
         /// </summary>
         /// <param name="logError"></param>
-        public void Update(LogError logError)
+        public bool Update(LogError logError)
         {
-            var result = db.LogError.SingleOrDefault(b => b.LogErrorId == logError.LogErrorId);
+            var result = _db.LogError.SingleOrDefault(b => b.LogErrorId == logError.LogErrorId);
             if (result != null)
             {
                 result.LogErrorMessage = logError.LogErrorMessage;
                 result.LogErrorMethod = logError.LogErrorMethod;
                 result.LogErrorSource = logError.LogErrorSource;
+                _db.SaveChanges();
+                return true;
             }
-            db.SaveChanges();
+            return false;
+
         }
 
 

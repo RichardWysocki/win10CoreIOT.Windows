@@ -32,9 +32,12 @@ namespace Services.Controllers
         }
 
         // POST api/<controller>
-        public void Post(LogInfo customer)
+        public LogInfo Post(LogInfo customer)
         {
-            _logInfoDataAccess.Insert(new win10Core.Business.Model.LogInfo { LogInfoId = customer.LogInfoId, Method = customer.Method, Message = customer.Message });
+            var getData = _logInfoDataAccess.Insert(new win10Core.Business.Model.LogInfo { LogInfoId = customer.LogInfoId, Method = customer.Method, Message = customer.Message });
+            var response = new LogInfo { LogInfoId = getData.LogInfoId, Method = getData.Method, Message = getData.Message };
+            return response;
+
         }
 
 
