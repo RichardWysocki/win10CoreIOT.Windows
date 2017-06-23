@@ -194,7 +194,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\ClientController.cs" />
-    <Compile Include="Controllers\LogInfoController.cs" />
+    <Compile Include="ControllersApi\LogInfoController.cs" />
     <Compile Include="Controllers\CustomerEFController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -206,7 +206,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Library\IServiceLayer.cs" />
+    <Compile Include="Library\IServiceSetting.cs" />
     <Compile Include="Library\ServiceLayer.cs" />
+    <Compile Include="Library\ServiceSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

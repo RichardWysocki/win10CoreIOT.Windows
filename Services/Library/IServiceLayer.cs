@@ -6,9 +6,9 @@ namespace Services.Library
 {
     public interface IServiceLayer
     {
-        List<T> GetData<T>();
+        List<T> GetData<T>(string api);
 
 
-        void SendData<T>(T data);
+        void SendData<T>(string api, T data);
     }
 }

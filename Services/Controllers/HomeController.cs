@@ -19,12 +19,10 @@ namespace Services.Controllers
 
         public ActionResult Index()
         {
-            //var logInfoDataAccess = new LogInfoDataAccess(new DBContext());
-            //logInfoDataAccess.Insert(new win10Core.Business.Model.LogInfo { Method = "", Message = "Starting... Index" });
-            _serviceLayer.SendData(new LogInfo {Method = "SendData", Message = "MyFirstMessage"});
+            _serviceLayer.SendData("LogInfo", new LogInfo {Method = "SendData", Message = "MyFirstMessage"});
             ViewBag.Title = "Home Page";
 
-            var response = _serviceLayer.GetData<LogInfo>();
+            var response = _serviceLayer.GetData<LogInfo>("LogInfo");
 
             return View();
         }

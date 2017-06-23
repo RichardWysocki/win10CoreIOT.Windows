@@ -30,10 +30,6 @@ namespace win10Core.Business.DataAccess
             base.SaveChanges();
         }
 
-        //public List<T> GetQuery<T>(string Sql)
-        //{
-        //    return base.Database.SqlQuery<T>("Select CustomerID, FirstName, LastName from Customer").ToList();
-        //}
 
     }
 

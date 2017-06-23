@@ -18,6 +18,8 @@
 
 using Services.Library;
 using StructureMap;
+using win10Core.Business.DataAccess;
+using win10Core.Business.Engine;
 
 namespace Services.DependencyResolution {
     public static class IoC {
@@ -43,7 +45,12 @@ namespace Services.DependencyResolution {
         {
             public PurpleRegistry()
             {
+                For<IDBContext>().Use<DBContext>();
+                For<IServiceSetting>().Use<ServiceSetting>();
                 For<IServiceLayer>().Use<ServiceLayer>();
+                For<ILogInfoDataAccess>().Use<LogInfoDataAccess>();
+                For<ILogErrorDataAccess>().Use<LogErrorDataAccess>();
+                For<ILogEngine>().Use<LogEngine>();
                 //For<ISubject>().Use<Subject>();
             }
         }

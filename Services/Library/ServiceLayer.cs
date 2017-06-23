@@ -1,27 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Web;
 
 namespace Services.Library
 {
     public class ServiceLayer : IServiceLayer
     {
-        public List<T> GetData<T>()
+        private readonly IServiceSetting _serviceSetting;
+
+        public ServiceLayer(IServiceSetting serviceSetting )
         {
-            var getData = new HttpClient();
-            var response = getData.GetAsync(new Uri("http://localhost:34909/api/LogInfo")).Result;
+            _serviceSetting = serviceSetting; //new ServiceSetting("http://localhost:34909/api/");
+        }
+
+        public List<T> GetData<T>(string api)
+        {
+            var getData = _serviceSetting.GetHttpClient();
+            var response = getData.GetAsync(api).Result;
             var data = response.Content.ReadAsAsync<List<T>>().Result;
 
             return data;
         }
 
-        public void SendData<T>(T data)
+        public void SendData<T>(string api, T data)
         {
-            var getData = new HttpClient();
-            var objectData = data;
-            var response = getData.PostAsJsonAsync(new Uri("http://localhost:34909/api/LogInfo"), objectData).Result;
+            var getData = _serviceSetting.GetHttpClient();
+            var response = getData.PostAsJsonAsync(api, data).Result;
             if (!response.IsSuccessStatusCode)
                 throw new Exception("This didn't work!!!");
         }
