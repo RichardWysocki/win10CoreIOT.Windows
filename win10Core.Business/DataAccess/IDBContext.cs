@@ -11,6 +11,5 @@ namespace win10Core.Business.DataAccess
         DbSet<LogInfo> LogInfo { get; set; }
 
         void SaveChanges();
-        //List<T> GetQuery(string Sql);
     }
 }

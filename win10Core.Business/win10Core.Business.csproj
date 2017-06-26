@@ -51,13 +51,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataAccess\CustomerDataAccess2.cs" />
+    <Compile Include="DataAccess\CustomerDataAccess.cs" />
     <Compile Include="DataAccess\DBContext.cs" />
-    <Compile Include="DataAccess\ICustomerDataAccess.cs" />
+    <Compile Include="DataAccess\ICustomerDataAccess_Remove.cs" />
     <Compile Include="DataAccess\IDBContext.cs" />
     <Compile Include="DataAccess\ILogErrorDataAccess.cs" />
     <Compile Include="DataAccess\ILogInfoDataAccess.cs" />
-    <Compile Include="DataAccess\IStandardDataAccess.cs" />
+    <Compile Include="DataAccess\ICustomerDataAccess.cs" />
     <Compile Include="DataAccess\LogErrorDataAccess.cs" />
     <Compile Include="DataAccess\LogInfoDataAccess.cs" />
     <Compile Include="Engine\CustomerEngine.cs" />
@@ -67,7 +67,7 @@
     <Compile Include="DataAccess\ClientDataAccess.cs" />
     <Compile Include="ConfigHelper.cs" />
     <Compile Include="Model\Customer.cs" />
-    <Compile Include="DataAccess\CustomerDataAccess.cs" />
+    <Compile Include="DataAccess\CustomerDataAccess_Remove.cs" />
     <Compile Include="DataAccess\DataAccess.cs" />
     <Compile Include="DBUtility.cs" />
     <Compile Include="DataAccess\IDataAccess.cs" />

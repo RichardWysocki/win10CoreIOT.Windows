@@ -35,7 +35,7 @@ namespace Integration.Business
         {
             //Arrange
             var connection = ConfigHelper.GetSetting("DBConnection");
-            var customerClient = new CustomerDataAccess(connection);
+            var customerClient = new CustomerDataAccess_Remove(connection);
             //Act
             var insert = customerClient.Insert(new Customer() {FirstName = "x1", LastName = "x1"});
             //Assert
@@ -48,7 +48,7 @@ namespace Integration.Business
         {
             //Arrange
             var connection = ConfigHelper.GetSetting("DBConnection");
-            var customerClient = new CustomerDataAccess(connection);
+            var customerClient = new CustomerDataAccess_Remove(connection);
 
             var read = customerClient.ReadData<Customer>("Customer_List");
             var deleteCustomer = read.OrderByDescending(c => c.CustomerId).First();
@@ -64,7 +64,7 @@ namespace Integration.Business
         {
             //Arrange
             var connection = ConfigHelper.GetSetting("DBConnection");
-            var customerClient = new CustomerDataAccess(connection);
+            var customerClient = new CustomerDataAccess_Remove(connection);
             var read = customerClient.ReadData<Customer>("Customer_List");
             var updateRecord = read.OrderByDescending(c => c.CustomerId).First();
             updateRecord.FirstName = "First " + new Random().Next();
@@ -81,7 +81,7 @@ namespace Integration.Business
 
             //Arrange
             var connection = ConfigHelper.GetSetting("DBConnection");
-            var customerClient = new CustomerDataAccess(connection);
+            var customerClient = new CustomerDataAccess_Remove(connection);
             //Act
             var read = customerClient.ReadData<Customer>("Customer_List");
             //Assert

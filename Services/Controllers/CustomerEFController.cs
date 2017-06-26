@@ -9,11 +9,11 @@ namespace Services.Controllers
 {
     public class CustomerEfController : ApiController
     {
-        private readonly CustomerDataAccess2 clientAccess;
+        private readonly CustomerDataAccess clientAccess;
 
         public CustomerEfController()
         {
-             clientAccess = new CustomerDataAccess2(new DBContext());
+             clientAccess = new CustomerDataAccess(new DBContext());
         }
         // GET api/<controller>
         public IEnumerable<Customer> Get()

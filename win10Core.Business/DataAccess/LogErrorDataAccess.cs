@@ -77,14 +77,6 @@ namespace win10Core.Business.DataAccess
                 return true;
             }
             return false;
-
         }
-
-
-        //public List<Customer> Mytest()
-        //{
-        //    var response = db.GetQuery<Customer>("test");
-        //    return response;
-        //}
     }
 }

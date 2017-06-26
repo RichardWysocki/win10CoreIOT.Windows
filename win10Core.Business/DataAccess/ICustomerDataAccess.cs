@@ -3,11 +3,17 @@ using win10Core.Business.Model;
 
 namespace win10Core.Business.DataAccess
 {
+
     public interface ICustomerDataAccess
     {
-        bool Delete(int deleteId);
-        bool Insert(Customer customer);
-        IList<T> ReadData<T>(string storedProcedure);
-        bool Update(Customer updateCustomer);
+        IList<Customer> Get();
+
+        Customer Get(int id);
+
+        Customer Insert(Customer insert);
+
+        bool Update(Customer update);
+
+        void Delete(int id);
     }
 }

@@ -12,11 +12,11 @@ namespace Services.Controllers
 {
     public class CustomerController : ApiController
     {
-        private CustomerDataAccess clientAccess;
+        private readonly CustomerDataAccess_Remove clientAccess;
 
         public CustomerController()
         {
-             clientAccess = new CustomerDataAccess(ConfigHelper.GetSetting("DBConnection"));
+             clientAccess = new CustomerDataAccess_Remove(ConfigHelper.GetSetting("DBConnection"));
         }
         // GET api/<controller>
         public IEnumerable<Customer> Get()

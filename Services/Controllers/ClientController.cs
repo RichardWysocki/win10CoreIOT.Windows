@@ -13,7 +13,7 @@ namespace Services.Controllers
         {
 
             
-            var clientAccess = new CustomerDataAccess("Data Source=DESKTOP-726BCQD;Initial Catalog=DEV_Build;User ID=WebUser;Password=WebUser1!;MultipleActiveResultSets=True");
+            var clientAccess = new CustomerDataAccess_Remove("Data Source=DESKTOP-726BCQD;Initial Catalog=DEV_Build;User ID=WebUser;Password=WebUser1!;MultipleActiveResultSets=True");
 
             var getdata = clientAccess.ReadData<Customer>("Customer_list").ToList();
             return getdata; //.AsEnumerable();
