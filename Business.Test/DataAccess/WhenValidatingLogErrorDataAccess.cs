@@ -121,15 +121,11 @@ namespace Business.Test
             A.CallTo(() => context.LogError).Returns(fakeDbSet);
 
             // Act
-
             var getErrorLog = new LogErrorDataAccess(context);
 
+            //Assert
             var ex = Assert.Throws<Exception>(() => getErrorLog.Get(3));
             Assert.That(ex.Message == "Error getting LogError record.");
-
-            //Assert
-
-
         }
 
         [Test]
@@ -182,12 +178,39 @@ namespace Business.Test
 
             // Act
 
-            var x = new LogErrorDataAccess(context);
-            x.Update(logError);
+            var logErrorDataAccess = new LogErrorDataAccess(context);
+            var updateSuccessful = logErrorDataAccess.Update(logError);
 
             //Assert
-            // Assert.IsNotNull(response);
-            // Assert.That(response.Count >= 0);
+            Assert.That(updateSuccessful);
+
+        }
+
+        [Test]
+        public void When_Updating_is_Invalid()
+        {
+            // Arrange
+            var logError = new LogError
+            {
+                LogErrorId = 2,
+                LogErrorMessage = "A",
+                LogErrorMethod = "B",
+                LogErrorSource = "C"
+            };
+
+            var returndata = new List<LogError>();
+
+            var context = A.Fake<IDBContext>();
+            var fakeDbSet = Aef.FakeDbSet(returndata);
+            A.CallTo(() => context.LogError).Returns(fakeDbSet);
+
+            // Act
+
+            var logErrorDa = new LogErrorDataAccess(context);
+            var updateSuccessful = logErrorDa.Update(logError);
+
+            //Assert
+            Assert.That(updateSuccessful == false);
 
         }
 

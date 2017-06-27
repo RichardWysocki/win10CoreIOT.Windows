@@ -1,67 +1,98 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using win10Core.Business;
-using win10Core.Business.DataAccess;
+using System.Web;
+using System.Web.Mvc;
+using Services.Library;
 using win10Core.Business.Model;
 
 namespace Services.Controllers
 {
-    public class CustomerController : ApiController
+    public class CustomerController : Controller
     {
-        private readonly CustomerDataAccess_Remove clientAccess;
+        private readonly IServiceLayer _serviceLayer;
 
-        public CustomerController()
+        public CustomerController(IServiceLayer serviceLayer)
         {
-             clientAccess = new CustomerDataAccess_Remove(ConfigHelper.GetSetting("DBConnection"));
+            _serviceLayer = serviceLayer;
         }
-        // GET api/<controller>
-        public IEnumerable<Customer> Get()
+        // GET: Customer
+        public ActionResult Index()
         {
-
-
-            var getdata = clientAccess.ReadData<Customer>("Customer_List").ToList();
-            return getdata; 
+            var response = _serviceLayer.GetData<Customer>("CustomerApi");
+            return View(response);
         }
 
-        // GET api/<controller>/5
-        public Customer Get(int id)
+        // GET: Customer/Details/5
+        public ActionResult Details(int id)
         {
-            DBContext db = new DBContext();
+            return View();
+        }
 
-            var list = db.Customer.ToList();
-            foreach (var VARIABLE in list)
+        // GET: Customer/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Customer/Create
+        [HttpPost]
+        public ActionResult Create(FormCollection collection)
+        {
+            try
             {
-                Console.WriteLine(VARIABLE.CustomerId);
+                // TODO: Add insert logic here
+
+                return RedirectToAction("Index");
             }
-
-            var getdata = clientAccess.ReadData<Customer>("Customer_List").Where(c => c.CustomerId == id).Single();
-            return getdata;
+            catch
+            {
+                return View();
+            }
         }
 
-        // POST api/<controller>
-        public void Post(Customer customer)
+        // GET: Customer/Edit/5
+        public ActionResult Edit(int id)
         {
-            var getdata = clientAccess.Insert(customer);
+            return View();
         }
 
-        // PUT api/<controller>/5
-        public void Put(int id, Customer customer)
+        // POST: Customer/Edit/5
+        [HttpPost]
+        public ActionResult Edit(int id, FormCollection collection)
         {
-            
-            var getdata = clientAccess.Update(customer);
+            try
+            {
+                // TODO: Add update logic here
 
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
         }
 
-        // DELETE api/<controller>/5
-        public void Delete(int id)
+        // GET: Customer/Delete/5
+        public ActionResult Delete(int id)
         {
+            return View();
+        }
 
-             clientAccess.Delete(id);
+        // POST: Customer/Delete/5
+        [HttpPost]
+        public ActionResult Delete(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add delete logic here
 
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
         }
     }
 }

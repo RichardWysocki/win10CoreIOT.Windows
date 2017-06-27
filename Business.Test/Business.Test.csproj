@@ -68,9 +68,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConnectionHelper_Tests.cs" />
+    <Compile Include="Engine\WhenValidatingLogEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WhenValidatingLogInfoDataAccess.cs" />
-    <Compile Include="WhenValidatingLogErrorDataAccess.cs" />
+    <Compile Include="DataAccess\WhenValidatingLogInfoDataAccess.cs" />
+    <Compile Include="DataAccess\WhenValidatingLogErrorDataAccess.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
