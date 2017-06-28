@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConnectionHelper_Tests.cs" />
+    <Compile Include="DataAccess\WhenValidatingCustomerDataAccess.cs" />
     <Compile Include="Engine\WhenValidatingLogEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataAccess\WhenValidatingLogInfoDataAccess.cs" />

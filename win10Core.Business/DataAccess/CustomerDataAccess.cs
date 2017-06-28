@@ -22,15 +22,21 @@ namespace win10Core.Business.DataAccess
 
         public Customer Get(int id)
         {
-            var customer = _db.Customer.Where(cust => cust.CustomerId == id).Single();
+            // var customer = _db.Customer.Where(cust => cust.CustomerId == id).Single();
+            if (id == 0)
+                throw new ArgumentException("Invalid id Paramter");
+            var customer = _db.Customer.Where(Customer => Customer.CustomerId == id).SingleOrDefault();
+            if (customer == null)
+                throw new Exception("Error getting Customer record.");
             return customer;
+
+            //var customer = _db.Customer.Single(cust => cust.CustomerId == id);
+            //return customer;
         }
 
         public void Delete(int id)
         {
             var customer = Get(id);
-            if (customer == null)
-                throw new Exception("Can Not Delete as there is No Record here...");
             _db.Customer.Remove(customer);
             _db.SaveChanges();
         }
