@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Web.Mvc;
-using Contracts;
+﻿using System.Web.Mvc;
+
 using Services.Library;
-using win10Core.Business.DataAccess;
+using win10Core.Business.Model;
 
 namespace Services.Controllers
 {

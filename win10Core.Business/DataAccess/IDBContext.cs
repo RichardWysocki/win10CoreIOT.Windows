@@ -9,6 +9,7 @@ namespace win10Core.Business.DataAccess
         DbSet<Customer> Customer { get; set; }
         DbSet<LogError> LogError { get; set; }
         DbSet<LogInfo> LogInfo { get; set; }
+        DbSet<Kid> Kid { get; set; }
 
         void SaveChanges();
     }

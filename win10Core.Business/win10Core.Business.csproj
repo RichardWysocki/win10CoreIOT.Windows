@@ -55,9 +55,11 @@
     <Compile Include="DataAccess\DBContext.cs" />
     <Compile Include="DataAccess\ICustomerDataAccess_Remove.cs" />
     <Compile Include="DataAccess\IDBContext.cs" />
+    <Compile Include="DataAccess\IKidDataAccess.cs" />
     <Compile Include="DataAccess\ILogErrorDataAccess.cs" />
     <Compile Include="DataAccess\ILogInfoDataAccess.cs" />
     <Compile Include="DataAccess\ICustomerDataAccess.cs" />
+    <Compile Include="DataAccess\KidDataAccess.cs" />
     <Compile Include="DataAccess\LogErrorDataAccess.cs" />
     <Compile Include="DataAccess\LogInfoDataAccess.cs" />
     <Compile Include="Engine\CustomerEngine.cs" />
@@ -71,6 +73,7 @@
     <Compile Include="DataAccess\DataAccess.cs" />
     <Compile Include="DBUtility.cs" />
     <Compile Include="DataAccess\IDataAccess.cs" />
+    <Compile Include="Model\Kid.cs" />
     <Compile Include="Model\LogError.cs" />
     <Compile Include="Model\LogInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

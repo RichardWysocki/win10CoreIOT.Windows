@@ -4,9 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Contracts;
+using ServiceContracts;
 using win10Core.Business.DataAccess;
 using win10Core.Business.Engine;
+using win10Core.Business.Model;
 
 namespace Services.ControllersApi
 {
@@ -21,7 +22,7 @@ namespace Services.ControllersApi
             _logInfoDataAccess = logInfoDataAccess; //new LogInfoDataAccess(new DBContext());
         }
         // GET api/<controller>
-        public IEnumerable<LogInfo> Get()
+        public IEnumerable<LogInformation> Get()
         {
             _logEngine.LogError("1","2","3");
             _logEngine.LogInfo("1", "2");
@@ -29,19 +30,19 @@ namespace Services.ControllersApi
 
             var getData = _logInfoDataAccess.Get();
             var response = getData
-                .Select(c => new LogInfo {LogInfoId = c.LogInfoId, Method = c.Method, Message = c.Message}).ToList();
+                .Select(c => new LogInformation { LogInfoId = c.LogInfoId, Method = c.Method, Message = c.Message}).ToList();
             return response; 
         }
 
         // GET api/<controller>/5
-        public LogInfo Get(int id)
+        public LogInformation Get(int id)
         {
             try
             {
 
 
             var getData = _logInfoDataAccess.Get(id);
-            var response = new LogInfo { LogInfoId = getData.LogInfoId, Method = getData.Method, Message = getData.Message };
+            var response = new LogInformation { LogInfoId = getData.LogInfoId, Method = getData.Method, Message = getData.Message };
             return response;
             }
             catch (Exception e)
@@ -51,10 +52,10 @@ namespace Services.ControllersApi
         }
 
         // POST api/<controller>
-        public LogInfo Post(LogInfo customer)
+        public LogInformation Post(LogInformation customer)
         {
-            var getData = _logInfoDataAccess.Insert(new win10Core.Business.Model.LogInfo { LogInfoId = customer.LogInfoId, Method = customer.Method, Message = customer.Message });
-            var response = new LogInfo { LogInfoId = getData.LogInfoId, Method = getData.Method, Message = getData.Message };
+            var getData = _logInfoDataAccess.Insert(new LogInfo { LogInfoId = customer.LogInfoId, Method = customer.Method, Message = customer.Message });
+            var response = new LogInformation { LogInfoId = getData.LogInfoId, Method = getData.Method, Message = getData.Message };
             return response;
 
         }

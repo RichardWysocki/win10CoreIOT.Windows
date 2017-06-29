@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.Web.Http;
-using Contracts;
+using ServiceContracts;
 using Newtonsoft.Json;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -37,13 +37,13 @@ namespace win10CoreIOT.Windows
 
         private static async void GetDataAsync()
         {
-            List<LogInfo> sampleClass = null ;
+            List<LogInformation> sampleClass = null ;
             var getData = new HttpClient();
             //var response = getData.GetAsync(new Uri("http://localhost:34909/api/LogInfo")).GetResults();
             var data = await getData.GetAsync(new Uri("http://localhost:34909/api/LogInfo"));
             var jsonResponse = await data.Content.ReadAsStringAsync();
             if (jsonResponse != null)
-                sampleClass = JsonConvert.DeserializeObject<List<LogInfo>>(jsonResponse);
+                sampleClass = JsonConvert.DeserializeObject<List<LogInformation>>(jsonResponse);
             return;
         }
     }

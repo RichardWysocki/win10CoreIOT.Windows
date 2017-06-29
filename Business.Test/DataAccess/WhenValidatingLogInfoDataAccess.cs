@@ -6,7 +6,7 @@ using NUnit.Framework;
 using win10Core.Business.DataAccess;
 using win10Core.Business.Model;
 
-namespace Business.Test
+namespace Business.Test.DataAccess
 {
     [TestFixture()]
     public class WhenValidatingLogInfoDataAccess

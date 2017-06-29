@@ -1,6 +1,6 @@
-﻿namespace Contracts
+﻿namespace ServiceContracts
 {
-    public class LogInfo
+    public class LogInformation
     {
         /// <summary>
         /// LogInfoID

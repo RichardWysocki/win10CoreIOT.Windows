@@ -35,9 +35,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "9. IntegrationTests", "9. I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integration", "Integration\Integration.csproj", "{A9A0B04C-8BA7-46D3-A69D-A7E67F8025C0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Contracts", "3. Contracts", "{1A2CE9E0-812F-42DE-801E-A4D77CDF976C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. ServiceContracts", "3. ServiceContracts", "{1A2CE9E0-812F-42DE-801E-A4D77CDF976C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{8C44CD29-EB50-4F5F-A18B-61A8799FB831}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceContracts", "Contracts\ServiceContracts.csproj", "{8C44CD29-EB50-4F5F-A18B-61A8799FB831}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

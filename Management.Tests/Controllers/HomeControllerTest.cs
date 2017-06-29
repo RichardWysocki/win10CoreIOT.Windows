@@ -1,13 +1,16 @@
 ﻿using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Management.Controllers;
+using NUnit.Framework;
+using NUnit.Framework.Internal;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace Management.Tests.Controllers
 {
-    [TestClass]
+    [TestFixture()]
     public class HomeControllerTest
     {
-        [TestMethod]
+        [Test]
         public void Index()
         {
             // Arrange
@@ -20,7 +23,7 @@ namespace Management.Tests.Controllers
             Assert.IsNotNull(result);
         }
 
-        [TestMethod]
+        [Test]
         public void About()
         {
             // Arrange
@@ -33,7 +36,7 @@ namespace Management.Tests.Controllers
             Assert.AreEqual("Your application description page.", result.ViewBag.Message);
         }
 
-        [TestMethod]
+        [Test]
         public void Contact()
         {
             // Arrange

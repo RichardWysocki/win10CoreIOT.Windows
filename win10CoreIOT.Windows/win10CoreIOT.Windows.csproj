@@ -131,9 +131,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Contracts\Contracts.csproj">
+    <ProjectReference Include="..\Contracts\ServiceContracts.csproj">
       <Project>{8c44cd29-eb50-4f5f-a18b-61a8799fb831}</Project>
-      <Name>Contracts</Name>
+      <Name>ServiceContracts</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
