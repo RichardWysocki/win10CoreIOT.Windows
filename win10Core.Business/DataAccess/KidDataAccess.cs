@@ -44,6 +44,7 @@ namespace win10Core.Business.DataAccess
             {
                 result.Name = update.Name;
                 result.Email = update.Email;
+                result.FamilyId = update.FamilyId;
                 _db.SaveChanges();
                 return true;
             }

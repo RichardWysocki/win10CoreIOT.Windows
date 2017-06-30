@@ -73,6 +73,7 @@
     <Compile Include="DataAccess\DataAccess.cs" />
     <Compile Include="DBUtility.cs" />
     <Compile Include="DataAccess\IDataAccess.cs" />
+    <Compile Include="Model\Family.cs" />
     <Compile Include="Model\Kid.cs" />
     <Compile Include="Model\LogError.cs" />
     <Compile Include="Model\LogInfo.cs" />

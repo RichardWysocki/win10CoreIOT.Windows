@@ -18,8 +18,8 @@ namespace Business.Test.DataAccess
             // Arrange
             var returndata = new List<Kid>()
             {
-                new Kid{ KidId = 1, Name = "Kids 1", Email = "KidEmail1@Test.com"},
-                new Kid{ KidId = 2, Name = "Kids 2", Email = "KidEmail2@Test.com"}
+                new Kid{ KidId = 1, Name = "Kids 1", Email = "KidEmail1@Test.com", FamilyId = 1},
+                new Kid{ KidId = 2, Name = "Kids 2", Email = "KidEmail2@Test.com", FamilyId = 1}
             };
 
             var context = A.Fake<IDBContext>();
@@ -61,8 +61,8 @@ namespace Business.Test.DataAccess
             // Arrange
             var returndata = new List<Kid>()
             {
-                new Kid{ KidId = 1, Name = "Kids 1", Email = "KidEmail1@Test.com"},
-                new Kid{ KidId = 2, Name = "Kids 2", Email = "KidEmail2@Test.com"}
+                new Kid{ KidId = 1, Name = "Kids 1", Email = "KidEmail1@Test.com", FamilyId = 1},
+                new Kid{ KidId = 2, Name = "Kids 2", Email = "KidEmail2@Test.com", FamilyId = 1}
             };
 
             var context = A.Fake<IDBContext>();
@@ -85,8 +85,8 @@ namespace Business.Test.DataAccess
             // Arrange
             var returndata = new List<Kid>()
             {
-                new Kid{ KidId = 1, Name = "Kids 1", Email = "KidEmail1@Test.com"},
-                new Kid{ KidId = 2, Name = "Kids 2", Email = "KidEmail2@Test.com"}
+                new Kid{ KidId = 1, Name = "Kids 1", Email = "KidEmail1@Test.com", FamilyId = 1},
+                new Kid{ KidId = 2, Name = "Kids 2", Email = "KidEmail2@Test.com", FamilyId = 1}
             };
 
             var context = A.Fake<IDBContext>();
@@ -107,8 +107,8 @@ namespace Business.Test.DataAccess
             // Arrange
             var returndata = new List<Kid>()
             {
-                new Kid{ KidId = 1, Name = "Kids 1", Email = "KidEmail1@Test.com"},
-                new Kid{ KidId = 2, Name = "Kids 2", Email = "KidEmail2@Test.com"}
+                new Kid{ KidId = 1, Name = "Kids 1", Email = "KidEmail1@Test.com", FamilyId = 1},
+                new Kid{ KidId = 2, Name = "Kids 2", Email = "KidEmail2@Test.com", FamilyId = 1}
             };
 
 
@@ -130,16 +130,16 @@ namespace Business.Test.DataAccess
             // Arrange
             var returndata = new Kid()
             {
-                //KidId = 1,
                 Name = "InsertedName",
-                Email = "InsertedName@Test.com"
+                Email = "InsertedName@Test.com",
+                FamilyId = 1
             };
             var context = A.Fake<IDBContext>();
             A.CallTo(() => context.Kid.Add(A<Kid>.Ignored)).Returns(returndata);
 
             // Act
             var insertKidDataAccess = new KidDataAccess(context);
-            insertKidDataAccess.Insert(new Kid { Name = "InsertedName", Email = "InsertedName@Test.com" });
+            insertKidDataAccess.Insert(new Kid { Name = "InsertedName", Email = "InsertedName@Test.com", FamilyId = 1});
 
             //Assert
             A.CallTo(() => context.Kid.Add(A<Kid>.Ignored)).MustHaveHappened(Repeated.Exactly.Once);
@@ -150,16 +150,17 @@ namespace Business.Test.DataAccess
         public void When_Updating_is_Valid()
         {
             // Arrange
-            var Kid = new Kid()
+            var kid = new Kid
             {
                 KidId = 2,
                 Name = "Kids 2",
-                Email = "KidEmail2@Test.com"
+                Email = "KidEmail2@Test.com",
+                FamilyId = 1
             };
             var returndata = new List<Kid>()
             {
-                new Kid{ KidId = 1, Name = "Kids 1", Email = "KidEmail1@Test.com"},
-                new Kid{ KidId = 2, Name = "Kids 2", Email = "KidEmail2@Test.com"}
+                new Kid{ KidId = 1, Name = "Kids 1", Email = "KidEmail1@Test.com", FamilyId = 1},
+                new Kid{ KidId = 2, Name = "Kids 2", Email = "KidEmail2@Test.com", FamilyId = 1}
             };
 
             var context = A.Fake<IDBContext>();
@@ -168,8 +169,8 @@ namespace Business.Test.DataAccess
 
             // Act
 
-            var KidDataAccess = new KidDataAccess(context);
-            var updateSuccessful = KidDataAccess.Update(Kid);
+            var kidDataAccess = new KidDataAccess(context);
+            var updateSuccessful = kidDataAccess.Update(kid);
 
             //Assert
             Assert.That(updateSuccessful);
@@ -180,11 +181,12 @@ namespace Business.Test.DataAccess
         public void When_Updating_is_Invalid()
         {
             // Arrange
-            var Kid = new Kid()
+            var kid = new Kid
             {
                 KidId = 2,
                 Name = "Kids 2",
-                Email = "KidEmail2@Test.com"
+                Email = "KidEmail2@Test.com",
+                FamilyId = 1
             };
 
             var returndata = new List<Kid>();
@@ -194,8 +196,8 @@ namespace Business.Test.DataAccess
             A.CallTo(() => context.Kid).Returns(fakeDbSet);
 
             // Act
-            var KidDataAccess = new KidDataAccess(context);
-            var updateSuccessful = KidDataAccess.Update(Kid);
+            var kidDataAccess = new KidDataAccess(context);
+            var updateSuccessful = kidDataAccess.Update(kid);
 
             //Assert
             Assert.That(updateSuccessful == false);
@@ -207,8 +209,8 @@ namespace Business.Test.DataAccess
             // Arrange
             var returndata = new List<Kid>()
             {
-                new Kid{ KidId = 1, Name = "Kids 1", Email = "KidEmail1@Test.com"},
-                new Kid{ KidId = 2, Name = "Kids 2", Email = "KidEmail2@Test.com"}
+                new Kid{ KidId = 1, Name = "Kids 1", Email = "KidEmail1@Test.com", FamilyId = 1},
+                new Kid{ KidId = 2, Name = "Kids 2", Email = "KidEmail2@Test.com", FamilyId = 1}
             };
 
             var context = A.Fake<IDBContext>();
@@ -231,8 +233,8 @@ namespace Business.Test.DataAccess
             // Arrange
             var returndata = new List<Kid>()
             {
-                new Kid{ KidId = 1, Name = "Kids 1", Email = "KidEmail1@Test.com"},
-                new Kid{ KidId = 2, Name = "Kids 2", Email = "KidEmail2@Test.com"}
+                new Kid{ KidId = 1, Name = "Kids 1", Email = "KidEmail1@Test.com", FamilyId = 1},
+                new Kid{ KidId = 2, Name = "Kids 2", Email = "KidEmail2@Test.com", FamilyId = 1}
             };
 
             var context = A.Fake<IDBContext>();
