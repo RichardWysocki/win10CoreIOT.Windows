@@ -16,7 +16,7 @@ namespace Business.Test.DataAccess
         public void When_Returning_GetList_is_Valid()
         {
             // Arrange
-            var returndata = new List<LogError>()
+            var returndata = new List<LogError>
             {
                 new LogError{ LogErrorId = 1, LogErrorMessage = "A", LogErrorMethod = "B", LogErrorSource = "C"},
                 new LogError{ LogErrorId = 2, LogErrorMessage = "A", LogErrorMethod = "B", LogErrorSource = "C"}

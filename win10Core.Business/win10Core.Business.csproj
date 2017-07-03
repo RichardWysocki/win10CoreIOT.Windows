@@ -53,8 +53,12 @@
   <ItemGroup>
     <Compile Include="DataAccess\CustomerDataAccess.cs" />
     <Compile Include="DataAccess\DBContext.cs" />
+    <Compile Include="DataAccess\FamilyDataAccess.cs" />
+    <Compile Include="DataAccess\GiftDataAccess.cs" />
     <Compile Include="DataAccess\ICustomerDataAccess_Remove.cs" />
     <Compile Include="DataAccess\IDBContext.cs" />
+    <Compile Include="DataAccess\IFamilyDataAccess.cs" />
+    <Compile Include="DataAccess\IGiftDataAccess.cs" />
     <Compile Include="DataAccess\IKidDataAccess.cs" />
     <Compile Include="DataAccess\ILogErrorDataAccess.cs" />
     <Compile Include="DataAccess\ILogInfoDataAccess.cs" />
@@ -74,6 +78,7 @@
     <Compile Include="DBUtility.cs" />
     <Compile Include="DataAccess\IDataAccess.cs" />
     <Compile Include="Model\Family.cs" />
+    <Compile Include="Model\Gift.cs" />
     <Compile Include="Model\Kid.cs" />
     <Compile Include="Model\LogError.cs" />
     <Compile Include="Model\LogInfo.cs" />

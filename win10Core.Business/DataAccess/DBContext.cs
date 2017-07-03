@@ -12,10 +12,11 @@ namespace win10Core.Business.DataAccess
         }
 
         public DbSet<Customer> Customer { get; set; }
+        public DbSet<Family> Family { get; set; }
         public DbSet<LogError> LogError { get; set; }
         public DbSet<LogInfo> LogInfo { get; set; }
         public DbSet<Kid> Kid { get; set; }
-
+        public DbSet<Gift> Gift { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
