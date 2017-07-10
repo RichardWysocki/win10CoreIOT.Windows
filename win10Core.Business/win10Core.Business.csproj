@@ -63,9 +63,11 @@
     <Compile Include="DataAccess\ILogErrorDataAccess.cs" />
     <Compile Include="DataAccess\ILogInfoDataAccess.cs" />
     <Compile Include="DataAccess\ICustomerDataAccess.cs" />
+    <Compile Include="DataAccess\IParentDataAccess.cs" />
     <Compile Include="DataAccess\KidDataAccess.cs" />
     <Compile Include="DataAccess\LogErrorDataAccess.cs" />
     <Compile Include="DataAccess\LogInfoDataAccess.cs" />
+    <Compile Include="DataAccess\ParentDataAccess.cs" />
     <Compile Include="Engine\CustomerEngine.cs" />
     <Compile Include="Engine\ILogEngine.cs" />
     <Compile Include="Engine\LogEngine.cs" />
@@ -82,6 +84,7 @@
     <Compile Include="Model\Kid.cs" />
     <Compile Include="Model\LogError.cs" />
     <Compile Include="Model\LogInfo.cs" />
+    <Compile Include="Model\Parent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

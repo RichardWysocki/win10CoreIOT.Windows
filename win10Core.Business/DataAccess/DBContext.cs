@@ -12,6 +12,7 @@ namespace win10Core.Business.DataAccess
         }
 
         public DbSet<Customer> Customer { get; set; }
+        public DbSet<Parent> Parent { get; set; }
         public DbSet<Family> Family { get; set; }
         public DbSet<LogError> LogError { get; set; }
         public DbSet<LogInfo> LogInfo { get; set; }

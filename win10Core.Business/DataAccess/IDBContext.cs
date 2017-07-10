@@ -13,6 +13,8 @@ namespace win10Core.Business.DataAccess
 
         DbSet<Customer> Customer { get; set; }
 
+        DbSet<Parent> Parent { get; set; }
+
         DbSet<Family> Family { get; set; }
 
         DbSet<Kid> Kid { get; set; }

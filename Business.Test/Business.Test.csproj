@@ -70,6 +70,7 @@
     <Compile Include="ConnectionHelper_Tests.cs" />
     <Compile Include="DataAccess\WhenValidatingCustomerDataAccess.cs" />
     <Compile Include="DataAccess\WhenValidatingFamilyDataAccess.cs" />
+    <Compile Include="DataAccess\WhenValidatingParentDataAccess.cs" />
     <Compile Include="DataAccess\WhenValidatingGiftDataAccess.cs" />
     <Compile Include="DataAccess\WhenValidatingKidDataAccess.cs" />
     <Compile Include="Engine\WhenValidatingLogEngine.cs" />
