@@ -1,11 +1,7 @@
-﻿
-
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using FakeItEasy;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 using Services.Controllers;
 using Services.Library;
 using win10Core.Business.Model;
