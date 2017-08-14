@@ -60,8 +60,12 @@ namespace Services.Controllers
         // GET: Parent/Edit/5
         public ActionResult Edit(int id)
         {
+            var familyResponse = _serviceLayer.GetData<Family>("FamilyApi");
+            
+
             var response = _serviceLayer.GetItem<Parent>("ParentApi", id);
             //ViewBag.list = new SelectList(response, "FamilyId", "FamilyName", "----select----");
+            ViewBag.list = new SelectList(familyResponse, "FamilyId", "FamilyName", response.FamilyId);
             return View(response);
         }
 

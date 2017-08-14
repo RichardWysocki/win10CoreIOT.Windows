@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using ServiceContracts;
 using win10Core.Business.DataAccess;
@@ -44,10 +41,10 @@ namespace Services.ControllersApi
         }
 
         // PUT: api/ParentApi/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(Parent parent)
         {
+            var getData = _parentDataAccess.Update(new win10Core.Business.Model.Parent() { ParentId = parent.ParentId,  Name = parent.Name, Email = parent.Email, FamilyId = parent.FamilyId});
         }
-
         // DELETE: api/ParentApi/5
         public void Delete(int id)
         {
