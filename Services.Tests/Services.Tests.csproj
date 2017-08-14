@@ -96,6 +96,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\WhenValidatingFamilyController.cs" />
     <Compile Include="Controllers\WhenValidatingCustomerController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
@@ -108,8 +109,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Contracts\ServiceContracts.csproj">
+      <Project>{8c44cd29-eb50-4f5f-a18b-61a8799fb831}</Project>
+      <Name>ServiceContracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Services\Services.csproj">
-      <Project>{5E2DD852-AB64-4F20-9540-BDC528E85F5A}</Project>
+      <Project>{5e2dd852-ab64-4f20-9540-bdc528e85f5a}</Project>
       <Name>Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\win10Core.Business\win10Core.Business.csproj">

@@ -22,7 +22,6 @@ namespace Services.Controllers
         public ActionResult Create()
         {
             return View();
-
         }
         // GET: Family/Create
         [HttpPost]
@@ -33,10 +32,7 @@ namespace Services.Controllers
                 _serviceLayer.SendData("FamilyApi", new Family() { FamilyName = newFamily.FamilyName, FamilyEmail = newFamily.FamilyEmail });
                 return RedirectToAction("Index");
             }
-            else
-            {
-                return View(newFamily);
-            }
+            return View(newFamily);
         }
 
         // POST: Family/Create

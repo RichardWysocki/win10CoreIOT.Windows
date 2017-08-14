@@ -52,6 +52,7 @@ namespace Services.DependencyResolution {
                 For<ILogErrorDataAccess>().Use<LogErrorDataAccess>();
                 For<ILogEngine>().Use<LogEngine>();
                 For<IFamilyDataAccess>().Use<FamilyDataAccess>();
+                For<IParentDataAccess>().Use<ParentDataAccess>();
                 //For<ISubject>().Use<Subject>();
             }
         }
