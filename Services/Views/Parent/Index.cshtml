@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ServiceContracts.Parent>
+﻿@model IEnumerable<Services.Models.ParentViewModelIndex>
 
 @{
     ViewBag.Title = "Index";
@@ -21,6 +21,9 @@
         <th>
             @Html.DisplayNameFor(model => model.FamilyId)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FamilyName)
+        </th>
         <th></th>
     </tr>
 
@@ -34,6 +37,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.FamilyId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FamilyName)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ParentId }) |

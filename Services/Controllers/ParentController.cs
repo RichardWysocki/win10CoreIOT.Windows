@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using ServiceContracts;
 using Services.Library;
+using Services.Models;
 
 namespace Services.Controllers
 {
@@ -16,8 +19,20 @@ namespace Services.Controllers
         // GET: Parent
         public ActionResult Index()
         {
-            var response = _serviceLayer.GetData<Parent>("ParentApi");
-            return View(response);
+            var familyResponse = _serviceLayer.GetData<Family>("FamilyApi");
+            var parentResponse = _serviceLayer.GetData<Parent>("ParentApi");
+
+            var parentviewModel = parentResponse.Select(x => new ParentViewModelIndex
+                {
+                    ParentId = x.ParentId,
+                    Name = x.Name,
+                    Email = x.Email,
+                    FamilyId = x.FamilyId,
+                    FamilyName = familyResponse.Find(c => c.FamilyId == x.FamilyId).FamilyName
+                })
+                .ToList();
+
+            return View(parentviewModel);
         }
 
         //// GET: Parent/Details/5
@@ -92,5 +107,9 @@ namespace Services.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Details(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
