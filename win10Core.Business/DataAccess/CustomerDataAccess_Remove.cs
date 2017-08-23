@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using AutoMapper;
+using win10Core.Business.DataAccess.Interfaces;
 using win10Core.Business.Model;
 
 namespace win10Core.Business.DataAccess
 {
-    public class CustomerDataAccess_Remove : ICustomerDataAccess_Remove
+    public class CustomerDataAccess_Remove : ICustomerDataAccessRemove
     {
         readonly string _constr;
 

@@ -4,6 +4,7 @@ using EntityFramework.FakeItEasy;
 using FakeItEasy;
 using NUnit.Framework;
 using win10Core.Business.DataAccess;
+using win10Core.Business.DataAccess.Interfaces;
 using win10Core.Business.Model;
 
 namespace Business.Test.DataAccess

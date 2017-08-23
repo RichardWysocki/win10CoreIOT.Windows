@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using win10Core.Business.Model;
 
-namespace win10Core.Business.DataAccess
+namespace win10Core.Business.DataAccess.Interfaces
 {
-    public interface ICustomerDataAccess_Remove
+    public interface ICustomerDataAccessRemove
     {
         bool Delete(int deleteId);
         bool Insert(Customer customer);

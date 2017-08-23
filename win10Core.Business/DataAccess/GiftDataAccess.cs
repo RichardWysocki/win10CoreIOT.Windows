@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using win10Core.Business.DataAccess.Interfaces;
 using win10Core.Business.Model;
 
 namespace win10Core.Business.DataAccess

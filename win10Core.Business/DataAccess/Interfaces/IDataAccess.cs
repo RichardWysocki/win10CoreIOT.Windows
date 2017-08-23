@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace win10Core.Business.DataAccess
+namespace win10Core.Business.DataAccess.Interfaces
 {
     public interface IDataAccess
     {  

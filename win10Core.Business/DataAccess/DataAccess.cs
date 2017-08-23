@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 using AutoMapper;
+using win10Core.Business.DataAccess.Interfaces;
 
 namespace win10Core.Business.DataAccess
 {

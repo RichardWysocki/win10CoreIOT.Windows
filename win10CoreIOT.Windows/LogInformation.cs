@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace win10CoreIOT.Windows
+﻿namespace win10CoreIOT.Windows
 {
     public class LogInformation
     {

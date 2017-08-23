@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using win10Core.Business.Model;
 
-namespace win10Core.Business.DataAccess
+namespace win10Core.Business.DataAccess.Interfaces
 {
     public interface IGiftDataAccess
     {

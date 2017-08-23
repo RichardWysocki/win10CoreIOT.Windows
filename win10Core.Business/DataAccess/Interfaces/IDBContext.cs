@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using win10Core.Business.Model;
 
-namespace win10Core.Business.DataAccess
+namespace win10Core.Business.DataAccess.Interfaces
 {
     public interface IDBContext
     {

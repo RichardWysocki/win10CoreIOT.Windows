@@ -1,6 +1,5 @@
 ﻿using Integration.Utilities.win10Core.Business.DataAccess;
 using NUnit.Framework;
-using win10Core.Business.DataAccess;
 using win10Core.Business.Model;
 
 namespace Integration.Business

@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using FakeItEasy;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using Services.Controllers;
 using Services.Library;
-using win10Core.Business.Model;
 using Assert = NUnit.Framework.Assert;
 
 namespace Services.Tests.Controllers

@@ -19,6 +19,7 @@
 using Services.Library;
 using StructureMap;
 using win10Core.Business.DataAccess;
+using win10Core.Business.DataAccess.Interfaces;
 using win10Core.Business.Engine;
 
 namespace Services.DependencyResolution {
