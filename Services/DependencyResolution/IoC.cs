@@ -21,6 +21,7 @@ using StructureMap;
 using win10Core.Business.DataAccess;
 using win10Core.Business.DataAccess.Interfaces;
 using win10Core.Business.Engine;
+using win10Core.Business.Engine.Interface;
 
 namespace Services.DependencyResolution {
     public static class IoC {
