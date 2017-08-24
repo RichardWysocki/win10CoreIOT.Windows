@@ -166,6 +166,14 @@
     <Build Include="Security\aspnet_Membership_BasicAccess_1.sql" />
     <Build Include="dbo\Tables\Customer.sql" />
     <Build Include="dbo\Stored Procedures\Customer_List.sql" />
+    <Build Include="dbo\Tables\Parent.sql" />
+    <Build Include="dbo\Tables\LogInfo.sql" />
+    <Build Include="dbo\Tables\Kid.sql" />
+    <Build Include="dbo\Tables\Family.sql" />
+    <Build Include="dbo\Stored Procedures\Customer_Update.sql" />
+    <Build Include="dbo\Stored Procedures\Customer_Insert.sql" />
+    <Build Include="dbo\Stored Procedures\Customer_Delete.sql" />
+    <Build Include="dbo\Stored Procedures\Client_List.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SqlSchemaCompare1.scmp" />
