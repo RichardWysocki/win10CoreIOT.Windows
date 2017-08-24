@@ -195,6 +195,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="ControllersApi\FamilyApiController.cs" />
+    <Compile Include="ControllersApi\KidApiController.cs" />
     <Compile Include="ControllersApi\ParentApiController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="ControllersApi\LogInfoController.cs" />
@@ -203,6 +204,7 @@
     <Compile Include="ControllersApi\CustomerApiController.cs" />
     <Compile Include="Controllers\FamilyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KidController.cs" />
     <Compile Include="Controllers\ParentController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DependencyResolution\IoC.cs" />
@@ -215,6 +217,7 @@
     <Compile Include="Library\IServiceSetting.cs" />
     <Compile Include="Library\ServiceLayer.cs" />
     <Compile Include="Library\ServiceSetting.cs" />
+    <Compile Include="Models\KidViewModel.cs" />
     <Compile Include="Models\ParentViewModelIndex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -290,6 +293,9 @@
     <Content Include="Views\Parent\Index.cshtml" />
     <Content Include="Views\Parent\Create.cshtml" />
     <Content Include="Views\Parent\Edit.cshtml" />
+    <Content Include="Views\Kid\Index.cshtml" />
+    <Content Include="Views\Kid\Create.cshtml" />
+    <Content Include="Views\Kid\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
