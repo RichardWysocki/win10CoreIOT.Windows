@@ -56,6 +56,7 @@ namespace Services.DependencyResolution {
                 For<IFamilyDataAccess>().Use<FamilyDataAccess>();
                 For<IParentDataAccess>().Use<ParentDataAccess>();
                 For<IKidDataAccess>().Use<KidDataAccess>();
+                For<IGiftDataAccess>().Use<GiftDataAccess>();
                 //For<ISubject>().Use<Subject>();
             }
         }

@@ -34,12 +34,6 @@ namespace Services.Controllers
             return View(parentviewModel);
         }
 
-        //// GET: Parent/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
-
         // GET: Parent/Create
         public ActionResult Create()
         {
@@ -51,17 +45,17 @@ namespace Services.Controllers
 
         // POST: Parent/Create
         [HttpPost]
-        public ActionResult Create(Parent newParent)
+        public ActionResult Create(Kid newKid)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _serviceLayer.SendData("ParentApi",
-                        new Parent() { Name = newParent.Name, Email = newParent.Email, FamilyId = newParent.FamilyId });
+                    _serviceLayer.SendData("KidApi",
+                        new Kid() { Name = newKid.Name, Email = newKid.Email, FamilyId = newKid.FamilyId });
                     return RedirectToAction("Index");
                 }
-                return View(newParent);
+                return View(newKid);
 
             }
             catch (Exception e)
@@ -71,13 +65,13 @@ namespace Services.Controllers
             }
         }
 
-        // GET: Parent/Edit/5
+        // GET: Kid/Edit/5
         public ActionResult Edit(int id)
         {
             var familyResponse = _serviceLayer.GetData<Family>("FamilyApi");
             
 
-            var response = _serviceLayer.GetItem<Parent>("ParentApi", id);
+            var response = _serviceLayer.GetItem<Kid>("KidApi", id);
             //ViewBag.list = new SelectList(response, "FamilyId", "FamilyName", "----select----");
             ViewBag.list = new SelectList(familyResponse, "FamilyId", "FamilyName", response.FamilyId);
             return View(response);
@@ -85,12 +79,12 @@ namespace Services.Controllers
 
         // POST: Parent/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Parent updateParent)
+        public ActionResult Edit(int id, Kid updateKid)
         {
             try
             {
                 // TODO: Add update logic here
-                _serviceLayer.Update("ParentApi", updateParent);
+                _serviceLayer.Update("KidApi", updateKid);
                 return RedirectToAction("Index");
             }
             catch
@@ -102,7 +96,7 @@ namespace Services.Controllers
         // GET: Parent/Delete/5
         public ActionResult Delete(int id)
         {
-            _serviceLayer.SendDelete<Parent>("ParentApi", id);
+            _serviceLayer.SendDelete<Kid>("KidApi", id);
             return RedirectToAction("Index");
         }
 

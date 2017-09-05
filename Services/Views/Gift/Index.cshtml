@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Services.Models.GiftViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.GiftId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KidId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GiftName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Priority)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WebUrl)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KidName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.GiftId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KidId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GiftName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Priority)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WebUrl)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KidName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>
