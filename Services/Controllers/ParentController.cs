@@ -34,12 +34,6 @@ namespace Services.Controllers
             return View(parentviewModel);
         }
 
-        //// GET: Parent/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
-
         // GET: Parent/Create
         public ActionResult Create()
         {
@@ -61,6 +55,8 @@ namespace Services.Controllers
                         new Parent() { Name = newParent.Name, Email = newParent.Email, FamilyId = newParent.FamilyId });
                     return RedirectToAction("Index");
                 }
+                var response = _serviceLayer.GetData<Family>("FamilyApi");
+                ViewBag.list = new SelectList(response, "FamilyId", "FamilyName", "----select----");
                 return View(newParent);
 
             }
@@ -106,9 +102,5 @@ namespace Services.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Details(int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
