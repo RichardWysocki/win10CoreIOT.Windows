@@ -1,4 +1,5 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
 
 namespace ServiceContracts
 {
@@ -11,14 +12,12 @@ namespace ServiceContracts
 
         /// <summary>
         /// 
-        /// </summary>
         public string FamilyName { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         public string FamilyEmail { get; set; }
-
 
     }
 }

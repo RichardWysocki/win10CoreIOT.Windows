@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using ServiceContracts;
 using Services.Library;
@@ -38,17 +36,11 @@ namespace Services.Controllers
             return View(giftviewModel);
         }
 
-        //// GET: Gifts/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
-
         // GET: Gifts/Create
         public ActionResult Create()
         {
-            var response = _serviceLayer.GetData<Gift>("GiftApi");
-            ViewBag.list = new SelectList(response, "KidId", "KidName", "----select----");
+            var response = _serviceLayer.GetData<Kid>("KidApi");
+            ViewBag.list = new SelectList(response, "KidId", "Name", "----select----");
 
             return View();
         }

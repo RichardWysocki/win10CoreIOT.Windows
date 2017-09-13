@@ -70,6 +70,9 @@
     <Compile Include="DataAccess\LogInfoDataAccess.cs" />
     <Compile Include="DataAccess\ParentDataAccess.cs" />
     <Compile Include="Engine\CustomerEngine.cs" />
+    <Compile Include="Model\IEmailConfiguration.cs" />
+    <Compile Include="Engine\EmailEngine.cs" />
+    <Compile Include="Engine\Interface\IEmailEngine.cs" />
     <Compile Include="Engine\Interface\ILogEngine.cs" />
     <Compile Include="Engine\LogEngine.cs" />
     <Compile Include="Model\Client.cs" />
@@ -91,6 +94,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\Interface\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -19,7 +19,7 @@ namespace Services.Controllers
         public ActionResult Index()
         {
             var kidResponse = _serviceLayer.GetData<Kid>("KidApi");
-            var familyResponse = _serviceLayer.GetData<Parent>("FamilyApi");
+            var familyResponse = _serviceLayer.GetData<Family>("FamilyApi");
 
             var parentviewModel = kidResponse.Select(x => new KidViewModel()
                 {
@@ -27,7 +27,7 @@ namespace Services.Controllers
                     Name = x.Name,
                     Email = x.Email,
                     FamilyId = x.FamilyId,
-                    FamilyName = familyResponse.Find(c => c.FamilyId == x.FamilyId).Name
+                    FamilyName = familyResponse.Find(c => c.FamilyId == x.FamilyId).FamilyName
                 })
                 .ToList();
 
@@ -37,8 +37,8 @@ namespace Services.Controllers
         // GET: Parent/Create
         public ActionResult Create()
         {
-            var response = _serviceLayer.GetData<Family>("FamilyApi");
-            ViewBag.list = new SelectList(response, "FamilyId", "FamilyName", "----select----");
+            var response = _serviceLayer.GetData<Kid>("KidApi");
+            ViewBag.list = new SelectList(response, "KidId", "Name", "----select----");
 
             return View();
         }
@@ -100,9 +100,5 @@ namespace Services.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Details(int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
