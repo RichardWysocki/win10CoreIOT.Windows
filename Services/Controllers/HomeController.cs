@@ -20,14 +20,14 @@ namespace Services.Controllers
         public ActionResult Index()
         {
 
-            var sendemail = new EmailEngine(
-                new EmailConfiguration
-                    { SMTPServer = ConfigHelper.GetSetting("SMTPServer"),
-                    SmtpServerUserName = ConfigHelper.GetSetting("AuthUserName"),
-                    SmtpServerPassword = ConfigHelper.GetSetting("AuthPassword") }
-                , new LogErrorDataAccess(new DBContext()));
+            //var sendemail = new EmailEngine(
+            //    new EmailConfiguration
+            //        { SMTPServer = ConfigHelper.GetSetting("SMTPServer"),
+            //        SmtpServerUserName = ConfigHelper.GetSetting("AuthUserName"),
+            //        SmtpServerPassword = ConfigHelper.GetSetting("AuthPassword") }
+            //    , new LogErrorDataAccess(new DBContext()));
 
-            sendemail.Send("RichardWysocki@gmailcom", "RichardWysocki@gmail.com", "Sample Message", "Hello Text", "RichardWysocki@gmail.com");
+            //sendemail.Send("RichardWysocki@gmailcom", "RichardWysocki@gmail.com", "Sample Message", "Hello Text", "RichardWysocki@gmail.com");
 
 
             _serviceLayer.SendData("LogInfo", new LogInfo {Method = "SendData", Message = "MyFirstMessage"});

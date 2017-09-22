@@ -200,6 +200,7 @@
     <Compile Include="ControllersApi\FamilyApiController.cs" />
     <Compile Include="ControllersApi\GiftApiController.cs" />
     <Compile Include="ControllersApi\KidApiController.cs" />
+    <Compile Include="ControllersApi\NotificationApiController.cs" />
     <Compile Include="ControllersApi\ParentApiController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="ControllersApi\LogInfoController.cs" />
@@ -375,7 +376,7 @@
        Other similar extension points exist, see Microsoft.Common.targets.
 -->
   <Target Name="BeforeBuild">
-    <TransformXml Source="Web.config" Transform="Web.$(Configuration).config" Destination="Web.config" />
+    <TransformXml Source="Web.config" Transform="Web.$(Configuration).config" Destination="Web.Base.config" />
   </Target>
   <!-- 
   <Target Name="AfterBuild">
