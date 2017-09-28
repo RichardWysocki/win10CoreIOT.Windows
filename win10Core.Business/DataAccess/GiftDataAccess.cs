@@ -29,6 +29,14 @@ namespace win10Core.Business.DataAccess
             return gift;
         }
 
+        public IEnumerable<Gift> GetEmailList(bool emailSent)
+        {
+            var gift = _db.Gift.Where(c => c.EmailSent == emailSent).ToList();
+            if (gift == null)
+                throw new Exception("Error getting Gift record.");
+            return gift;
+        }
+
         public Gift Insert(Gift insert)
         {
             _db.Gift.Add(insert);

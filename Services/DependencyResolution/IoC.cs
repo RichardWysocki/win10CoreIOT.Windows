@@ -57,6 +57,10 @@ namespace Services.DependencyResolution {
                 For<IParentDataAccess>().Use<ParentDataAccess>();
                 For<IKidDataAccess>().Use<KidDataAccess>();
                 For<IGiftDataAccess>().Use<GiftDataAccess>();
+                For<IEmailEngine>().Use<EmailEngine>();
+
+                For<IEmailConfiguration>().Use<EmailConfiguration>();
+
                 //For<ISubject>().Use<Subject>();
             }
         }

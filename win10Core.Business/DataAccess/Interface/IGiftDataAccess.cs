@@ -9,6 +9,8 @@ namespace win10Core.Business.DataAccess.Interfaces
 
         Gift Get(int id);
 
+        IEnumerable<Gift> GetEmailList(bool emailSent);
+
         Gift Insert(Gift insert);
 
         bool Update(Gift update);

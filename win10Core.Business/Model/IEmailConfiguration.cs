@@ -7,6 +7,7 @@
         string SmtpServerUserName { get; set; }
 
         string SmtpServerPassword { get; set; }
+
     }
 
     public class EmailConfiguration : IEmailConfiguration

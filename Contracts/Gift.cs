@@ -15,5 +15,8 @@ namespace ServiceContracts
         public int Priority { get; set; }
 
         public string WebUrl { get; set; }
+        public DateTime? CreateDate { get; set; }
+
+        public bool? EmailSent { get; set; }
     }
 }

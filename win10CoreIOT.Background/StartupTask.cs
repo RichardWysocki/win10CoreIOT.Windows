@@ -23,10 +23,10 @@ namespace win10CoreIOT.Background
             // described in http://aka.ms/backgroundtaskdeferral
             //
 
-           // _deferral = taskInstance.GetDeferral();
+            _deferral = taskInstance.GetDeferral();
 
             timer = ThreadPoolTimer.CreatePeriodicTimer(Timer_Tick,
-                TimeSpan.FromMilliseconds(500));
+                TimeSpan.FromMinutes(1));
         }
 
         private void Timer_Tick(ThreadPoolTimer timer)

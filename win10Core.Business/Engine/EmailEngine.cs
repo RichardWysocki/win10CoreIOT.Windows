@@ -47,7 +47,7 @@ namespace win10Core.Business.Engine
                     recipientList.Append(recipient);
                     message.To.Add(new MailAddress(recipient));
                 }
-                message.From = new MailAddress("RichardWysocki@RichardWysocki.com");
+                message.From = new MailAddress(sender); //"RichardWysocki@RichardWysocki.com");
 
                 message.Subject = subject;
                 message.Body =
