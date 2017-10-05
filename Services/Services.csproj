@@ -202,17 +202,8 @@
     <Compile Include="ControllersApi\KidApiController.cs" />
     <Compile Include="ControllersApi\NotificationApiController.cs" />
     <Compile Include="ControllersApi\ParentApiController.cs" />
-    <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="ControllersApi\LogInfoController.cs" />
-    <Compile Include="Controllers\CustomerController.cs" />
-    <Compile Include="Controllers\CustomerEFController.cs" />
     <Compile Include="ControllersApi\CustomerApiController.cs" />
-    <Compile Include="Controllers\FamilyController.cs" />
-    <Compile Include="Controllers\GiftController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\KidController.cs" />
-    <Compile Include="Controllers\ParentController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DependencyResolution\IoC.cs" />
     <Compile Include="DependencyResolution\StructureMapDependencyResolver.cs" />
     <Compile Include="DependencyResolution\StructureMapDependencyScope.cs" />

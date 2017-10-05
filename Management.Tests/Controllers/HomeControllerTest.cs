@@ -1,7 +1,8 @@
 ﻿using System.Web.Mvc;
+using FakeItEasy;
 using Management.Controllers;
+using Management.Library;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace Management.Tests.Controllers
@@ -13,7 +14,8 @@ namespace Management.Tests.Controllers
         public void Index()
         {
             // Arrange
-            HomeController controller = new HomeController();
+            var context = A.Fake<IServiceLayer>();
+            HomeController controller = new HomeController(context);
 
             // Act
             ViewResult result = controller.Index() as ViewResult;
@@ -23,10 +25,26 @@ namespace Management.Tests.Controllers
         }
 
         [Test]
+        public void Index2()
+        {
+            // Arrange
+            var context = A.Fake<IServiceLayer>();
+            HomeController controller = new HomeController(context);
+
+            // Act
+            ViewResult result = controller.Index() as ViewResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Home Page", result.ViewBag.Title);
+        }
+
+        [Test]
         public void About()
         {
             // Arrange
-            HomeController controller = new HomeController();
+            var context = A.Fake<IServiceLayer>();
+            HomeController controller = new HomeController(context);
 
             // Act
             ViewResult result = controller.About() as ViewResult;
@@ -39,7 +57,8 @@ namespace Management.Tests.Controllers
         public void Contact()
         {
             // Arrange
-            HomeController controller = new HomeController();
+            var context = A.Fake<IServiceLayer>();
+            HomeController controller = new HomeController(context);
 
             // Act
             ViewResult result = controller.Contact() as ViewResult;
