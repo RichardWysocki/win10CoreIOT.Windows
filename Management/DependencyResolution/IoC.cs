@@ -18,7 +18,9 @@
 
 using System.Configuration;
 using Management.Library;
+using ServiceContracts;
 using StructureMap;
+using win10Core.Business;
 
 namespace Services.DependencyResolution {
     public static class IoC {
@@ -45,10 +47,10 @@ namespace Services.DependencyResolution {
             public PurpleRegistry()
             {
 
-                //For<IServiceSettings>().Use(new ServiceSettings(ConfigurationManager.AppSettings["ServiceURL"]));
-                //For<IServiceLayers>().Use<ServiceLayers>();
+                For<IServiceSettings>().Use(new ServiceSettings(ConfigHelper.GetSetting("ServiceURL")));
+                For<IServiceLayers>().Use<ServiceLayers>();
                 //For<IDBContext>().Use<DBContext>();
-                For<IServiceSetting>().Use(new ServiceSetting(ConfigurationManager.AppSettings["ServiceURL"]));
+                For<IServiceSetting>().Use(new ServiceSetting(ConfigHelper.GetSetting("ServiceURL")));
                 //For<IServiceSetting>().Use<ServiceSetting>();
                 For<IServiceLayer>().Use<ServiceLayer>();
                 //For<ILogInfoDataAccess>().Use<LogInfoDataAccess>();

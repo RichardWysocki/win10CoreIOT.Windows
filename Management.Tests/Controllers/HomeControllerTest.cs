@@ -3,6 +3,7 @@ using FakeItEasy;
 using Management.Controllers;
 using Management.Library;
 using NUnit.Framework;
+using ServiceContracts;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace Management.Tests.Controllers
@@ -15,7 +16,8 @@ namespace Management.Tests.Controllers
         {
             // Arrange
             var context = A.Fake<IServiceLayer>();
-            HomeController controller = new HomeController(context);
+            var contexts = A.Fake<IServiceLayers>();
+            HomeController controller = new HomeController(context, contexts);
 
             // Act
             ViewResult result = controller.Index() as ViewResult;
@@ -29,7 +31,8 @@ namespace Management.Tests.Controllers
         {
             // Arrange
             var context = A.Fake<IServiceLayer>();
-            HomeController controller = new HomeController(context);
+            var contexts = A.Fake<IServiceLayers>();
+            HomeController controller = new HomeController(context, contexts);
 
             // Act
             ViewResult result = controller.Index() as ViewResult;
@@ -44,7 +47,8 @@ namespace Management.Tests.Controllers
         {
             // Arrange
             var context = A.Fake<IServiceLayer>();
-            HomeController controller = new HomeController(context);
+            var contexts = A.Fake<IServiceLayers>();
+            HomeController controller = new HomeController(context, contexts);
 
             // Act
             ViewResult result = controller.About() as ViewResult;
@@ -58,7 +62,8 @@ namespace Management.Tests.Controllers
         {
             // Arrange
             var context = A.Fake<IServiceLayer>();
-            HomeController controller = new HomeController(context);
+            var contexts = A.Fake<IServiceLayers>();
+            HomeController controller = new HomeController(context, contexts);
 
             // Act
             ViewResult result = controller.Contact() as ViewResult;

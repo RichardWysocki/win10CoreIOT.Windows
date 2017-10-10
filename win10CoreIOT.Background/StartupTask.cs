@@ -14,7 +14,12 @@ namespace win10CoreIOT.Background
     {
         BackgroundTaskDeferral _deferral;
         private ThreadPoolTimer timer;
+        private readonly ServiceLayers _serviceCalls;
 
+        public StartupTask()
+        {
+           _serviceCalls = new ServiceLayers(new ServiceSettings("http://localhost:34909/api/"));
+        }
         public void Run(IBackgroundTaskInstance taskInstance)
         {
             // 
@@ -27,15 +32,20 @@ namespace win10CoreIOT.Background
 
             _deferral = taskInstance.GetDeferral();
 
-            timer = ThreadPoolTimer.CreatePeriodicTimer(Timer_Tick,
-                TimeSpan.FromMinutes(1));
+            timer = ThreadPoolTimer.CreatePeriodicTimer(Timer_Tick, TimeSpan.FromMinutes(1));
         }
 
-        private void Timer_Tick(ThreadPoolTimer timer)
+        private void Timer_Tick(ThreadPoolTimer timerTic)
         {
-            var x = new ServiceLayers(
-                new ServiceSettings("http://localhost:34909/api/"));
-            x.SendData("LogInfo", new LogInformation { Method = "SendData", Message = "MyFirstMessage" });
+
+            _serviceCalls.SendData("LogInfo", new LogInformation { Method = "StartupTask: Timer_Tick", Message = "Get All Open Gifts" });
+            // Running Thread
+
+            // Get All Open Gifts Requests
+
+            // Send Emal and Update Gifts
+
+
 
             Trace.WriteLine(DateTime.Now.ToString(CultureInfo.InvariantCulture) + "   My App Started");
         }
