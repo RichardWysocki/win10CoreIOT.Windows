@@ -3,6 +3,8 @@ using System.Diagnostics;
 using System.Globalization;
 using Windows.ApplicationModel.Background;
 using Windows.System.Threading;
+using ServiceContracts;
+using ServiceContracts.NewFolder;
 
 // The Background Application template is documented at http://go.microsoft.com/fwlink/?LinkID=533884&clcid=0x409
 
@@ -31,6 +33,10 @@ namespace win10CoreIOT.Background
 
         private void Timer_Tick(ThreadPoolTimer timer)
         {
+            var x = new ServiceContracts.NewFolder.ServiceLayers(
+                new ServiceSettings("http://localhost:34909/api/"));
+            x.SendData("LogInfo", new LogInformation { Method = "SendData", Message = "MyFirstMessage" });
+
             Trace.WriteLine(DateTime.Now.ToString(CultureInfo.InvariantCulture) + "   My App Started");
         }
     }

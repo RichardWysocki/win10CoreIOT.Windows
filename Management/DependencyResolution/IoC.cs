@@ -44,6 +44,9 @@ namespace Services.DependencyResolution {
         {
             public PurpleRegistry()
             {
+
+                //For<IServiceSettings>().Use(new ServiceSettings(ConfigurationManager.AppSettings["ServiceURL"]));
+                //For<IServiceLayers>().Use<ServiceLayers>();
                 //For<IDBContext>().Use<DBContext>();
                 For<IServiceSetting>().Use(new ServiceSetting(ConfigurationManager.AppSettings["ServiceURL"]));
                 //For<IServiceSetting>().Use<ServiceSetting>();

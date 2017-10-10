@@ -19,7 +19,7 @@ namespace Services.ControllersApi
         public LogInfoController(ILogEngine logEngine, ILogInfoDataAccess logInfoDataAccess)
         {
             _logEngine = logEngine;
-            _logInfoDataAccess = logInfoDataAccess; //new LogInfoDataAccess(new DBContext());
+            _logInfoDataAccess = logInfoDataAccess; 
         }
 
         // GET api/<controller>
@@ -57,13 +57,13 @@ namespace Services.ControllersApi
         }
 
         // POST api/<controller>
-        public LogInformation Post(LogInformation customer)
+        public LogInformation Post(LogInformation log)
         {
             var getData = _logInfoDataAccess.Insert(new LogInfo
             {
-                LogInfoId = customer.LogInfoId,
-                Method = customer.Method,
-                Message = customer.Message
+                LogInfoId = log.LogInfoId,
+                Method = log.Method,
+                Message = log.Message
             });
             var response = new LogInformation
             {

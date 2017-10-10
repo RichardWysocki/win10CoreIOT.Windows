@@ -150,6 +150,12 @@
       <Name>Windows IoT Extensions for the UWP %28WindowsIoT, Version=10.0.15063.0%29</Name>
     </SDKReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Contracts\ServiceContracts.csproj">
+      <Project>{8c44cd29-eb50-4f5f-a18b-61a8799fb831}</Project>
+      <Name>ServiceContracts</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '15.0' ">
     <VisualStudioVersion>15.0</VisualStudioVersion>
   </PropertyGroup>
