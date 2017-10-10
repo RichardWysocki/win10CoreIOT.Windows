@@ -1,4 +1,4 @@
-﻿namespace ServiceContracts
+﻿namespace ServiceContracts.Contracts
 {
     public class Parent
     {

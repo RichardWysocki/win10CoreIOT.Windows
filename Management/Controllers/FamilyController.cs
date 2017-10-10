@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using Management.Library;
 using ServiceContracts;
+using ServiceContracts.Contracts;
 
 namespace Management.Controllers
 {
@@ -15,7 +16,7 @@ namespace Management.Controllers
         // GET: Family
         public ActionResult Index()
         {
-            var response = _serviceLayer.GetData<ServiceContracts.Family>("FamilyApi");
+            var response = _serviceLayer.GetData<Family>("FamilyApi");
             return View(response);
         }
 
@@ -25,7 +26,7 @@ namespace Management.Controllers
         }
         // GET: Family/Create
         [HttpPost]
-        public ActionResult Create(ServiceContracts.Family newFamily)
+        public ActionResult Create(Family newFamily)
         {
             if (ModelState.IsValid)
             {
@@ -54,13 +55,13 @@ namespace Management.Controllers
         // GET: Family/Edit/5
         public ActionResult Edit(int id)
         {
-            var response = _serviceLayer.GetItem<ServiceContracts.Family>("FamilyApi", id);
+            var response = _serviceLayer.GetItem<Family>("FamilyApi", id);
             return View(response);
         }
 
         // POST: Family/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, ServiceContracts.Family updatFamily)
+        public ActionResult Edit(int id, Family updatFamily)
         {
             try
             {

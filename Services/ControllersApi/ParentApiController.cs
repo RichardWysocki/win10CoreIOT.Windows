@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Http;
 using ServiceContracts;
+using ServiceContracts.Contracts;
 using win10Core.Business.DataAccess.Interfaces;
 
 namespace Services.ControllersApi

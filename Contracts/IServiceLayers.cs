@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ServiceContracts.NewFolder
+namespace ServiceContracts
 {
     public interface IServiceLayers
     {

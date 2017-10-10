@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using Management.Models;
 using ServiceContracts;
 using Management.Library;
+using ServiceContracts.Contracts;
 
 namespace Management.Controllers
 {
@@ -53,6 +54,7 @@ namespace Management.Controllers
             {
                 if (ModelState.IsValid)
                 {
+
                     _serviceLayer.SendData("GiftApi",
                         new Gift() { GiftName = newGift.GiftName, Priority = newGift.Priority, WebUrl = newGift.WebUrl, KidId = newGift.KidId});
                     return RedirectToAction("Index");

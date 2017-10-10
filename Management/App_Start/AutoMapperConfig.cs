@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using AutoMapper;
 using ServiceContracts;
+using ServiceContracts.Contracts;
 
 namespace Services
 {

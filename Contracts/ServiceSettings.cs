@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 
-namespace ServiceContracts.NewFolder
+namespace ServiceContracts
 {
     public class ServiceSettings : IServiceSettings
     {

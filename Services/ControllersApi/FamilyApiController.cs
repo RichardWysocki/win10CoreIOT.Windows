@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Web.Http;
 using win10Core.Business.DataAccess.Interfaces;
-using Family = ServiceContracts.Family;
+using Family = ServiceContracts.Contracts.Family;
 
 namespace Services.ControllersApi
 {

@@ -1,7 +1,4 @@
-﻿
-using System.ComponentModel.DataAnnotations;
-
-namespace ServiceContracts
+﻿namespace ServiceContracts.Contracts
 {
     public class Family
     {
@@ -12,12 +9,12 @@ namespace ServiceContracts
 
         /// <summary>
         /// 
+        /// </summary>
         public string FamilyName { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         public string FamilyEmail { get; set; }
-
     }
 }

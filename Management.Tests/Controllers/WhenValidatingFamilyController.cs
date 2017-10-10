@@ -5,6 +5,7 @@ using FakeItEasy;
 using Management.Controllers;
 using Management.Library;
 using NUnit.Framework;
+using ServiceContracts.Contracts;
 using Assert = NUnit.Framework.Assert;
 
 namespace Services.Tests.Controllers
@@ -19,10 +20,10 @@ namespace Services.Tests.Controllers
             var context = A.Fake<IServiceLayer>();
             FamilyController controller = new FamilyController(context);
 
-            A.CallTo(() => context.GetData<ServiceContracts.Family>(A<string>.Ignored)).Returns(new List<ServiceContracts.Family>
+            A.CallTo(() => context.GetData<Family>(A<string>.Ignored)).Returns(new List<Family>
             {
-                new ServiceContracts.Family {FamilyId = 1, FamilyName = "A", FamilyEmail = "A@A.com"},
-                new ServiceContracts.Family {FamilyId = 2, FamilyName = "B", FamilyEmail = "B@B.com"}
+                new Family {FamilyId = 1, FamilyName = "A", FamilyEmail = "A@A.com"},
+                new Family {FamilyId = 2, FamilyName = "B", FamilyEmail = "B@B.com"}
             });
 
 
@@ -32,7 +33,7 @@ namespace Services.Tests.Controllers
             // Assert
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Model);
-            var responseModelCount = (List<ServiceContracts.Family>)result.Model;
+            var responseModelCount = (List<Family>)result.Model;
             Assert.That(responseModelCount.Count == 2, $"Model Response was {responseModelCount.Count}.");
         }
         [Test]
@@ -43,9 +44,9 @@ namespace Services.Tests.Controllers
             FamilyController controller = new FamilyController(context);
             //controller.ModelState.Clear();
             //controller.ModelState.AddModelError("Error1", new Exception("Error Message"));
-            var createFamily = new ServiceContracts.Family {FamilyId = 1, FamilyName = "B", FamilyEmail = "B@B.com"};
+            var createFamily = new Family {FamilyId = 1, FamilyName = "B", FamilyEmail = "B@B.com"};
 
-            A.CallTo(() => context.SendData<ServiceContracts.Family>(A<string>.Ignored, A<ServiceContracts.Family>.Ignored)); //Returns(null);
+            A.CallTo(() => context.SendData<Family>(A<string>.Ignored, A<Family>.Ignored)); //Returns(null);
 
 
             // Act
@@ -66,9 +67,9 @@ namespace Services.Tests.Controllers
             FamilyController controller = new FamilyController(context);
             controller.ModelState.Clear();
             controller.ModelState.AddModelError("Error1", new Exception("Error Message"));
-            var createFamily = new ServiceContracts.Family { FamilyId = 1, FamilyName = "B", FamilyEmail = "B@B.com" };
+            var createFamily = new Family { FamilyId = 1, FamilyName = "B", FamilyEmail = "B@B.com" };
 
-            A.CallTo(() => context.SendData<ServiceContracts.Family>(A<string>.Ignored, A<ServiceContracts.Family>.Ignored)); //Returns(null);
+            A.CallTo(() => context.SendData<Family>(A<string>.Ignored, A<Family>.Ignored)); //Returns(null);
 
 
             // Act

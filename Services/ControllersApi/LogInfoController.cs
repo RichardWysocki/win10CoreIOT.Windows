@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using ServiceContracts;
+using ServiceContracts.Contracts;
 using win10Core.Business.DataAccess.Interfaces;
 using win10Core.Business.Engine.Interface;
 using win10Core.Business.Model;
@@ -25,8 +26,8 @@ namespace Services.ControllersApi
         // GET api/<controller>
         public IEnumerable<LogInformation> Get()
         {
-            _logEngine.LogError("1", "2", "3");
-            _logEngine.LogInfo("1", "2");
+            //_logEngine.LogError("1", "2", "3");
+            //_logEngine.LogInfo("1", "2");
 
 
             var getData = _logInfoDataAccess.Get();

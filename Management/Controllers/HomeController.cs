@@ -1,7 +1,8 @@
 ﻿using System.Configuration;
 using System.Web.Mvc;
 using Management.Library;
-using ServiceContracts.NewFolder;
+using ServiceContracts;
+using ServiceContracts.Contracts;
 using win10Core.Business.Model;
 
 namespace Management.Controllers
@@ -18,13 +19,13 @@ namespace Management.Controllers
         {
 
 
-            var x = new ServiceContracts.NewFolder.ServiceLayers(
+            var x = new ServiceLayers(
                 new ServiceSettings(ConfigurationManager.AppSettings["ServiceURL"]));
-            x.SendData("LogInfo", new LogInfo { Method = "SendData", Message = "MyFirstMessage" });
+            x.SendData("LogInfo", new LogInformation { Method = "SendData", Message = "MyFirstMessage" });
 
 
 
-            _serviceLayer.SendData("LogInfo", new LogInfo { Method = "SendData", Message = "MyFirstMessage" });
+            _serviceLayer.SendData("LogInfo", new LogInformation { Method = "SendData", Message = "MyFirstMessage" });
             ViewBag.Title = "Home Page";
 
             var response = _serviceLayer.GetData<LogInfo>("LogInfo");
