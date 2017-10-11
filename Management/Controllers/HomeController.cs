@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Web.Mvc;
 using Management.Library;
 using ServiceContracts;
@@ -26,8 +27,9 @@ namespace Management.Controllers
             //    new ServiceSettings(ConfigHelper.GetSetting("ServiceURL")));
             _serviceLayers.SendData("LogInfo", new LogInformation { Method = "HomeController: Index", Message = "ServiceLayers Method" });
 
-
-
+           
+   
+            
             _serviceLayer.SendData("LogInfo", new LogInformation { Method = "HomeController: Index", Message = "Service Layer...  Method" });
             ViewBag.Title = "Home Page";
 

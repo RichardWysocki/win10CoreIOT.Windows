@@ -18,8 +18,9 @@ namespace win10CoreIOT.Background
 
         public StartupTask()
         {
-           _serviceCalls = new ServiceLayers(new ServiceSettings("http://localhost:34909/api/"));
+            _serviceCalls = new ServiceLayers(new ServiceSettings("http://localhost:34909/api/"));
         }
+
         public void Run(IBackgroundTaskInstance taskInstance)
         {
             // 
@@ -37,14 +38,16 @@ namespace win10CoreIOT.Background
 
         private void Timer_Tick(ThreadPoolTimer timerTic)
         {
-
-            _serviceCalls.SendData("LogInfo", new LogInformation { Method = "StartupTask: Timer_Tick", Message = "Get All Open Gifts" });
+            _serviceCalls.SendData("LogInfo",
+                new LogInformation {Method = "StartupTask: Timer_Tick", Message = "Get All Open Gifts"});
             // Running Thread
-
+            var data = _serviceCalls.GetData<Gift>(@"NotificationApi/GetNewRegisteredGifts/false");
             // Get All Open Gifts Requests
-
+            foreach (var gift in data)
+            {
+                _serviceCalls.SendData(@"NotificationApi/SomethingElseHere", gift);
+            }
             // Send Emal and Update Gifts
-
 
 
             Trace.WriteLine(DateTime.Now.ToString(CultureInfo.InvariantCulture) + "   My App Started");

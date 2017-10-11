@@ -53,6 +53,8 @@ namespace win10Core.Business.DataAccess
                 result.GiftName = update.GiftName;
                 result.Priority = update.Priority;
                 result.WebUrl = update.WebUrl;
+                result.CreateDate = update.CreateDate;
+                result.EmailSent = update.EmailSent;
                 _db.SaveChanges();
                 return true;
             }
