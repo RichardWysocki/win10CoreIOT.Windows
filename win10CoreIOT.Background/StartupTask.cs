@@ -56,10 +56,10 @@ namespace win10CoreIOT.Background
             // Get All Open Gifts Requests
             foreach (var gift in data)
             {
-                _serviceCalls.SendData(@"NotificationApi/SomethingElseHere", gift);
+                _serviceCalls.SendData(@"NotificationApi/NotifyParentsofNewGift", gift);
             }
             // Send Emal and Update Gifts
-        }
+        } 
 
     }
 }

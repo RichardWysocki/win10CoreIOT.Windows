@@ -1,8 +1,8 @@
 ﻿using System.Web.Mvc;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Services.Controllers;
-using Services.Library;
+using Management.Controllers;
+using Management.Library;
 
 namespace Services.Tests.Controllers
 {

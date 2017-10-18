@@ -18,6 +18,7 @@
 
 using Services.Library;
 using StructureMap;
+using win10Core.Business;
 using win10Core.Business.DataAccess;
 using win10Core.Business.DataAccess.Interfaces;
 using win10Core.Business.Engine;
@@ -57,7 +58,13 @@ namespace Services.DependencyResolution {
                 For<IParentDataAccess>().Use<ParentDataAccess>();
                 For<IKidDataAccess>().Use<KidDataAccess>();
                 For<IGiftDataAccess>().Use<GiftDataAccess>();
-                For<IEmailEngine>().Use<EmailEngine>();
+                For<IEmailEngine>().Use(new EmailEngine( new EmailConfiguration
+                    {
+                        SMTPServer = ConfigHelper.GetSetting("SMTPServer"),
+                        SmtpServerUserName = ConfigHelper.GetSetting("AuthUserName"),
+                        SmtpServerPassword = ConfigHelper.GetSetting("AuthPassword")
+                    }
+                    , new LogErrorDataAccess(new DBContext())));
 
                 For<IEmailConfiguration>().Use<EmailConfiguration>();
 

@@ -25,7 +25,9 @@ namespace win10Core.Business.DataAccess
                 throw new ArgumentException("Invalid id Paramter");
             var kid = _db.Kid.SingleOrDefault(c => c.KidId == id);
             if (kid == null)
+            {
                 throw new Exception("Error getting Kid record.");
+            }
             return kid;
         }
 

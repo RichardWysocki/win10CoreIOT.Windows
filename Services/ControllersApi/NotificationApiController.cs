@@ -36,7 +36,7 @@ namespace Services.ControllersApi
         [ActionName("GetNewRegisteredGifts")]
         public IEnumerable<Gift> GetNewRegisteredGifts(string id)
         {
-            var getData = _giftDataAccess.GetEmailList(id == "true" ? true : false);
+            var getData = _giftDataAccess.GetEmailList(id == "true");
             var response = getData
                 .Select(c => new Gift()
                 {
@@ -51,23 +51,35 @@ namespace Services.ControllersApi
             return response;
         }
 
-        [System.Web.Http.HttpPost]
-        [ActionName("UpdateRegisteredGifts")]
-        public bool UpdateRegisteredGifts(Gift gift)
+        [HttpPost]
+        [ActionName("NotifyParentsofNewGift")]
+        public bool NotifyParentsofNewGift(Gift gift)
         {
-            var kid = _kidDataAccess.Get(gift.KidId);
-            var family = _familyDataAccess.Get(kid.FamilyId);
+            win10Core.Business.Model.Family family;
+            if ( null == gift || gift.GiftId == 0)
+            {
+                throw new Exception("Invalid Gift to Update.");
+            }
+            try
+            {
+                var kid = _kidDataAccess.Get(gift.KidId);
+                family = _familyDataAccess.Get(kid.FamilyId);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Invalid Gift to Update.");
+            }
 
-            var sendemail = new EmailEngine(
-                new EmailConfiguration
-                {
-                    SMTPServer = ConfigHelper.GetSetting("SMTPServer"),
-                    SmtpServerUserName = ConfigHelper.GetSetting("AuthUserName"),
-                    SmtpServerPassword = ConfigHelper.GetSetting("AuthPassword")
-                }
-                , new LogErrorDataAccess(new DBContext()));
+            //var sendemail = new EmailEngine(
+            //    new EmailConfiguration
+            //    {
+            //        SMTPServer = ConfigHelper.GetSetting("SMTPServer"),
+            //        SmtpServerUserName = ConfigHelper.GetSetting("AuthUserName"),
+            //        SmtpServerPassword = ConfigHelper.GetSetting("AuthPassword")
+            //    }
+            //    , new LogErrorDataAccess(new DBContext()));
 
-            //sendemail.Send(family.FamilyName, family.FamilyEmail, "Sample Message", "Hello Text", "RichardWysocki@gmail.com");
+            _emailEngine.Send(family.FamilyName, family.FamilyEmail, "Sample Message", "Hello Text", "RichardWysocki@gmail.com");
 
             var getData = _giftDataAccess.Update(new win10Core.Business.Model.Gift
             {
@@ -82,7 +94,7 @@ namespace Services.ControllersApi
             return getData;
         }
 
-        [System.Web.Http.HttpPost]
+        [HttpPost]
         [ActionName("SomethingElseHere")]
         public bool SomethingElseHere(Gift gift)
         {
