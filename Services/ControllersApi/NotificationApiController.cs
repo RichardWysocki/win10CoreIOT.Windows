@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using ServiceContracts.Contracts;
 using win10Core.Business;
 using win10Core.Business.DataAccess;
 using win10Core.Business.DataAccess.Interfaces;
 using win10Core.Business.Engine;
+using win10Core.Business.Model;
+using Gift = ServiceContracts.Contracts.Gift;
 
 namespace Services.ControllersApi
 {

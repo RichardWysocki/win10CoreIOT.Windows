@@ -1,5 +1,8 @@
-﻿namespace win10Core.Business.Model
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace win10Core.Business.Model
 {
+    [ExcludeFromCodeCoverage]
     public class Client
     {
 

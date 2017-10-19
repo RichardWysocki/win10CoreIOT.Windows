@@ -23,6 +23,7 @@ using win10Core.Business.DataAccess;
 using win10Core.Business.DataAccess.Interfaces;
 using win10Core.Business.Engine;
 using win10Core.Business.Engine.Interface;
+using win10Core.Business.Model;
 
 namespace Services.DependencyResolution {
     public static class IoC {

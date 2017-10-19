@@ -1,4 +1,4 @@
-﻿namespace win10Core.Business.Engine
+﻿namespace win10Core.Business.Model
 {
     public interface IEmailConfiguration
     {
@@ -8,12 +8,5 @@
 
         string SmtpServerPassword { get; set; }
 
-    }
-
-    public class EmailConfiguration : IEmailConfiguration
-    {
-        public string SMTPServer { get; set; }
-        public string SmtpServerUserName { get; set; }
-        public string SmtpServerPassword { get; set; }
     }
 }

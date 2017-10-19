@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics.CodeAnalysis;
 using AutoMapper;
 using win10Core.Business.Model;
 
 namespace win10Core.Business.DataAccess
 {
+    [ExcludeFromCodeCoverage]
+
     public class ClientDataAccess
     {
         readonly string _constr; 

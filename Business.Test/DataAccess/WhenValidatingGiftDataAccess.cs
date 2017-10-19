@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using EntityFramework.FakeItEasy;
 using FakeItEasy;
 using NUnit.Framework;
@@ -54,6 +55,37 @@ namespace Business.Test.DataAccess
             //Assert
             Assert.IsNotNull(response);
             Assert.IsEmpty(response);
+        }
+
+        static object[] RunCase =
+        {
+            new object[] { true },
+            new object[] { false }
+        };
+
+        [Test, TestCaseSource(nameof(RunCase))]
+        public void When_GetEmailList_returning_is_Valid(bool runValue)
+        {
+            // Arrange
+            var returndata = new List<Gift>()
+            {
+                new Gift{ GiftId = 1, KidId = 1, GiftName = "Gifts 1", WebUrl = "GiftEmail1@Test.com", Priority = 1, EmailSent = runValue},
+                new Gift{ GiftId = 2, KidId = 2, GiftName = "Gifts 2", WebUrl = "GiftEmail2@Test.com", Priority = 1, EmailSent = !runValue},
+                new Gift{ GiftId = 3, KidId = 2, GiftName = "Gifts 3", WebUrl = "GiftEmail3@Test.com", Priority = 1, EmailSent = runValue},
+            };
+
+            var context = A.Fake<IDBContext>();
+            var fakeDbSet = Aef.FakeDbSet(returndata);
+            A.CallTo(() => context.Gift).Returns(fakeDbSet);
+
+            // Act
+            var getGiftDataAccess = new GiftDataAccess(context);
+            var response = getGiftDataAccess.GetEmailList(runValue);
+
+            //Assert
+            Assert.IsNotNull(response);
+            Assert.That(response.Count() == 2, "Response Count for Gifts should be 2");
+
         }
 
         [Test]
@@ -124,6 +156,8 @@ namespace Business.Test.DataAccess
             var ex = Assert.Throws<Exception>(() => getGiftDataAccess.Get(3));
             Assert.That(ex.Message == "Error getting Gift record.");
         }
+
+
 
         [Test]
         public void When_Inserting_is_Valid()
