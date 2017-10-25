@@ -3,16 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using ServiceContracts.Contracts;
+using win10Core.Business.DataAccess;
 
 namespace Services.ASPNETCore.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
+        private LogInfoDataAccess _logInfoDataAccess;
+
+        public ValuesController(DBContext myContext)
+        {
+            _logInfoDataAccess = new LogInfoDataAccess(myContext);
+        }
         // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
         {
+            var getData = _logInfoDataAccess.Get();
+            var response = getData
+                .Select(c => new LogInformation { LogInfoId = c.LogInfoId, Method = c.Method, Message = c.Message })
+                .ToList();
+            //return response;
+
             return new string[] { "value1", "value2", "value3" };
         }
 
