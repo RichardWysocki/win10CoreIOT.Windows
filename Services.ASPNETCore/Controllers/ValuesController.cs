@@ -27,8 +27,14 @@ namespace Services.ASPNETCore.Controllers
                 .Select(c => new LogInformation { LogInfoId = c.LogInfoId, Method = c.Method, Message = c.Message })
                 .ToList();
             //return response;
-
-            return new string[] { "value1", "value2", "value3" };
+            var returnList = new List<string>();
+            foreach (var item in response)
+            {
+                returnList.Add(item.LogInfoId.ToString());
+                returnList.Add(item.Method);
+                returnList.Add(item.Message);
+            }
+            return returnList ; // new string[] { "value1", "value2", "value3" };
         }
 
         // GET api/values/5
