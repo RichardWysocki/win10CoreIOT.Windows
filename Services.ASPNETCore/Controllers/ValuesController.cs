@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using ServiceContracts.Contracts;
 using win10Core.Business.DataAccess;
+using win10Core.Business.Model;
 
 namespace Services.ASPNETCore.Controllers
 {
@@ -22,6 +21,20 @@ namespace Services.ASPNETCore.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
+            var getInsertData = _logInfoDataAccess.Insert(new LogInfo
+            {
+                //LogInfoId = log.LogInfoId,
+                Method = "values: get",
+                Message = "new message"+ DateTime.Now.ToString("MM/dd/yyyy")
+            });
+            //var response = new LogInformation
+            //{
+            //    LogInfoId = getData.LogInfoId,
+            //    Method = getData.Method,
+            //    Message = getData.Message
+            //};
+
+
             var getData = _logInfoDataAccess.Get();
             var response = getData
                 .Select(c => new LogInformation { LogInfoId = c.LogInfoId, Method = c.Method, Message = c.Message })
