@@ -6,7 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 using AutoMapper;
 using win10Core.Business.Model;
 
-namespace win10Core.Business.DataAccess
+namespace win10Core.Business.NETCORE.DataAccess
 {
     [ExcludeFromCodeCoverage]
 

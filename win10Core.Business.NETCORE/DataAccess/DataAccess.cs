@@ -5,7 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using AutoMapper;
 using win10Core.Business.DataAccess.Interfaces;
 
-namespace win10Core.Business.DataAccess
+namespace win10Core.Business.NETCORE.DataAccess
 {
     [ExcludeFromCodeCoverage]
     public class DataAccess : IDataAccess

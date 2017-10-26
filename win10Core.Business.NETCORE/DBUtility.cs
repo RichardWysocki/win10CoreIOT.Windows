@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
 
-namespace win10Core.Business
+namespace win10Core.Business.NETCORE
 {
     public class DbUtility
     {
