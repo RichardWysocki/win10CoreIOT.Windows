@@ -21,20 +21,7 @@ namespace Services.ASPNETCore.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            var getInsertData = _logInfoDataAccess.Insert(new LogInfo
-            {
-                //LogInfoId = log.LogInfoId,
-                Method = "values: get",
-                Message = "new message"+ DateTime.Now.ToString("MM/dd/yyyy")
-            });
-            //var response = new LogInformation
-            //{
-            //    LogInfoId = getData.LogInfoId,
-            //    Method = getData.Method,
-            //    Message = getData.Message
-            //};
-
-
+            DateTime start = DateTime.Now;
             var getData = _logInfoDataAccess.Get();
             var response = getData
                 .Select(c => new LogInformation { LogInfoId = c.LogInfoId, Method = c.Method, Message = c.Message })
@@ -47,6 +34,16 @@ namespace Services.ASPNETCore.Controllers
                 returnList.Add(item.Method);
                 returnList.Add(item.Message);
             }
+
+            DateTime end = DateTime.Now;
+            TimeSpan duration = end - start;
+            Console.WriteLine(duration.ToString());
+            var getInsertData = _logInfoDataAccess.Insert(new LogInfo
+            {
+                //LogInfoId = log.LogInfoId,
+                Method = "ValuesController: Get",
+                Message = "Time to Run: " + duration.ToString() + "on" + DateTime.Now.ToString("MM/dd/yyyy")
+            });
             return returnList ; // new string[] { "value1", "value2", "value3" };
         }
 
