@@ -11,7 +11,7 @@ namespace Services.ASPNETCore.Controllers
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
-        private LogInfoDataAccess _logInfoDataAccess;
+        private readonly LogInfoDataAccess _logInfoDataAccess;
 
         public ValuesController(DBContext myContext)
         {
