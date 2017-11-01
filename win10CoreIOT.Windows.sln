@@ -45,7 +45,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.ASPNETCore", "Serv
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "win10Core.Business.NETCORE", "win10Core.Business.NETCORE\win10Core.Business.NETCORE.csproj", "{3804B6BF-0B4D-45BC-9AD7-DE0445B4F8F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "win10Core.Business.Standard", "win10Core.Business.Standard\win10Core.Business.Standard.csproj", "{A79CAA6A-F32B-44F7-95C2-2317983C98CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "win10Core.Business.Standard", "win10Core.Business.Standard\win10Core.Business.Standard.csproj", "{A79CAA6A-F32B-44F7-95C2-2317983C98CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

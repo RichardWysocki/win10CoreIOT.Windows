@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using win10Core.Business.DataAccess;
+using win10Core.Business.Standard.DataAccess;
 
 namespace Services.ASPNETCore
 {

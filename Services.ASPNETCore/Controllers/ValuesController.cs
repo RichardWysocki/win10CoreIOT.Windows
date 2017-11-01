@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using ServiceContracts.Contracts;
-using win10Core.Business.Model;
-using win10Core.Business.DataAccess;
+using win10Core.Business.Standard.DataAccess;
+using win10Core.Business.Standard.Model;
 
 namespace Services.ASPNETCore.Controllers
 {
