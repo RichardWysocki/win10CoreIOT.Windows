@@ -5,9 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using win10Core.Business.DataAccess;
-using win10Core.Business.DataAccess.Interfaces;
 
-namespace Services.ASPNETCore
+namespace Services.ASPNETCore.Docker
 {
     public class Startup
     {
@@ -24,9 +23,6 @@ namespace Services.ASPNETCore
 
             services.AddDbContext<DBContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddTransient<IDBContext, DBContext>();
-            services.AddTransient<IKidDataAccess, KidDataAccess>();
-
             services.AddMvc();
             services.AddAutoMapper();
         }
