@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using ServiceContracts.Contracts;
 using win10Core.Business.DataAccess.Interfaces;
 
-namespace Services.ControllersApi
+namespace Services.ASPNETCore.Controllers
 {
     [Route("api/[controller]")]
     public class GiftApiController : Controller
@@ -16,6 +16,7 @@ namespace Services.ControllersApi
             _giftDataAccess = giftDataAccess;
         }
 
+        [HttpGet]
         // GET: api/GiftApi
         public IEnumerable<Gift> Get()
         {

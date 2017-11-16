@@ -6,6 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Properties\PublishProfiles\registry.hub.docker.com_RichardWysocki%40gmail.com.pubxml" />
+    <None Remove="Properties\PublishProfiles\registry.hub.docker.com_RichardWysocki.pubxml" />
+    <None Remove="Properties\PublishProfiles\registry.hub.docker.com_richardwysocki2017.pubxml" />
     <None Remove="Properties\PublishProfiles\ServicesASPNETCoreDocker20171102070453.pubxml" />
   </ItemGroup>
 

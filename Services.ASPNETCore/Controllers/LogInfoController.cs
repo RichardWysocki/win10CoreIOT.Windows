@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
-using ServiceContracts;
 using ServiceContracts.Contracts;
 using win10Core.Business.DataAccess.Interfaces;
 using win10Core.Business.Engine.Interface;
 using win10Core.Business.Model;
 
-namespace Services.ControllersApi
+namespace Services.ASPNETCore.Controllers
 {
+    [Route("api/[controller]")]
     public class LogInfoController : Controller
     {
         private readonly ILogInfoDataAccess _logInfoDataAccess;
@@ -23,6 +22,7 @@ namespace Services.ControllersApi
             _logInfoDataAccess = logInfoDataAccess; 
         }
 
+        [HttpGet]
         // GET api/<controller>
         public IEnumerable<LogInformation> Get()
         {
@@ -36,6 +36,8 @@ namespace Services.ControllersApi
                 .ToList();
             return response;
         }
+
+        [HttpGet("{id}")]
 
         // GET api/<controller>/5
         public LogInformation Get(int id)
@@ -56,7 +58,7 @@ namespace Services.ControllersApi
                 throw new HttpRequestException(e.Message); 
             }
         }
-
+        [HttpPost]
         // POST api/<controller>
         public LogInformation Post(LogInformation log)
         {

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using ServiceContracts.Contracts;
 using win10Core.Business.DataAccess.Interfaces;
 
-namespace Services.ControllersApi
+namespace Services.ASPNETCore.Controllers
 {
     [Route("api/[controller]")]
     public class KidApiController : Controller

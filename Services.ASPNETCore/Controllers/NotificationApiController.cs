@@ -4,14 +4,12 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Services.ASPNETCore.Model;
-using win10Core.Business;
-using win10Core.Business.DataAccess;
 using win10Core.Business.DataAccess.Interfaces;
 using win10Core.Business.Engine;
 using win10Core.Business.Model;
 using Gift = ServiceContracts.Contracts.Gift;
 
-namespace Services.ControllersApi
+namespace Services.ASPNETCore.Controllers
 {
     [Route("api/[controller]")]
 

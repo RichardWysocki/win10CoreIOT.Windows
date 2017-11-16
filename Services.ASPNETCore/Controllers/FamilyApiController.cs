@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using win10Core.Business.DataAccess.Interfaces;
 using Family = ServiceContracts.Contracts.Family;
 
-namespace Services.ControllersApi
+namespace Services.ASPNETCore.Controllers
 {
+    [Route("api/[controller]")]
     public class FamilyApiController : Controller
     {
         private readonly IFamilyDataAccess _familyDataAccess;
