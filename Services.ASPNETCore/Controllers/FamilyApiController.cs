@@ -16,6 +16,7 @@ namespace Services.ASPNETCore.Controllers
             _familyDataAccess = familyDataAccess;
         }
         // GET: api/FamilyApi
+        [HttpGet]
         public IEnumerable<Family> Get()
         {
             var getData = _familyDataAccess.Get();
@@ -26,6 +27,7 @@ namespace Services.ASPNETCore.Controllers
         }
 
         // GET: api/FamilyApi/5
+        [HttpGet("{id}")]
         public Family Get(int id)
         {
             var getData = _familyDataAccess.Get(id);
@@ -34,7 +36,8 @@ namespace Services.ASPNETCore.Controllers
         }
 
         // POST: api/FamilyApi
-        public Family Post(Family family)
+        [HttpPost]
+        public Family Post([FromBody] Family family)
         {
             var getData = _familyDataAccess.Insert(new win10Core.Business.Model.Family {FamilyName = family.FamilyName, FamilyEmail = family.FamilyEmail});
             var response = new Family { FamilyId = getData.FamilyId, FamilyName = getData.FamilyName, FamilyEmail = getData.FamilyEmail };
@@ -42,12 +45,14 @@ namespace Services.ASPNETCore.Controllers
         }
 
         // PUT: api/FamilyApi/5
-        public void Put(Family family)
+        [HttpPut]
+        public void Put([FromBody] Family family)
         {
             var getData = _familyDataAccess.Update(new win10Core.Business.Model.Family { FamilyId = family.FamilyId, FamilyName = family.FamilyName, FamilyEmail = family.FamilyEmail });
         }
 
         // DELETE: api/FamilyApi/5
+        [HttpDelete("{id}")]
         public void Delete(int id)
         {
             //TODO  //Only Delete if Parent is not using the FamilyID

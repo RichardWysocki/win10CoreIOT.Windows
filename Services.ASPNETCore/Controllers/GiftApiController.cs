@@ -16,8 +16,8 @@ namespace Services.ASPNETCore.Controllers
             _giftDataAccess = giftDataAccess;
         }
 
-        [HttpGet]
         // GET: api/GiftApi
+        [HttpGet]
         public IEnumerable<Gift> Get()
         {
             var getData = _giftDataAccess.Get();
@@ -27,6 +27,7 @@ namespace Services.ASPNETCore.Controllers
         }
 
         // GET: api/GiftApi/5
+        [HttpGet("{id}")]
         public Gift Get(int id)
         {
             var getData = _giftDataAccess.Get(id);
@@ -35,7 +36,8 @@ namespace Services.ASPNETCore.Controllers
         }
 
         // POST: api/GiftApi
-        public Gift Post(Gift gift)
+        [HttpPost]
+        public Gift Post([FromBody] Gift gift)
         {
             var getData = _giftDataAccess.Insert(new win10Core.Business.Model.Gift { GiftName = gift.GiftName, Priority = gift.Priority, WebUrl = gift.WebUrl, KidId = gift.KidId });
             var response = new Gift { GiftId = getData.GiftId, GiftName = getData.GiftName, Priority = getData.Priority, WebUrl = getData.WebUrl, KidId = getData.KidId };
@@ -43,12 +45,14 @@ namespace Services.ASPNETCore.Controllers
         }
 
         // PUT: api/GiftApi/5
-        public void Put(Gift gift)
+        [HttpPut]
+        public void Put([FromBody] Gift gift)
         {
             var getData = _giftDataAccess.Update(new win10Core.Business.Model.Gift { GiftId = gift.GiftId, GiftName = gift.GiftName, Priority = gift.Priority, WebUrl = gift.WebUrl, KidId = gift.KidId });
         }
 
         // DELETE: api/GiftApi/5
+        [HttpDelete("{id}")]
         public void Delete(int id)
         {
             _giftDataAccess.Delete(id);

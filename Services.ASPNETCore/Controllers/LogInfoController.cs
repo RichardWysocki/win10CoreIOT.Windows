@@ -22,8 +22,8 @@ namespace Services.ASPNETCore.Controllers
             _logInfoDataAccess = logInfoDataAccess; 
         }
 
-        [HttpGet]
         // GET api/<controller>
+        [HttpGet]
         public IEnumerable<LogInformation> Get()
         {
             //_logEngine.LogError("1", "2", "3");
@@ -37,9 +37,8 @@ namespace Services.ASPNETCore.Controllers
             return response;
         }
 
-        [HttpGet("{id}")]
-
         // GET api/<controller>/5
+        [HttpGet("{id}")]
         public LogInformation Get(int id)
         {
             try
@@ -58,9 +57,10 @@ namespace Services.ASPNETCore.Controllers
                 throw new HttpRequestException(e.Message); 
             }
         }
-        [HttpPost]
+
         // POST api/<controller>
-        public LogInformation Post(LogInformation log)
+        [HttpPost]
+        public LogInformation Post([FromBody] LogInformation log)
         {
             var getData = _logInfoDataAccess.Insert(new LogInfo
             {

@@ -16,6 +16,7 @@ namespace Services.ASPNETCore.Controllers
             _parentDataAccess = parentDataAccess;
         }
         // GET: api/ParentApi
+        [HttpGet]
         public IEnumerable<Parent> Get()
         {
             var getData = _parentDataAccess.Get();
@@ -26,6 +27,7 @@ namespace Services.ASPNETCore.Controllers
         }
 
         // GET: api/ParentApi/5
+        [HttpGet("{id}")]
         public Parent Get(int id)
         {
             var getData = _parentDataAccess.Get(id);
@@ -34,19 +36,23 @@ namespace Services.ASPNETCore.Controllers
         }
 
         // POST: api/ParentApi
-        public Parent Post(Parent parent)
+        [HttpPost]
+        public Parent Post([FromBody] Parent parent)
         {
             var getData = _parentDataAccess.Insert(new win10Core.Business.Model.Parent() {Name = parent.Name, Email = parent.Email, FamilyId = parent.FamilyId});
             var response = new Parent { ParentId = getData.ParentId, Name = getData.Name, Email = getData.Email, FamilyId = getData.FamilyId};
             return response;
         }
 
-        // PUT: api/ParentApi/5
-        public void Put(Parent parent)
+        // PUT: api/ParentApi/
+        [HttpPut]
+        public void Put([FromBody] Parent parent)
         {
             var getData = _parentDataAccess.Update(new win10Core.Business.Model.Parent() { ParentId = parent.ParentId,  Name = parent.Name, Email = parent.Email, FamilyId = parent.FamilyId});
         }
+
         // DELETE: api/ParentApi/5
+        [HttpDelete("{id}")]
         public void Delete(int id)
         {
         }

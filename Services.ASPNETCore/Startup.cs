@@ -30,11 +30,14 @@ namespace Services.ASPNETCore
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<IDBContext, DBContext>();
             services.AddTransient<IKidDataAccess, KidDataAccess>();
-            services.AddTransient<ILogEngine, LogEngine>();
             services.AddTransient<ILogInfoDataAccess, LogInfoDataAccess>();
             services.AddTransient<ILogErrorDataAccess, LogErrorDataAccess>();
-            
+            services.AddTransient<IFamilyDataAccess, FamilyDataAccess>();
+            services.AddTransient<IGiftDataAccess, GiftDataAccess>();
+            services.AddTransient<IParentDataAccess, ParentDataAccess>();
 
+            services.AddTransient<ILogEngine, LogEngine>();
+            
             services.AddMvc();
             services.AddRouting();
             services.AddAutoMapper();
