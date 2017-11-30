@@ -75,10 +75,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Business.Test\Business.Test.csproj">
-      <Project>{6f6954c3-09ad-4480-a04d-da3c5fcdead4}</Project>
-      <Name>Business.Test</Name>
-    </ProjectReference>
     <ProjectReference Include="..\win10Core.Business\win10Core.Business.csproj">
       <Project>{3C410F47-19C3-4B4B-8F6D-7E9FD4C56A10}</Project>
       <Name>win10Core.Business</Name>
