@@ -6,7 +6,7 @@ using NUnit.Framework;
 using ServiceContracts.Contracts;
 using Services.ControllersApi;
 using win10Core.Business.DataAccess.Interfaces;
-using win10Core.Business.Engine;
+using win10Core.Business.Engine.Interface;
 using Assert = NUnit.Framework.Assert;
 
 namespace Services.Tests.Controllers

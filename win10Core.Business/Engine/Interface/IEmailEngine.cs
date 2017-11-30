@@ -1,4 +1,4 @@
-﻿namespace win10Core.Business.Engine
+﻿namespace win10Core.Business.Engine.Interface
 {
     public interface IEmailEngine
     {

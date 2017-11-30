@@ -1,18 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web.Http;
 using ServiceContracts.Contracts;
 using win10Core.Business.DataAccess.Interfaces;
+using win10Core.Business.Engine.Interface;
 
 namespace Services.ControllersApi
 {
     public class KidApiController : ApiController
     {
         private readonly IKidDataAccess _kidDataAccess;
+        private readonly IKidEngine _kidEngine;
 
-        public KidApiController(IKidDataAccess kidDataAccess)
+        public KidApiController(IKidDataAccess kidDataAccess, IKidEngine kidEngine)
         {
             _kidDataAccess = kidDataAccess;
+            _kidEngine = kidEngine;
         }
         // GET: api/kidApi
         public IEnumerable<Kid> Get()
@@ -35,20 +40,62 @@ namespace Services.ControllersApi
         // POST: api/KidApi
         public Kid Post(Kid kid)
         {
-            var getData = _kidDataAccess.Insert(new win10Core.Business.Model.Kid() {Name = kid.Name, Email = kid.Email, FamilyId = kid.FamilyId});
-            var response = new Kid { KidId = getData.KidId, Name = getData.Name, Email = getData.Email, FamilyId = getData.FamilyId};
-            return response;
+            var addKid =
+                new win10Core.Business.Model.Kid() {Name = kid.Name, Email = kid.Email, FamilyId = kid.FamilyId};
+
+            //var getData = _kidEngine.InsertKid(addKid);
+            ////var getData = _kidDataAccess.Insert(new win10Core.Business.Model.Kid() {Name = kid.Name, Email = kid.Email, FamilyId = kid.FamilyId});
+            //var response = new Kid { KidId = getData.KidId, Name = getData.Name, Email = getData.Email, FamilyId = getData.FamilyId};
+            //return response;
+
+
+            try
+            {
+                var getData =  _kidEngine.InsertKid(addKid);
+                var response = new Kid { KidId = getData.KidId, Name = getData.Name, Email = getData.Email, FamilyId = getData.FamilyId };
+                return response;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                // throw new HttpRequestException(e.Message);
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+
         }
 
         // PUT: api/KidApi/5
         public void Put(Kid kid)
         {
-            var getData = _kidDataAccess.Update(new win10Core.Business.Model.Kid() { KidId = kid.KidId,  Name = kid.Name, Email = kid.Email, FamilyId = kid.FamilyId});
+            try
+            {
+                _kidEngine.UpdateKid(new win10Core.Business.Model.Kid() { KidId = kid.KidId, Name = kid.Name, Email = kid.Email, FamilyId = kid.FamilyId });
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                // throw new HttpRequestException(e.Message);
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+            
          }
 
         // DELETE: api/KidApi/5
         public void Delete(int id)
         {
+            //_kidDataAccess.Get(id);
+            //_kidDataAccess.Delete(id);
+
+            try
+            {
+                _kidEngine.DeleteKid(id);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                // throw new HttpRequestException(e.Message);
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
         }
     }
 }
