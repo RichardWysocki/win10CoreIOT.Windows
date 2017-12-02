@@ -4,16 +4,19 @@ using System.Web.Http;
 using ServiceContracts;
 using ServiceContracts.Contracts;
 using win10Core.Business.DataAccess.Interfaces;
+using win10Core.Business.Engine.Interface;
 
 namespace Services.ControllersApi
 {
     public class ParentApiController : ApiController
     {
         private readonly IParentDataAccess _parentDataAccess;
+        private readonly IParentEngine _parentEngine;
 
-        public ParentApiController(IParentDataAccess parentDataAccess)
+        public ParentApiController(IParentDataAccess parentDataAccess, IParentEngine parentEngine)
         {
             _parentDataAccess = parentDataAccess;
+            _parentEngine = parentEngine;
         }
         // GET: api/ParentApi
         public IEnumerable<Parent> Get()

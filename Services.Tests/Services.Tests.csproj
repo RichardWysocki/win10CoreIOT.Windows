@@ -130,7 +130,7 @@
       <Name>ServiceContracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\Services\Services.csproj">
-      <Project>{5e2dd852-ab64-4f20-9540-bdc528e85f5a}</Project>
+      <Project>{5E2DD852-AB64-4F20-9540-BDC528E85F5A}</Project>
       <Name>Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\win10Core.Business\win10Core.Business.csproj">

@@ -40,15 +40,7 @@ namespace Services.ControllersApi
         // POST: api/KidApi
         public Kid Post(Kid kid)
         {
-            var addKid =
-                new win10Core.Business.Model.Kid() {Name = kid.Name, Email = kid.Email, FamilyId = kid.FamilyId};
-
-            //var getData = _kidEngine.InsertKid(addKid);
-            ////var getData = _kidDataAccess.Insert(new win10Core.Business.Model.Kid() {Name = kid.Name, Email = kid.Email, FamilyId = kid.FamilyId});
-            //var response = new Kid { KidId = getData.KidId, Name = getData.Name, Email = getData.Email, FamilyId = getData.FamilyId};
-            //return response;
-
-
+            var addKid = new win10Core.Business.Model.Kid() {Name = kid.Name, Email = kid.Email, FamilyId = kid.FamilyId};
             try
             {
                 var getData =  _kidEngine.InsertKid(addKid);
@@ -83,9 +75,6 @@ namespace Services.ControllersApi
         // DELETE: api/KidApi/5
         public void Delete(int id)
         {
-            //_kidDataAccess.Get(id);
-            //_kidDataAccess.Delete(id);
-
             try
             {
                 _kidEngine.DeleteKid(id);

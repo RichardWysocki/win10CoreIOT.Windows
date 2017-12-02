@@ -69,8 +69,12 @@
     <Compile Include="DataAccess\LogErrorDataAccess.cs" />
     <Compile Include="DataAccess\LogInfoDataAccess.cs" />
     <Compile Include="DataAccess\ParentDataAccess.cs" />
+    <Compile Include="Engine\GiftEngine.cs" />
+    <Compile Include="Engine\Interface\IGiftEngine.cs" />
     <Compile Include="Engine\Interface\IKidEngine.cs" />
+    <Compile Include="Engine\Interface\IParentEngine.cs" />
     <Compile Include="Engine\KidEngine.cs" />
+    <Compile Include="Engine\ParentEngine.cs" />
     <Compile Include="Model\EmailConfiguration.cs" />
     <Compile Include="Model\IEmailConfiguration.cs" />
     <Compile Include="Engine\EmailEngine.cs" />

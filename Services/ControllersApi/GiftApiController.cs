@@ -3,16 +3,19 @@ using System.Linq;
 using System.Web.Http;
 using ServiceContracts.Contracts;
 using win10Core.Business.DataAccess.Interfaces;
+using win10Core.Business.Engine.Interface;
 
 namespace Services.ControllersApi
 {
     public class GiftApiController : ApiController
     {
         private IGiftDataAccess _giftDataAccess;
+        private IGiftEngine _giftEngine;
 
-        public GiftApiController(IGiftDataAccess giftDataAccess)
+        public GiftApiController(IGiftDataAccess giftDataAccess, IGiftEngine giftEngine)
         {
             _giftDataAccess = giftDataAccess;
+            _giftEngine = giftEngine;
         }
 
         // GET: api/GiftApi

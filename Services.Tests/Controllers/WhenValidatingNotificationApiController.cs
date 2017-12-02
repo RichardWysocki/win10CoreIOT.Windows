@@ -4,10 +4,10 @@ using System.Linq;
 using FakeItEasy;
 using NUnit.Framework;
 using ServiceContracts.Contracts;
-using Services.ControllersApi;
 using win10Core.Business.DataAccess.Interfaces;
 using win10Core.Business.Engine.Interface;
 using Assert = NUnit.Framework.Assert;
+using Services.ControllersApi;
 
 namespace Services.Tests.Controllers
 {
