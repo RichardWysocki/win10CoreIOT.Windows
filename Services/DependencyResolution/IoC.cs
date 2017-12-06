@@ -54,11 +54,16 @@ namespace Services.DependencyResolution {
                 For<IServiceLayer>().Use<ServiceLayer>();
                 For<ILogInfoDataAccess>().Use<LogInfoDataAccess>();
                 For<ILogErrorDataAccess>().Use<LogErrorDataAccess>();
-                For<ILogEngine>().Use<LogEngine>();
                 For<IFamilyDataAccess>().Use<FamilyDataAccess>();
                 For<IParentDataAccess>().Use<ParentDataAccess>();
                 For<IKidDataAccess>().Use<KidDataAccess>();
                 For<IGiftDataAccess>().Use<GiftDataAccess>();
+
+                For<ILogEngine>().Use<LogEngine>();
+                For<IKidEngine>().Use<KidEngine>();
+                For<IParentEngine>().Use<ParentEngine>();
+                For<IGiftEngine>().Use<GiftEngine>();
+
                 For<IEmailEngine>().Use(new EmailEngine( new EmailConfiguration
                     {
                         SMTPServer = ConfigHelper.GetSetting("SMTPServer"),
