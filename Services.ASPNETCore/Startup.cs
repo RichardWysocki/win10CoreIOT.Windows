@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +8,8 @@ using win10Core.Business.DataAccess;
 using win10Core.Business.DataAccess.Interfaces;
 using win10Core.Business.Engine;
 using win10Core.Business.Engine.Interface;
+using win10Core.Business.NETCORE.Engine;
+using win10Core.Business.NETCORE.Engine.Interface;
 
 namespace Services.ASPNETCore
 {
@@ -27,7 +27,7 @@ namespace Services.ASPNETCore
         {
 
             services.AddDbContext<DBContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<IDBContext, DBContext>();
             services.AddTransient<IKidDataAccess, KidDataAccess>();
             services.AddTransient<ILogInfoDataAccess, LogInfoDataAccess>();
@@ -37,7 +37,18 @@ namespace Services.ASPNETCore
             services.AddTransient<IParentDataAccess, ParentDataAccess>();
 
             services.AddTransient<ILogEngine, LogEngine>();
-            
+            services.AddTransient<IKidEngine, KidEngine>();
+            services.AddTransient<IParentEngine, ParentEngine>();
+            services.AddTransient<IGiftEngine, GiftEngine>();
+            services.AddTransient<ILogEngine, LogEngine>();
+
+            services.AddMvc();
+
+            //services.AddSwaggerGen(c =>
+            //{
+            //    c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+            //});
+
             services.AddMvc();
             services.AddRouting();
             services.AddAutoMapper();
@@ -52,6 +63,11 @@ namespace Services.ASPNETCore
             }
 
             //app.UseMvc();
+            //app.UseSwagger();
+            //app.UseSwaggerUI(c =>
+            //{
+            //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            //});
 
             app.UseMvc(routes =>
             {
