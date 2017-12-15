@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using win10Core.Business.DataAccess;
 using win10Core.Business.DataAccess.Interfaces;
 using win10Core.Business.Engine;
@@ -23,8 +24,19 @@ namespace Services.ASPNETCore
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services) //, ILoggerFactory loggerFactory)
         {
+
+            // add configured instance of logging
+            services.AddSingleton(new LoggerFactory()
+                .AddConsole()
+                .AddDebug());
+
+            // add logging
+            services.AddLogging();
+            //services.AddLogging();
+            //loggerFactory.AddConsole();
+            //loggerFactory.AddDebug();
 
             services.AddDbContext<DBContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -42,8 +54,7 @@ namespace Services.ASPNETCore
             services.AddTransient<IGiftEngine, GiftEngine>();
             services.AddTransient<ILogEngine, LogEngine>();
 
-            services.AddMvc();
-
+            //services.AddMvc();
             //services.AddSwaggerGen(c =>
             //{
             //    c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
@@ -62,13 +73,6 @@ namespace Services.ASPNETCore
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.UseMvc();
-            //app.UseSwagger();
-            //app.UseSwaggerUI(c =>
-            //{
-            //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-            //});
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -76,30 +80,6 @@ namespace Services.ASPNETCore
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            //var trackPackageRouteHandler = new RouteHandler(context =>
-            //{
-            //    var routeValues = context.GetRouteData().Values;
-            //    return context.Response.WriteAsync(
-            //        $"Hello! Route values: {string.Join(", ", routeValues)}");
-            //});
-
-            //var routeBuilder = new RouteBuilder(app, trackPackageRouteHandler);
-
-            //routeBuilder.MapRoute(
-            //    "Track Package Route",
-            //    "package/{operation:regex(^(track|create|detonate)$)}/{id:int}");
-
-            //routeBuilder.MapGet("hello/{name}", context =>
-            //{
-            //    var name = context.GetRouteValue("name");
-            //    // This is the route handler when HTTP GET "hello/<anything>"  matches
-            //    // To match HTTP GET "hello/<anything>/<anything>,
-            //    // use routeBuilder.MapGet("hello/{*name}"
-            //    return context.Response.WriteAsync($"Hi, {name}!");
-            //});
-
-            //var routes = routeBuilder.Build();
-            //app.UseRouter(routes);
         }
 
     }

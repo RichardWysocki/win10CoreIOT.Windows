@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using ServiceContracts.Contracts;
 using win10Core.Business.DataAccess.Interfaces;
 
@@ -10,16 +11,19 @@ namespace Services.ASPNETCore.Controllers
     public class GiftApiController : Controller
     {
         private IGiftDataAccess _giftDataAccess;
+        private ILogger<GiftApiController> _log;
 
-        public GiftApiController(IGiftDataAccess giftDataAccess)
+        public GiftApiController(IGiftDataAccess giftDataAccess, ILogger<GiftApiController> log)
         {
             _giftDataAccess = giftDataAccess;
+            _log = log;
         }
 
         // GET: api/GiftApi
         [HttpGet]
         public IEnumerable<Gift> Get()
         {
+            _log.LogCritical("Starting GiftApiController: Get");
             var getData = _giftDataAccess.Get();
             var response = getData
                 .Select(c => new Gift() { GiftId = c.GiftId, GiftName = c.GiftName, Priority = c.Priority, WebUrl = c.WebUrl, KidId = c.KidId}).ToList();
