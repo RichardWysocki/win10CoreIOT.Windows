@@ -74,6 +74,7 @@
     <Compile Include="DataAccess\WhenValidatingParentDataAccess.cs" />
     <Compile Include="DataAccess\WhenValidatingGiftDataAccess.cs" />
     <Compile Include="DataAccess\WhenValidatingKidDataAccess.cs" />
+    <Compile Include="Engine\WhenValidatingGiftEngine.cs" />
     <Compile Include="Engine\WhenValidatingKidEngine.cs" />
     <Compile Include="Engine\WhenValidatingLogEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
