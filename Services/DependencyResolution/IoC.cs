@@ -16,6 +16,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 
+using System;
 using Services.Library;
 using StructureMap;
 using win10Core.Business;
@@ -66,8 +67,9 @@ namespace Services.DependencyResolution {
 
                 For<IEmailEngine>().Use(new EmailEngine( new EmailConfiguration
                     {
-                        SMTPServer = ConfigHelper.GetSetting("SMTPServer"),
-                        SmtpServerUserName = ConfigHelper.GetSetting("AuthUserName"),
+                        SmtpServer = ConfigHelper.GetSetting("SMTPServer"),
+                        SmtpPort = Convert.ToInt32(ConfigHelper.GetSetting("SmtpPort")),
+                    SmtpServerUserName = ConfigHelper.GetSetting("AuthUserName"),
                         SmtpServerPassword = ConfigHelper.GetSetting("AuthPassword")
                     }
                     , new LogErrorDataAccess(new DBContext())));

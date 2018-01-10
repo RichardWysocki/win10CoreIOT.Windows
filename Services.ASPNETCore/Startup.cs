@@ -9,6 +9,7 @@ using win10Core.Business.DataAccess;
 using win10Core.Business.DataAccess.Interfaces;
 using win10Core.Business.Engine;
 using win10Core.Business.Engine.Interface;
+using win10Core.Business.Model;
 using win10Core.Business.NETCORE.Engine;
 using win10Core.Business.NETCORE.Engine.Interface;
 
@@ -38,8 +39,8 @@ namespace Services.ASPNETCore
             //loggerFactory.AddConsole();
             //loggerFactory.AddDebug();
 
-            services.AddDbContext<DBContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddTransient<IDBContext, DBContext>();
             services.AddTransient<IKidDataAccess, KidDataAccess>();
             services.AddTransient<ILogInfoDataAccess, LogInfoDataAccess>();
@@ -53,6 +54,8 @@ namespace Services.ASPNETCore
             services.AddTransient<IParentEngine, ParentEngine>();
             services.AddTransient<IGiftEngine, GiftEngine>();
             services.AddTransient<ILogEngine, LogEngine>();
+            services.AddTransient<IEmailEngine, EmailEngine>();
+            services.AddTransient<IEmailConfiguration, EmailConfiguration>();
 
             //services.AddMvc();
             //services.AddSwaggerGen(c =>
@@ -61,7 +64,8 @@ namespace Services.ASPNETCore
             //});
 
             services.AddMvc();
-            services.AddRouting();
+
+
             services.AddAutoMapper();
         }
 

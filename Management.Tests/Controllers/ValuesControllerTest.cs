@@ -1,8 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Services.Tests.Controllers
+namespace Management.Tests.Controllers
 {
-    [TestClass]
+    //[TestClass]
     public class ValuesControllerTest
     {
         //[TestMethod]

@@ -105,7 +105,7 @@ namespace Services.Tests.Controllers
             var kidDataAccess = A.Fake<IKidDataAccess>();
             NotificationApiController controller = new NotificationApiController(emailEngine, giftDataAccess, familyDataAccess, kidDataAccess);
 
-            var returndata = new win10Core.Business.Model.Kid();
+            //var returndata = new win10Core.Business.Model.Kid();
             //var returndata = new List<win10Core.Business.Model.Kid>();
             //{
             //    new win10Core.Business.Model.Gift {GiftId = 1, GiftName = "A"},
@@ -177,7 +177,7 @@ namespace Services.Tests.Controllers
             // Assert
             var result = controller.NotifyParentsofNewGift(new Gift { GiftId = 1 });
             //Assert.That(ex.Message == "Invalid Gift to Update.");
-            Assert.That(result == true, "Result should be true");
+            Assert.That(result, "Result should be true");
             //Assert.IsInstanceOf(typeof(IEnumerable<Gift>), result, "Type should be the same");
             //Assert.That(result, "Result count should be 2");
         }

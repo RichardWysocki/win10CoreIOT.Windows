@@ -11,10 +11,10 @@ namespace win10Core.Business.Engine
         private readonly IParentDataAccess _parentDataAccess;
         private readonly IFamilyDataAccess _familyDataAccess;
 
-        public ParentEngine(IFamilyDataAccess familyDataAccess, IParentDataAccess ParentDataAccess)
+        public ParentEngine(IParentDataAccess parentDataAccess, IFamilyDataAccess familyDataAccess)
         {
             _familyDataAccess = familyDataAccess;
-            _parentDataAccess = ParentDataAccess;
+            _parentDataAccess = parentDataAccess;
         }
         public Parent InsertParent(Parent insertParent)
         {

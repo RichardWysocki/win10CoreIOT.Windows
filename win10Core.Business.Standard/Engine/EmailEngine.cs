@@ -56,9 +56,9 @@ namespace win10Core.Business.Standard.Engine
                 message.IsBodyHtml = true;
 
                 //send the message
-                SmtpClient smtpMail = new SmtpClient(_emailConfiguration.SMTPServer)
+                SmtpClient smtpMail = new SmtpClient(_emailConfiguration.SmtpServer)
                 {
-                    Port = 587,
+                    Port = _emailConfiguration.SmtpPort,  //587,
                     EnableSsl = true,
                     Credentials = new System.Net.NetworkCredential(_emailConfiguration.SmtpServerUserName,
                         _emailConfiguration.SmtpServerPassword)

@@ -45,7 +45,7 @@ namespace win10CoreIOT.Background
             if (!worker.IsBusy)
                 worker.RunWorkerAsync();
 
-            Trace.WriteLine(DateTime.Now.ToString(CultureInfo.InvariantCulture) + "   My App Started");
+            Trace.WriteLine(DateTime.Now.ToString(CultureInfo.InvariantCulture) + "   My App Started"); 
         }
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {

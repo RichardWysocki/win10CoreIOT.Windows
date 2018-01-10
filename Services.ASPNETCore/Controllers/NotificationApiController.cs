@@ -11,7 +11,7 @@ using Gift = ServiceContracts.Contracts.Gift;
 
 namespace Services.ASPNETCore.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
 
     public class NotificationApiController : Controller
     {
@@ -20,7 +20,7 @@ namespace Services.ASPNETCore.Controllers
         private readonly IFamilyDataAccess _familyDataAccess;
         private readonly IKidDataAccess _kidDataAccess;
         private readonly ILogErrorDataAccess _logErrorDataAccess;
-        private readonly WebSettings webSetting;
+        private readonly WebSettings _webSetting;
 
         public NotificationApiController(IOptions<WebSettings> webSettings, IEmailEngine emailEngine, IGiftDataAccess giftDataAccess,  IFamilyDataAccess familyDataAccess, IKidDataAccess kidDataAccess, ILogErrorDataAccess logErrorDataAccess)
         {
@@ -29,7 +29,7 @@ namespace Services.ASPNETCore.Controllers
             _familyDataAccess = familyDataAccess;
             _kidDataAccess = kidDataAccess;
             _logErrorDataAccess = logErrorDataAccess;
-            webSetting = webSettings.Value;
+            _webSetting = webSettings.Value;
         }
 
 
@@ -58,9 +58,9 @@ namespace Services.ASPNETCore.Controllers
 
         [HttpPost]
         [ActionName("NotifyParentsofNewGift")]
-        public bool NotifyParentsofNewGift(Gift gift)
+        public bool NotifyParentsofNewGift([FromBody] Gift gift)
         {
-            win10Core.Business.Model.Family family;
+            Family family;
             if ( null == gift || gift.GiftId == 0)
             {
                 throw new Exception("Invalid Gift to Update.");
@@ -70,7 +70,7 @@ namespace Services.ASPNETCore.Controllers
                 var kid = _kidDataAccess.Get(gift.KidId);
                 family = _familyDataAccess.Get(kid.FamilyId);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new Exception("Invalid Gift to Update.");
             }
@@ -109,9 +109,10 @@ namespace Services.ASPNETCore.Controllers
             var sendemail = new EmailEngine(
                 new EmailConfiguration
                 {
-                    SMTPServer = webSetting.SMTPServer,
-                    SmtpServerUserName = webSetting.AuthUserName,
-                    SmtpServerPassword = webSetting.AuthPassword
+                    SmtpServer = _webSetting.SmtpServer,
+                    SmtpPort = _webSetting.SmtpPort,
+                    SmtpServerUserName = _webSetting.AuthUserName,
+                    SmtpServerPassword = _webSetting.AuthPassword
                 }
                 , _logErrorDataAccess);
             //, new LogErrorDataAccess(new DBContext()));

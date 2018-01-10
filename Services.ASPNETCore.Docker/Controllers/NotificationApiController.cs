@@ -20,7 +20,7 @@ namespace Services.ASPNETCore.Docker.Controllers
         private readonly IFamilyDataAccess _familyDataAccess;
         private readonly IKidDataAccess _kidDataAccess;
         private readonly ILogErrorDataAccess _logErrorDataAccess;
-        private readonly WebSettings webSetting;
+        private readonly WebSettings _webSetting;
 
         public NotificationApiController(IOptions<WebSettings> webSettings, IEmailEngine emailEngine, IGiftDataAccess giftDataAccess,  IFamilyDataAccess familyDataAccess, IKidDataAccess kidDataAccess, ILogErrorDataAccess logErrorDataAccess)
         {
@@ -29,7 +29,7 @@ namespace Services.ASPNETCore.Docker.Controllers
             _familyDataAccess = familyDataAccess;
             _kidDataAccess = kidDataAccess;
             _logErrorDataAccess = logErrorDataAccess;
-            webSetting = webSettings.Value;
+            _webSetting = webSettings.Value;
         }
 
 
@@ -109,9 +109,10 @@ namespace Services.ASPNETCore.Docker.Controllers
             var sendemail = new EmailEngine(
                 new EmailConfiguration
                 {
-                    SMTPServer = webSetting.SMTPServer,
-                    SmtpServerUserName = webSetting.AuthUserName,
-                    SmtpServerPassword = webSetting.AuthPassword
+                    SmtpServer = _webSetting.SmtpServer,
+                    SmtpPort = _webSetting.SmtpPort,
+                    SmtpServerUserName = _webSetting.AuthUserName,
+                    SmtpServerPassword = _webSetting.AuthPassword
                 }
                 , _logErrorDataAccess);
             //, new LogErrorDataAccess(new DBContext()));

@@ -106,7 +106,8 @@ namespace Services.ControllersApi
             var sendemail = new EmailEngine(
                 new EmailConfiguration
                 {
-                    SMTPServer = ConfigHelper.GetSetting("SMTPServer"),
+                    SmtpServer = ConfigHelper.GetSetting("SMTPServer"),
+                    SmtpPort = Convert.ToInt32(ConfigHelper.GetSetting("SmtpPort")),
                     SmtpServerUserName = ConfigHelper.GetSetting("AuthUserName"),
                     SmtpServerPassword = ConfigHelper.GetSetting("AuthPassword")
                 }

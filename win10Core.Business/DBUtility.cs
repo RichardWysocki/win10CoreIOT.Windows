@@ -1,8 +1,10 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics.CodeAnalysis;
 
 namespace win10Core.Business
 {
+    [ExcludeFromCodeCoverage]
     public class DbUtility
     {
         public static SqlCommand SqlCommand(string connection, string storedProcedure)

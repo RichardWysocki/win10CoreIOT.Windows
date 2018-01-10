@@ -2,7 +2,9 @@
 {
     public interface IEmailConfiguration
     {
-        string SMTPServer { get; set; }
+        string SmtpServer { get; set; }
+
+        int SmtpPort { get; set; }
 
         string SmtpServerUserName { get; set; }
 

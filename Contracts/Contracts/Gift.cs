@@ -2,6 +2,7 @@
 
 namespace ServiceContracts.Contracts
 {
+    
     public class Gift
     {
         public int GiftId { get; set; }
