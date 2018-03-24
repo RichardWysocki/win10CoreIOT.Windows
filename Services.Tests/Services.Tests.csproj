@@ -110,8 +110,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\WhenFamilyServiceTest.cs" />
-    <Compile Include="Controllers\WhenValidatingNotificationApiController.cs" />
+    <Compile Include="API_Controllers\WhenFamilyServiceTest.cs" />
+    <Compile Include="API_Controllers\WhenValidatingNotificationApiController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

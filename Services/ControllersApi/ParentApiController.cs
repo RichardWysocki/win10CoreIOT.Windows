@@ -19,33 +19,33 @@ namespace Services.ControllersApi
             _parentEngine = parentEngine;
         }
         // GET: api/ParentApi
-        public IEnumerable<Parent> Get()
+        public IEnumerable<ParentDTO> Get()
         {
             var getData = _parentDataAccess.Get();
             var response = getData
-                .Select(c => new Parent() { ParentId = c.ParentId, Name = c.Name, Email = c.Email, FamilyId = c.FamilyId}).ToList();
+                .Select(c => new ParentDTO() { ParentId = c.ParentId, Name = c.Name, Email = c.Email, FamilyId = c.FamilyId}).ToList();
             return response;   
 
         }
 
         // GET: api/ParentApi/5
-        public Parent Get(int id)
+        public ParentDTO Get(int id)
         {
             var getData = _parentDataAccess.Get(id);
-            var response = new Parent() { ParentId = getData.ParentId, FamilyId = getData.FamilyId, Name = getData.Name, Email = getData.Email };
+            var response = new ParentDTO() { ParentId = getData.ParentId, FamilyId = getData.FamilyId, Name = getData.Name, Email = getData.Email };
             return response;
         }
 
         // POST: api/ParentApi
-        public Parent Post(Parent parent)
+        public ParentDTO Post(ParentDTO parent)
         {
             var getData = _parentDataAccess.Insert(new win10Core.Business.Model.Parent() {Name = parent.Name, Email = parent.Email, FamilyId = parent.FamilyId});
-            var response = new Parent { ParentId = getData.ParentId, Name = getData.Name, Email = getData.Email, FamilyId = getData.FamilyId};
+            var response = new ParentDTO { ParentId = getData.ParentId, Name = getData.Name, Email = getData.Email, FamilyId = getData.FamilyId};
             return response;
         }
 
         // PUT: api/ParentApi/5
-        public void Put(Parent parent)
+        public void Put(ParentDTO parent)
         {
             var getData = _parentDataAccess.Update(new win10Core.Business.Model.Parent() { ParentId = parent.ParentId,  Name = parent.Name, Email = parent.Email, FamilyId = parent.FamilyId});
         }

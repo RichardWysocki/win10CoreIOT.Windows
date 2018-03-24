@@ -19,8 +19,8 @@ namespace Management.Controllers
         // GET: Gifts
         public ActionResult Index()
         {
-            var giftResponse = _serviceLayer.GetData<Gift>("GiftApi");
-            var kidResponse = _serviceLayer.GetData<Kid>("KidApi");
+            var giftResponse = _serviceLayer.GetData<GiftDTO>("GiftApi");
+            var kidResponse = _serviceLayer.GetData<KidDTO>("KidApi");
 
             var giftviewModel = giftResponse.Select(x => new GiftViewModel()
                 {
@@ -40,7 +40,7 @@ namespace Management.Controllers
         // GET: Gifts/Create
         public ActionResult Create()
         {
-            var response = _serviceLayer.GetData<Kid>("KidApi");
+            var response = _serviceLayer.GetData<KidDTO>("KidApi");
             ViewBag.list = new SelectList(response, "KidId", "Name", "----select----");
 
             return View();
@@ -48,7 +48,7 @@ namespace Management.Controllers
 
         // POST: Gifts/Create
         [HttpPost]
-        public ActionResult Create(Gift newGift)
+        public ActionResult Create(GiftDTO newGift)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace Management.Controllers
                 {
 
                     _serviceLayer.SendData("GiftApi",
-                        new Gift() { GiftName = newGift.GiftName, Priority = newGift.Priority, WebUrl = newGift.WebUrl, KidId = newGift.KidId});
+                        new GiftDTO() { GiftName = newGift.GiftName, Priority = newGift.Priority, WebUrl = newGift.WebUrl, KidId = newGift.KidId});
                     return RedirectToAction("Index");
                 }
                 return View(newGift);
@@ -72,10 +72,10 @@ namespace Management.Controllers
         // GET: Gifts/Edit/5
         public ActionResult Edit(int id)
         {
-            var kidResponse = _serviceLayer.GetData<Gift>("KidApi");
+            var kidResponse = _serviceLayer.GetData<GiftDTO>("KidApi");
 
 
-            var response = _serviceLayer.GetItem<Gift>("GiftApi", id);
+            var response = _serviceLayer.GetItem<GiftDTO>("GiftApi", id);
 
             ViewBag.list = new SelectList(kidResponse, "KidId", "Name", response.KidId);
             return View(response);
@@ -83,7 +83,7 @@ namespace Management.Controllers
 
         // POST: Gifts/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Kid updateGift)
+        public ActionResult Edit(int id, KidDTO updateGift)
         {
             try
             {
@@ -100,7 +100,7 @@ namespace Management.Controllers
         // GET: Gifts/Delete/5
         public ActionResult Delete(int id)
         {
-            _serviceLayer.SendDelete<Gift>("GiftApi", id);
+            _serviceLayer.SendDelete<GiftDTO>("GiftApi", id);
             return RedirectToAction("Index");
         }
 

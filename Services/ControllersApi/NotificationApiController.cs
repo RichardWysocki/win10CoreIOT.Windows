@@ -8,7 +8,7 @@ using win10Core.Business.DataAccess.Interfaces;
 using win10Core.Business.Engine;
 using win10Core.Business.Engine.Interface;
 using win10Core.Business.Model;
-using Gift = ServiceContracts.Contracts.Gift;
+using GiftDTO = ServiceContracts.Contracts.GiftDTO;
 
 namespace Services.ControllersApi
 {
@@ -36,11 +36,11 @@ namespace Services.ControllersApi
         /// <returns></returns>
         [HttpGet]
         [ActionName("GetNewRegisteredGifts")]
-        public IEnumerable<Gift> GetNewRegisteredGifts(string id)
+        public IEnumerable<GiftDTO> GetNewRegisteredGifts(string id)
         {
             var getData = _giftDataAccess.GetEmailList(id == "true");
             var response = getData
-                .Select(c => new Gift()
+                .Select(c => new GiftDTO()
                 {
                     GiftId = c.GiftId,
                     GiftName = c.GiftName,
@@ -55,7 +55,7 @@ namespace Services.ControllersApi
 
         [HttpPost]
         [ActionName("NotifyParentsofNewGift")]
-        public bool NotifyParentsofNewGift(Gift gift)
+        public bool NotifyParentsofNewGift(GiftDTO gift)
         {
             win10Core.Business.Model.Family family;
             if ( null == gift || gift.GiftId == 0)
@@ -98,7 +98,7 @@ namespace Services.ControllersApi
 
         [HttpPost]
         [ActionName("SomethingElseHere")]
-        public bool SomethingElseHere(Gift gift)
+        public bool SomethingElseHere(GiftDTO gift)
         {
             var kid = _kidDataAccess.Get(gift.KidId);
             var family = _familyDataAccess.Get(kid.FamilyId);

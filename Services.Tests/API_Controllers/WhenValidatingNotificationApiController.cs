@@ -38,7 +38,7 @@ namespace Services.Tests.Controllers
 
             // Assert
             Assert.IsNotNull(result, "Result should not be null");
-            Assert.IsInstanceOf(typeof(IEnumerable<Gift>), result, "Type should be the same");
+            Assert.IsInstanceOf(typeof(IEnumerable<GiftDTO>), result, "Type should be the same");
             Assert.That(result.Count()==2, "Result count should be 2");
         }
 
@@ -62,7 +62,7 @@ namespace Services.Tests.Controllers
 
             // Assert
             Assert.IsNotNull(result, "Result should not be null");
-            Assert.IsInstanceOf(typeof(IEnumerable<Gift>), result, "Type should be the same");
+            Assert.IsInstanceOf(typeof(IEnumerable<GiftDTO>), result, "Type should be the same");
             Assert.That(!result.Any(), "Result count should be 0");
 
         }
@@ -88,7 +88,7 @@ namespace Services.Tests.Controllers
 
             // Act 
             // Assert
-            var ex = Assert.Throws<Exception>(() => controller.NotifyParentsofNewGift(new Gift()));
+            var ex = Assert.Throws<Exception>(() => controller.NotifyParentsofNewGift(new GiftDTO()));
             Assert.That(ex.Message == "Invalid Gift to Update.");
             //Assert.That(result == false, "Result should false if Gift ");
             //Assert.IsInstanceOf(typeof(IEnumerable<Gift>), result, "Type should be the same");
@@ -117,7 +117,7 @@ namespace Services.Tests.Controllers
 
             // Act 
             // Assert
-            var ex = Assert.Throws<Exception>(() => controller.NotifyParentsofNewGift(new Gift{GiftId = 1}));
+            var ex = Assert.Throws<Exception>(() => controller.NotifyParentsofNewGift(new GiftDTO{GiftId = 1}));
             Assert.That(ex.Message == "Invalid Gift to Update.");
             //Assert.That(result == false, "Result should false if Gift ");
             //Assert.IsInstanceOf(typeof(IEnumerable<Gift>), result, "Type should be the same");
@@ -145,7 +145,7 @@ namespace Services.Tests.Controllers
             A.CallTo(() => familyDataAccess.Get(A<int>.Ignored)).Throws(new Exception("Error getting Kid record."));
             // Act 
             // Assert
-            var ex = Assert.Throws<Exception>(() => controller.NotifyParentsofNewGift(new Gift { GiftId = 1 }));
+            var ex = Assert.Throws<Exception>(() => controller.NotifyParentsofNewGift(new GiftDTO { GiftId = 1 }));
             Assert.That(ex.Message == "Invalid Gift to Update.");
             //Assert.That(result == false, "Result should false if Gift ");
             //Assert.IsInstanceOf(typeof(IEnumerable<Gift>), result, "Type should be the same");
@@ -175,7 +175,7 @@ namespace Services.Tests.Controllers
             A.CallTo(() => giftDataAccess.Update(A<win10Core.Business.Model.Gift>.Ignored)).Returns(true);
             // Act 
             // Assert
-            var result = controller.NotifyParentsofNewGift(new Gift { GiftId = 1 });
+            var result = controller.NotifyParentsofNewGift(new GiftDTO { GiftId = 1 });
             //Assert.That(ex.Message == "Invalid Gift to Update.");
             Assert.That(result, "Result should be true");
             //Assert.IsInstanceOf(typeof(IEnumerable<Gift>), result, "Type should be the same");

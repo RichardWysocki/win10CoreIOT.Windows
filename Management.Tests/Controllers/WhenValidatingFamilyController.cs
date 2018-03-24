@@ -20,10 +20,10 @@ namespace Services.Tests.Controllers
             var context = A.Fake<IServiceLayer>();
             FamilyController controller = new FamilyController(context);
 
-            A.CallTo(() => context.GetData<Family>(A<string>.Ignored)).Returns(new List<Family>
+            A.CallTo(() => context.GetData<FamilyDTO>(A<string>.Ignored)).Returns(new List<FamilyDTO>
             {
-                new Family {FamilyId = 1, FamilyName = "A", FamilyEmail = "A@A.com"},
-                new Family {FamilyId = 2, FamilyName = "B", FamilyEmail = "B@B.com"}
+                new FamilyDTO {FamilyId = 1, FamilyName = "A", FamilyEmail = "A@A.com"},
+                new FamilyDTO {FamilyId = 2, FamilyName = "B", FamilyEmail = "B@B.com"}
             });
 
 
@@ -33,7 +33,7 @@ namespace Services.Tests.Controllers
             // Assert
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Model);
-            var responseModelCount = (List<Family>)result.Model;
+            var responseModelCount = (List<FamilyDTO>)result.Model;
             Assert.That(responseModelCount.Count == 2, $"Model Response was {responseModelCount.Count}.");
         }
         [Test]
@@ -44,9 +44,9 @@ namespace Services.Tests.Controllers
             FamilyController controller = new FamilyController(context);
             //controller.ModelState.Clear();
             //controller.ModelState.AddModelError("Error1", new Exception("Error Message"));
-            var createFamily = new Family {FamilyId = 1, FamilyName = "B", FamilyEmail = "B@B.com"};
+            var createFamily = new FamilyDTO {FamilyId = 1, FamilyName = "B", FamilyEmail = "B@B.com"};
 
-            A.CallTo(() => context.SendData<Family>(A<string>.Ignored, A<Family>.Ignored)); //Returns(null);
+            A.CallTo(() => context.SendData<FamilyDTO>(A<string>.Ignored, A<FamilyDTO>.Ignored)); //Returns(null);
 
 
             // Act
@@ -67,9 +67,9 @@ namespace Services.Tests.Controllers
             FamilyController controller = new FamilyController(context);
             controller.ModelState.Clear();
             controller.ModelState.AddModelError("Error1", new Exception("Error Message"));
-            var createFamily = new Family { FamilyId = 1, FamilyName = "B", FamilyEmail = "B@B.com" };
+            var createFamily = new FamilyDTO { FamilyId = 1, FamilyName = "B", FamilyEmail = "B@B.com" };
 
-            A.CallTo(() => context.SendData<Family>(A<string>.Ignored, A<Family>.Ignored)); //Returns(null);
+            A.CallTo(() => context.SendData<FamilyDTO>(A<string>.Ignored, A<FamilyDTO>.Ignored)); //Returns(null);
 
 
             // Act

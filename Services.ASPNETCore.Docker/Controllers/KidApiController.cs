@@ -18,11 +18,11 @@ namespace Services.ASPNETCore.Docker.Controllers
 
         // GET: api/kidApi
         [HttpGet]
-        public IEnumerable<Kid> Get()
+        public IEnumerable<KidDTO> Get()
         {
             var getData = _kidDataAccess.Get();
             var response = getData
-                .Select(c => new Kid() { KidId = c.KidId, Name = c.Name, Email = c.Email, FamilyId = c.FamilyId}).ToList();
+                .Select(c => new KidDTO() { KidId = c.KidId, Name = c.Name, Email = c.Email, FamilyId = c.FamilyId}).ToList();
             return response;   
 
         }
@@ -30,25 +30,25 @@ namespace Services.ASPNETCore.Docker.Controllers
 
         // GET: api/KidApi/5
         [HttpGet("{id}")]
-        public Kid Get(int id)
+        public KidDTO Get(int id)
         {
             var getData = _kidDataAccess.Get(id);
-            var response = new Kid() { KidId = getData.KidId, FamilyId = getData.FamilyId, Name = getData.Name, Email = getData.Email };
+            var response = new KidDTO() { KidId = getData.KidId, FamilyId = getData.FamilyId, Name = getData.Name, Email = getData.Email };
             return response;
         }
 
         // POST: api/KidApi
         [HttpPost]
-        public Kid Post([FromBody] Kid kid)
+        public KidDTO Post([FromBody] KidDTO kid)
         {
             var getData = _kidDataAccess.Insert(new win10Core.Business.Model.Kid() {Name = kid.Name, Email = kid.Email, FamilyId = kid.FamilyId});
-            var response = new Kid { KidId = getData.KidId, Name = getData.Name, Email = getData.Email, FamilyId = getData.FamilyId};
+            var response = new KidDTO { KidId = getData.KidId, Name = getData.Name, Email = getData.Email, FamilyId = getData.FamilyId};
             return response;
         }
 
         // PUT: api/KidApi/5
         [HttpPut]
-        public void Put([FromBody] Kid kid)
+        public void Put([FromBody] KidDTO kid)
         {
             var getData = _kidDataAccess.Update(new win10Core.Business.Model.Kid() { KidId = kid.KidId,  Name = kid.Name, Email = kid.Email, FamilyId = kid.FamilyId});
          }

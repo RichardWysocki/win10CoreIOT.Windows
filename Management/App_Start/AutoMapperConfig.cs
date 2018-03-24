@@ -11,7 +11,7 @@ namespace Services
         {
             Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<IDataRecord, Customer>()
+                cfg.CreateMap<IDataRecord, CustomerDTO>()
                 .ForMember(source => source.CustomerId, source => source.MapFrom(s => s.GetValue(s.GetOrdinal("CustomerID"))))
                 .ForMember(dest => dest.FirstName, source => source.MapFrom(s => s.GetValue(s.GetOrdinal("FirstName"))))
                 .ForMember(dest => dest.LastName, source => source.MapFrom(s => s.GetValue(s.GetOrdinal("LastName"))));

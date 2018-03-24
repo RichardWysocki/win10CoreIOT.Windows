@@ -19,8 +19,8 @@ namespace Management.Controllers
         // GET: Parent
         public ActionResult Index()
         {
-            var kidResponse = _serviceLayer.GetData<Kid>("KidApi");
-            var familyResponse = _serviceLayer.GetData<Family>("FamilyApi");
+            var kidResponse = _serviceLayer.GetData<KidDTO>("KidApi");
+            var familyResponse = _serviceLayer.GetData<FamilyDTO>("FamilyApi");
 
             var parentviewModel = kidResponse.Select(x => new KidViewModel()
                 {
@@ -38,7 +38,7 @@ namespace Management.Controllers
         // GET: Parent/Create
         public ActionResult Create()
         {
-            var response = _serviceLayer.GetData<Kid>("KidApi");
+            var response = _serviceLayer.GetData<KidDTO>("KidApi");
             ViewBag.list = new SelectList(response, "KidId", "Name", "----select----");
 
             return View();
@@ -46,14 +46,14 @@ namespace Management.Controllers
 
         // POST: Parent/Create
         [HttpPost]
-        public ActionResult Create(Kid newKid)
+        public ActionResult Create(KidDTO newKid)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     _serviceLayer.SendData("KidApi",
-                        new Kid() { Name = newKid.Name, Email = newKid.Email, FamilyId = newKid.FamilyId });
+                        new KidDTO() { Name = newKid.Name, Email = newKid.Email, FamilyId = newKid.FamilyId });
                     return RedirectToAction("Index");
                 }
                 return View(newKid);
@@ -69,10 +69,10 @@ namespace Management.Controllers
         // GET: Kid/Edit/5
         public ActionResult Edit(int id)
         {
-            var familyResponse = _serviceLayer.GetData<Family>("FamilyApi");
+            var familyResponse = _serviceLayer.GetData<FamilyDTO>("FamilyApi");
             
 
-            var response = _serviceLayer.GetItem<Kid>("KidApi", id);
+            var response = _serviceLayer.GetItem<KidDTO>("KidApi", id);
             //ViewBag.list = new SelectList(response, "FamilyId", "FamilyName", "----select----");
             ViewBag.list = new SelectList(familyResponse, "FamilyId", "FamilyName", response.FamilyId);
             return View(response);
@@ -80,7 +80,7 @@ namespace Management.Controllers
 
         // POST: Parent/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Kid updateKid)
+        public ActionResult Edit(int id, KidDTO updateKid)
         {
             try
             {
@@ -97,7 +97,7 @@ namespace Management.Controllers
         // GET: Parent/Delete/5
         public ActionResult Delete(int id)
         {
-            _serviceLayer.SendDelete<Kid>("KidApi", id);
+            _serviceLayer.SendDelete<KidDTO>("KidApi", id);
             return RedirectToAction("Index");
         }
 

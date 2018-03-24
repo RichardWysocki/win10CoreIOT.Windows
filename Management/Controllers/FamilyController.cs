@@ -16,7 +16,7 @@ namespace Management.Controllers
         // GET: Family
         public ActionResult Index()
         {
-            var response = _serviceLayer.GetData<Family>("FamilyApi");
+            var response = _serviceLayer.GetData<FamilyDTO>("FamilyApi");
             return View(response);
         }
 
@@ -26,11 +26,11 @@ namespace Management.Controllers
         }
         // GET: Family/Create
         [HttpPost]
-        public ActionResult Create(Family newFamily)
+        public ActionResult Create(FamilyDTO newFamily)
         {
             if (ModelState.IsValid)
             {
-                _serviceLayer.SendData("FamilyApi", new Family() { FamilyName = newFamily.FamilyName, FamilyEmail = newFamily.FamilyEmail });
+                _serviceLayer.SendData("FamilyApi", new FamilyDTO() { FamilyName = newFamily.FamilyName, FamilyEmail = newFamily.FamilyEmail });
                 return RedirectToAction("Index");
             }
             return View(newFamily);
@@ -55,13 +55,13 @@ namespace Management.Controllers
         // GET: Family/Edit/5
         public ActionResult Edit(int id)
         {
-            var response = _serviceLayer.GetItem<Family>("FamilyApi", id);
+            var response = _serviceLayer.GetItem<FamilyDTO>("FamilyApi", id);
             return View(response);
         }
 
         // POST: Family/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Family updatFamily)
+        public ActionResult Edit(int id, FamilyDTO updatFamily)
         {
             try
             {
@@ -78,7 +78,7 @@ namespace Management.Controllers
         // GET: Family/Delete/5
         public ActionResult Delete(int id)
         {
-            _serviceLayer.SendDelete<Family>("FamilyApi", id);
+            _serviceLayer.SendDelete<FamilyDTO>("FamilyApi", id);
             return RedirectToAction("Index");
         }
 

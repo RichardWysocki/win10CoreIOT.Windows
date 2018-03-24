@@ -3,7 +3,7 @@
 namespace ServiceContracts.Contracts
 {
     [Obsolete]
-    public class Customer
+    public class CustomerDTO
     {
         /// <summary>
         /// 
