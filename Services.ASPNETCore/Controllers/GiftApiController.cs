@@ -10,8 +10,8 @@ namespace Services.ASPNETCore.Controllers
     [Route("api/[controller]")]
     public class GiftApiController : Controller
     {
-        private IGiftDataAccess _giftDataAccess;
-        private ILogger<GiftApiController> _log;
+        private readonly IGiftDataAccess _giftDataAccess;
+        private readonly ILogger<GiftApiController> _log;
 
         public GiftApiController(IGiftDataAccess giftDataAccess, ILogger<GiftApiController> log)
         {

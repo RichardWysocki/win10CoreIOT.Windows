@@ -57,7 +57,7 @@ namespace Services.ControllersApi
         [ActionName("NotifyParentsofNewGift")]
         public bool NotifyParentsofNewGift(GiftDTO gift)
         {
-            win10Core.Business.Model.Family family;
+            Family family;
             if ( null == gift || gift.GiftId == 0)
             {
                 throw new Exception("Invalid Gift to Update.");
@@ -83,7 +83,7 @@ namespace Services.ControllersApi
 
             _emailEngine.Send(family.FamilyName, family.FamilyEmail, "Sample Message", "Hello Text", "RichardWysocki@gmail.com");
 
-            var getData = _giftDataAccess.Update(new win10Core.Business.Model.Gift
+            var getData = _giftDataAccess.Update(new Gift
             {
                 GiftId = gift.GiftId,
                 GiftName = gift.GiftName,
@@ -115,7 +115,7 @@ namespace Services.ControllersApi
 
            // sendemail.Send(family.FamilyName, family.FamilyEmail, "Sample Message", "Hello Text", "RichardWysocki@gmail.com");
 
-            var getData = _giftDataAccess.Update(new win10Core.Business.Model.Gift
+            var getData = _giftDataAccess.Update(new Gift
             {
                 GiftId = gift.GiftId,
                 GiftName = gift.GiftName,

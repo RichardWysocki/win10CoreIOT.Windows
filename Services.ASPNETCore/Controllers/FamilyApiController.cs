@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using ServiceContracts.Contracts;
 using win10Core.Business.DataAccess.Interfaces;
-using FamilyDTO = ServiceContracts.Contracts.FamilyDTO;
+using win10Core.Business.Engine.Interface;
 
 namespace Services.ASPNETCore.Controllers
 {
@@ -10,53 +11,96 @@ namespace Services.ASPNETCore.Controllers
     public class FamilyApiController : Controller
     {
         private readonly IFamilyDataAccess _familyDataAccess;
+        private readonly ILogEngine _logEngine;
 
-        public FamilyApiController(IFamilyDataAccess familyDataAccess)
+        public FamilyApiController(IFamilyDataAccess familyDataAccess, ILogEngine logEngine)
         {
             _familyDataAccess = familyDataAccess;
+            _logEngine = logEngine;
         }
         // GET: api/FamilyApi
         [HttpGet]
-        public IEnumerable<FamilyDTO> Get()
+        public IActionResult Get()
         {
+            _logEngine.LogInfo("FamilyApiController: /api/FamilyApi/Get", "Starting Method");
             var getData = _familyDataAccess.Get();
             var response = getData
                 .Select(c => new FamilyDTO() { FamilyId = c.FamilyId, FamilyName = c.FamilyName, FamilyEmail = c.FamilyEmail }).ToList();
-            return response;
-
+            _logEngine.LogInfo("FamilyApiController: /api/FamilyApi/Get", "Returning Method");
+            return Ok(response);
         }
 
         // GET: api/FamilyApi/5
         [HttpGet("{id}")]
-        public FamilyDTO Get(int id)
+        public IActionResult Get(int id)
         {
-            var getData = _familyDataAccess.Get(id);
-            var response = new FamilyDTO { FamilyId = getData.FamilyId, FamilyName = getData.FamilyName, FamilyEmail = getData.FamilyEmail };
-            return response;
+            try
+            {
+                _logEngine.LogInfo($"FamilyApiController: /api/FamilyApi/Get/{id}", "Starting Method");
+                var getData = _familyDataAccess.Get(id);
+                var response = new FamilyDTO { FamilyId = getData.FamilyId, FamilyName = getData.FamilyName, FamilyEmail = getData.FamilyEmail };
+                _logEngine.LogInfo($"FamilyApiController: /api/FamilyApi/Get/{id}", "Returning Method");
+                return Ok(response);
+            }
+            catch (Exception e) when (e.Message == "Error getting Family record.")
+            {
+                _logEngine.LogInfo($"FamilyApiController: /api/FamilyApi/Get/{id}", "Returning NOTFOUND");
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                _logEngine.LogError("FamilyApiController", $"/api/FamilyApi/Get/{id}",e.Message);
+                return StatusCode(500, "Unknow Failure: Logged");
+            }
         }
 
         // POST: api/FamilyApi
         [HttpPost]
-        public FamilyDTO Post([FromBody] FamilyDTO family)
+        public IActionResult Post([FromBody] FamilyDTO family)
         {
+            _logEngine.LogInfo($"FamilyApiController: /api/FamilyApi/Post/{family}", "Starting Method");
             var getData = _familyDataAccess.Insert(new win10Core.Business.Model.Family {FamilyName = family.FamilyName, FamilyEmail = family.FamilyEmail});
             var response = new FamilyDTO { FamilyId = getData.FamilyId, FamilyName = getData.FamilyName, FamilyEmail = getData.FamilyEmail };
-            return response;
+            _logEngine.LogInfo($"FamilyApiController: /api/FamilyApi/Post/{family}", "Returning Method");
+            return Created($"/api/FamilyAPI/{response.FamilyId}" , response);
         }
 
         // PUT: api/FamilyApi/5
         [HttpPut]
-        public void Put([FromBody] FamilyDTO family)
+        public IActionResult Put([FromBody] FamilyDTO family)
         {
-            var getData = _familyDataAccess.Update(new win10Core.Business.Model.Family { FamilyId = family.FamilyId, FamilyName = family.FamilyName, FamilyEmail = family.FamilyEmail });
+            _logEngine.LogInfo($"FamilyApiController: /api/FamilyApi/Put/{family}", "Starting Method");
+            var getDataUpdate = _familyDataAccess.Update(new win10Core.Business.Model.Family { FamilyId = family.FamilyId, FamilyName = family.FamilyName, FamilyEmail = family.FamilyEmail });
+            if (getDataUpdate)
+            {
+                _logEngine.LogInfo($"FamilyApiController: /api/FamilyApi/Put/{family}", "Returning Method");
+                return Accepted($"/api/FamilyApi/{family.FamilyId}");
+            }
+            _logEngine.LogInfo($"FamilyApiController: /api/FamilyApi/Put/{family}", "Returning NOTFOUND");
+            return NotFound();
         }
 
         // DELETE: api/FamilyApi/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
             //TODO  //Only Delete if Parent is not using the FamilyID
-            _familyDataAccess.Delete(id);
+            try
+            {
+                _logEngine.LogInfo($"FamilyApiController: /api/FamilyApi/Delete/{id}", "Starting Method");
+                _familyDataAccess.Delete(id);
+                _logEngine.LogInfo($"FamilyApiController: /api/FamilyApi/Delete/{id}", "Returning Method");
+                return NoContent();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                _logEngine.LogError("FamilyApiController", $"/api/FamilyApi/Delete/{id}", e.Message);
+                _logEngine.LogInfo($"FamilyApiController: /api/FamilyApi/Delete/{id}", "Returning NOTFOUND");
+                return NotFound();
+            }
+            
 
         }
     }
