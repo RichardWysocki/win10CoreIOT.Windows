@@ -52,7 +52,7 @@ namespace win10CoreIOT.Background
             _serviceCalls.SendData("LogInfo",
                 new LogInformation { Method = "StartupTask: Timer_Tick", Message = "Get All Open Gifts" });
             // Running Thread
-            var data = _serviceCalls.GetData<Gift>(@"NotificationApi/GetNewRegisteredGifts/false");
+            var data = _serviceCalls.GetData<GiftDTO>(@"NotificationApi/GetNewRegisteredGifts/false");
             // Get All Open Gifts Requests
             foreach (var gift in data)
             {
