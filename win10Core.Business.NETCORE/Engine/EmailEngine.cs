@@ -58,7 +58,7 @@ namespace win10Core.Business.Engine
                 SmtpClient smtpMail = new SmtpClient(_emailConfiguration.SmtpServer)
                 {
                     Port = _emailConfiguration.SmtpPort,  //587,
-                    EnableSsl = true,
+                    EnableSsl = false,
                     Credentials = new System.Net.NetworkCredential(_emailConfiguration.SmtpServerUserName,
                         _emailConfiguration.SmtpServerPassword)
                 };

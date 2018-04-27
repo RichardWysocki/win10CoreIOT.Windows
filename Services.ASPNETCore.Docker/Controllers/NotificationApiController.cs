@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using Services.ASPNETCore.Docker.Model;
 using win10Core.Business.DataAccess.Interfaces;
 using win10Core.Business.Engine;
+using win10Core.Business.Engine.Interface;
 using win10Core.Business.Model;
 using GiftDTO = ServiceContracts.Contracts.GiftDTO;
 
@@ -20,15 +21,17 @@ namespace Services.ASPNETCore.Docker.Controllers
         private readonly IFamilyDataAccess _familyDataAccess;
         private readonly IKidDataAccess _kidDataAccess;
         private readonly ILogErrorDataAccess _logErrorDataAccess;
+        private readonly ILogEngine _logEngine;
         private readonly WebSettings _webSetting;
 
-        public NotificationApiController(IOptions<WebSettings> webSettings, IEmailEngine emailEngine, IGiftDataAccess giftDataAccess,  IFamilyDataAccess familyDataAccess, IKidDataAccess kidDataAccess, ILogErrorDataAccess logErrorDataAccess)
+        public NotificationApiController(IOptions<WebSettings> webSettings, IEmailEngine emailEngine, IGiftDataAccess giftDataAccess,  IFamilyDataAccess familyDataAccess, IKidDataAccess kidDataAccess, ILogErrorDataAccess logErrorDataAccess, ILogEngine logEngine)
         {
             _giftDataAccess = giftDataAccess;
             _emailEngine = emailEngine;
             _familyDataAccess = familyDataAccess;
             _kidDataAccess = kidDataAccess;
             _logErrorDataAccess = logErrorDataAccess;
+            _logEngine = logEngine;
             _webSetting = webSettings.Value;
         }
 
@@ -37,9 +40,8 @@ namespace Services.ASPNETCore.Docker.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
-        [ActionName("GetNewRegisteredGifts")]
-        public IEnumerable<GiftDTO> GetNewRegisteredGifts(string id)
+        [HttpGet("GetNewRegisteredGifts/{id}", Name = "GetNewRegisteredGifts")]
+        public IActionResult GetNewRegisteredGifts(string id)
         {
             var getData = _giftDataAccess.GetEmailList(id == "true");
             var response = getData
@@ -53,17 +55,17 @@ namespace Services.ASPNETCore.Docker.Controllers
                     CreateDate = c.CreateDate,
                     EmailSent = c.EmailSent
                 }).ToList();
-            return response;
+            return Ok(response);
         }
 
-        [HttpPost]
-        [ActionName("NotifyParentsofNewGift")]
-        public bool NotifyParentsofNewGift(GiftDTO gift)
+        [HttpPost("NotifyParentsofNewGift", Name = "NotifyParentsofNewGift")]
+        public IActionResult NotifyParentsofNewGift([FromBody] GiftDTO gift)
         {
-            win10Core.Business.Model.Family family;
+            Family family;
             if ( null == gift || gift.GiftId == 0)
             {
-                throw new Exception("Invalid Gift to Update.");
+                _logEngine.LogInfo($"NotificationApiController: NotifyParentsofNewGift", "Returning NOTFOUND");
+                return NotFound();
             }
             try
             {
@@ -72,21 +74,13 @@ namespace Services.ASPNETCore.Docker.Controllers
             }
             catch (Exception e)
             {
-                throw new Exception("Invalid Gift to Update.");
+                Console.WriteLine(e);
+                _logEngine.LogError("NotificationApiController", $"/api/NotificationApiController/NotifyParentsofNewGift", gift + ": " + e.Message);
+                return StatusCode(500, "Unknow Failure: Logged");
             }
 
-            //var sendemail = new EmailEngine(
-            //    new EmailConfiguration
-            //    {
-            //        SMTPServer = ConfigHelper.GetSetting("SMTPServer"),
-            //        SmtpServerUserName = ConfigHelper.GetSetting("AuthUserName"),
-            //        SmtpServerPassword = ConfigHelper.GetSetting("AuthPassword")
-            //    }
-            //    , new LogErrorDataAccess(new DBContext()));
-
             _emailEngine.Send(family.FamilyName, family.FamilyEmail, "Sample Message", "Hello Text", "RichardWysocki@gmail.com");
-
-            var getData = _giftDataAccess.Update(new win10Core.Business.Model.Gift
+            var getData = _giftDataAccess.Update(new Gift
             {
                 GiftId = gift.GiftId,
                 GiftName = gift.GiftName,
@@ -96,7 +90,7 @@ namespace Services.ASPNETCore.Docker.Controllers
                 CreateDate = DateTime.Now,
                 EmailSent = true
             });
-            return getData;
+            return Ok(getData);
         }
 
         [HttpPost]
@@ -133,15 +127,16 @@ namespace Services.ASPNETCore.Docker.Controllers
         }
 
         // GET: api/NotificationApi
-        public IEnumerable<string> Get()
-        {
-            return new string[] {"value1", "value2"};
-        }
+        //public IEnumerable<string> Get()
+        //{
+        //    return new string[] {"value1", "value2"};
+        //}
 
         // GET: api/NotificationApi/5
-        public string Get(int id)
+        [HttpGet("hi/{id}", Name ="Hi")]
+        public IActionResult Get(int id)
         {
-            return "value";
+            return Ok("value");
         }
 
         //// POST: api/NotificationApi
@@ -155,8 +150,8 @@ namespace Services.ASPNETCore.Docker.Controllers
         //}
 
         // DELETE: api/NotificationApi/5
-        public void Delete(int id)
-        {
-        }
+        //public void Delete(int id)
+        //{
+        //}
     }
 }

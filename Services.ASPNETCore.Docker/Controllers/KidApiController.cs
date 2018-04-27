@@ -63,7 +63,7 @@ namespace Services.ASPNETCore.Docker.Controllers
         public IActionResult Post([FromBody] KidDTO kid)
         {
             _logEngine.LogInfo($"KidApiController: /api/KidApi/Post/{kid}", "Starting Method");
-            var getData = _kidDataAccess.Insert(new win10Core.Business.Model.Kid() {Name = kid.Name, Email = kid.Email, FamilyId = kid.FamilyId});
+            var getData = _kidDataAccess.Insert(new Kid() {Name = kid.Name, Email = kid.Email, FamilyId = kid.FamilyId});
             var response = new KidDTO { KidId = getData.KidId, Name = getData.Name, Email = getData.Email, FamilyId = getData.FamilyId};
             _logEngine.LogInfo($"KidApiController: /api/KidApi/Post/{kid}", "Returning Method");
             return Created($"/api/KidAPI/{response.KidId}", response);

@@ -8,6 +8,7 @@ using win10Core.Business.DataAccess;
 using win10Core.Business.DataAccess.Interfaces;
 using win10Core.Business.Engine;
 using win10Core.Business.Engine.Interface;
+using win10Core.Business.Model;
 
 namespace Services.ASPNETCore.Docker
 {
@@ -24,8 +25,8 @@ namespace Services.ASPNETCore.Docker
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddDbContext<DBContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DBContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<IDBContext, DBContext>();
             services.AddTransient<IKidDataAccess, KidDataAccess>();
             services.AddTransient<ILogEngine, LogEngine>();
@@ -36,7 +37,15 @@ namespace Services.ASPNETCore.Docker
             services.AddTransient<IParentDataAccess, ParentDataAccess>();
 
             services.AddTransient<ILogEngine, LogEngine>();
-            
+            services.AddTransient<IEmailEngine, EmailEngine>();
+            services.AddSingleton<IEmailConfiguration>(new EmailConfiguration {
+                SmtpServer = Configuration["AppSettings:SmtpServer"],
+                SmtpPort = int.Parse(Configuration["AppSettings:SmtpPort"]),
+                SmtpServerPassword = Configuration["AppSettings:SmtpServerPassword"],
+                SmtpServerUserName = Configuration["AppSettings:SmtpServerUserName"]
+            });
+            //services.AddTransient<IEmailConfiguration, new EmailConfiguration { SmtpServer = Configuration.GetSection("AppSettings.SmtpPort") }>();
+
             services.AddMvc();
             services.AddRouting();
             services.AddAutoMapper();
@@ -50,14 +59,19 @@ namespace Services.ASPNETCore.Docker
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.UseMvc();
+            // app.UseMvc();
 
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action?}/{id?}");
+                //routes.MapRoute(
+                //    name: "DefaultApi",
+                //    template: "api/{controller}/{action}/{id?}"
+                //    );
             });
+
 
             //var trackPackageRouteHandler = new RouteHandler(context =>
             //{
