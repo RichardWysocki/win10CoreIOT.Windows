@@ -14,13 +14,13 @@ namespace win10CoreIOT.Background
     public sealed class StartupTask : IBackgroundTask
     {
         BackgroundTaskDeferral _deferral;
-        private ThreadPoolTimer timer;
+        private ThreadPoolTimer _timer;
         private readonly ServiceLayers _serviceCalls;
         private BackgroundWorker worker;
 
         public StartupTask()
         {
-            _serviceCalls = new ServiceLayers(new ServiceSettings("http://localhost:34909/api/"));
+            _serviceCalls = new ServiceLayers(new ServiceSettings("http://localhost:4917/api/"));
             worker = new BackgroundWorker();
             worker.DoWork += Worker_DoWork;
         }
@@ -35,9 +35,8 @@ namespace win10CoreIOT.Background
             // described in http://aka.ms/backgroundtaskdeferral
             //
 
-            _deferral = taskInstance.GetDeferral();
-            
-        timer = ThreadPoolTimer.CreatePeriodicTimer(Timer_Tick, TimeSpan.FromMinutes(1));
+            _deferral = taskInstance.GetDeferral();           
+            _timer = ThreadPoolTimer.CreatePeriodicTimer(Timer_Tick, TimeSpan.FromMinutes(1));
         }
 
         private void Timer_Tick(ThreadPoolTimer timerTic)

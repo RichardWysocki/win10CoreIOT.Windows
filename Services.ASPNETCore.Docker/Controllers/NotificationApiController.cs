@@ -23,12 +23,15 @@ namespace Services.ASPNETCore.Docker.Controllers
         private readonly ILogErrorDataAccess _logErrorDataAccess;
         private readonly ILogEngine _logEngine;
         private readonly WebSettings _webSetting;
+        private IParentDataAccess _parentDataAccess;
 
-        public NotificationApiController(IOptions<WebSettings> webSettings, IEmailEngine emailEngine, IGiftDataAccess giftDataAccess,  IFamilyDataAccess familyDataAccess, IKidDataAccess kidDataAccess, ILogErrorDataAccess logErrorDataAccess, ILogEngine logEngine)
+        public NotificationApiController(IOptions<WebSettings> webSettings, IEmailEngine emailEngine, IGiftDataAccess giftDataAccess,  IFamilyDataAccess familyDataAccess, IParentDataAccess parentDataAccess,
+            IKidDataAccess kidDataAccess, ILogErrorDataAccess logErrorDataAccess, ILogEngine logEngine)
         {
             _giftDataAccess = giftDataAccess;
             _emailEngine = emailEngine;
             _familyDataAccess = familyDataAccess;
+            _parentDataAccess = parentDataAccess;
             _kidDataAccess = kidDataAccess;
             _logErrorDataAccess = logErrorDataAccess;
             _logEngine = logEngine;
@@ -62,6 +65,7 @@ namespace Services.ASPNETCore.Docker.Controllers
         public IActionResult NotifyParentsofNewGift([FromBody] GiftDTO gift)
         {
             Family family;
+            List<Parent> parent = null;
             if ( null == gift || gift.GiftId == 0)
             {
                 _logEngine.LogInfo($"NotificationApiController: NotifyParentsofNewGift", "Returning NOTFOUND");
@@ -71,6 +75,7 @@ namespace Services.ASPNETCore.Docker.Controllers
             {
                 var kid = _kidDataAccess.Get(gift.KidId);
                 family = _familyDataAccess.Get(kid.FamilyId);
+                parent = _parentDataAccess.GetbyFamily(kid.FamilyId);
             }
             catch (Exception e)
             {
@@ -80,6 +85,11 @@ namespace Services.ASPNETCore.Docker.Controllers
             }
 
             _emailEngine.Send(family.FamilyName, family.FamilyEmail, "Sample Message", "Hello Text", "RichardWysocki@gmail.com");
+            foreach (var p in parent)
+            {
+                _emailEngine.Send(p.Name, p.Email, "Sample Message", "Hello Text", "RichardWysocki@gmail.com");
+            }
+
             var getData = _giftDataAccess.Update(new Gift
             {
                 GiftId = gift.GiftId,
@@ -93,38 +103,38 @@ namespace Services.ASPNETCore.Docker.Controllers
             return Ok(getData);
         }
 
-        [HttpPost]
-        [ActionName("SomethingElseHere")]
-        public bool SomethingElseHere(GiftDTO gift)
-        {
-            var kid = _kidDataAccess.Get(gift.KidId);
-            var family = _familyDataAccess.Get(kid.FamilyId);
+        //[HttpPost]
+        //[ActionName("SomethingElseHere")]
+        //public bool SomethingElseHere(GiftDTO gift)
+        //{
+        //    var kid = _kidDataAccess.Get(gift.KidId);
+        //    var family = _familyDataAccess.Get(kid.FamilyId);
 
-            var sendemail = new EmailEngine(
-                new EmailConfiguration
-                {
-                    SmtpServer = _webSetting.SmtpServer,
-                    SmtpPort = _webSetting.SmtpPort,
-                    SmtpServerUserName = _webSetting.AuthUserName,
-                    SmtpServerPassword = _webSetting.AuthPassword
-                }
-                , _logErrorDataAccess);
-            //, new LogErrorDataAccess(new DBContext()));
+        //    var sendemail = new EmailEngine(
+        //        new EmailConfiguration
+        //        {
+        //            SmtpServer = _webSetting.SmtpServer,
+        //            SmtpPort = _webSetting.SmtpPort,
+        //            SmtpServerUserName = _webSetting.AuthUserName,
+        //            SmtpServerPassword = _webSetting.AuthPassword
+        //        }
+        //        , _logErrorDataAccess);
+        //    //, new LogErrorDataAccess(new DBContext()));
 
-            // sendemail.Send(family.FamilyName, family.FamilyEmail, "Sample Message", "Hello Text", "RichardWysocki@gmail.com");
+        //    //sendemail.Send(family.FamilyName, family.FamilyEmail, "Sample Message", "Hello Text", "RichardWysocki@gmail.com");
 
-            var getData = _giftDataAccess.Update(new win10Core.Business.Model.Gift
-            {
-                GiftId = gift.GiftId,
-                GiftName = gift.GiftName,
-                Priority = gift.Priority,
-                WebUrl = gift.WebUrl,
-                KidId = gift.KidId,
-                CreateDate = DateTime.Now,
-                EmailSent = true
-            });
-            return getData;
-        }
+        //    var getData = _giftDataAccess.Update(new Gift
+        //    {
+        //        GiftId = gift.GiftId,
+        //        GiftName = gift.GiftName,
+        //        Priority = gift.Priority,
+        //        WebUrl = gift.WebUrl,
+        //        KidId = gift.KidId,
+        //        CreateDate = DateTime.Now,
+        //        EmailSent = true
+        //    });
+        //    return getData;
+        //}
 
         // GET: api/NotificationApi
         //public IEnumerable<string> Get()

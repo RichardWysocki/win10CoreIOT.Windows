@@ -9,6 +9,8 @@ namespace win10Core.Business.DataAccess.Interfaces
 
         Parent Get(int id);
 
+        List<Parent> GetbyFamily(int familyId);
+
         Parent Insert(Parent insert);
 
         bool Update(Parent update);

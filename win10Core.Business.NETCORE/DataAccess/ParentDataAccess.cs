@@ -30,6 +30,16 @@ namespace win10Core.Business.DataAccess
             return parent;
         }
 
+        public List<Parent> GetbyFamily(int familyId)
+        {
+            if (familyId == 0)
+                throw new ArgumentException("Invalid familyId Paramter");
+            var parent = _db.Parent.Where(c => c.FamilyId == familyId);
+            if (parent == null)
+                throw new Exception("Error getting Parent record.");
+            return parent.ToList();
+        }
+
         public Parent Insert(Parent insert)
         {
             _db.Parent.Add(insert);
