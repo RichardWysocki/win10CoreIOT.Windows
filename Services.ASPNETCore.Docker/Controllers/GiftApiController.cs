@@ -58,18 +58,18 @@ namespace Services.ASPNETCore.Docker.Controllers
             }
         }
 
-        // POST: api/GiftApi
+        // POST: api/GiftApi - Create
         [HttpPost]
         public IActionResult Post([FromBody] GiftDTO gift)
         {
             _logEngine.LogInfo($"GiftApiController: /api/GiftApi/Post/{gift}", "Starting Method");
-            var getData = _giftDataAccess.Insert(new win10Core.Business.Model.Gift { GiftName = gift.GiftName, Priority = gift.Priority, WebUrl = gift.WebUrl, KidId = gift.KidId });
+            var getData = _giftDataAccess.Insert(new Gift { GiftName = gift.GiftName, Priority = gift.Priority, WebUrl = gift.WebUrl, KidId = gift.KidId });
             var response = new GiftDTO { GiftId = getData.GiftId, GiftName = getData.GiftName, Priority = getData.Priority, WebUrl = getData.WebUrl, KidId = getData.KidId };
             _logEngine.LogInfo($"GiftApiController: /api/GiftApi/Post/{gift}", "Returning Method");
             return Created($"/api/GiftAPI/{response.GiftId}", response);
         }
 
-        // PUT: api/GiftApi/5
+        // PUT: api/GiftApi/5 - Update
         [HttpPut]
         public IActionResult Put([FromBody] GiftDTO gift)
         {
@@ -84,7 +84,7 @@ namespace Services.ASPNETCore.Docker.Controllers
             return NotFound();
         }
 
-        // DELETE: api/GiftApi/5
+        // DELETE: api/GiftApi/5 - Do we really want to delete?
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

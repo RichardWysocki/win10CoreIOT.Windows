@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Services.ASPNETCore.Docker.Model;
 using win10Core.Business.DataAccess.Interfaces;
 using win10Core.Business.Engine;
 using win10Core.Business.Engine.Interface;
@@ -20,12 +18,14 @@ namespace Services.ASPNETCore.Docker.Controllers
         private readonly IEmailEngine _emailEngine;
         private readonly IFamilyDataAccess _familyDataAccess;
         private readonly IKidDataAccess _kidDataAccess;
-        private readonly ILogErrorDataAccess _logErrorDataAccess;
+        //private readonly ILogErrorDataAccess _logErrorDataAccess;
         private readonly ILogEngine _logEngine;
-        private readonly WebSettings _webSetting;
+        //private readonly WebSettings _webSetting;
         private IParentDataAccess _parentDataAccess;
 
-        public NotificationApiController(IOptions<WebSettings> webSettings, IEmailEngine emailEngine, IGiftDataAccess giftDataAccess,  IFamilyDataAccess familyDataAccess, IParentDataAccess parentDataAccess,
+        public NotificationApiController(
+            //IOptions<WebSettings> webSettings,
+            IEmailEngine emailEngine, IGiftDataAccess giftDataAccess,  IFamilyDataAccess familyDataAccess, IParentDataAccess parentDataAccess,
             IKidDataAccess kidDataAccess, ILogErrorDataAccess logErrorDataAccess, ILogEngine logEngine)
         {
             _giftDataAccess = giftDataAccess;
@@ -33,9 +33,9 @@ namespace Services.ASPNETCore.Docker.Controllers
             _familyDataAccess = familyDataAccess;
             _parentDataAccess = parentDataAccess;
             _kidDataAccess = kidDataAccess;
-            _logErrorDataAccess = logErrorDataAccess;
+           // _logErrorDataAccess = logErrorDataAccess;
             _logEngine = logEngine;
-            _webSetting = webSettings.Value;
+            //_webSetting = webSettings.Value;
         }
 
 
@@ -65,15 +65,17 @@ namespace Services.ASPNETCore.Docker.Controllers
         public IActionResult NotifyParentsofNewGift([FromBody] GiftDTO gift)
         {
             Family family;
-            List<Parent> parent = null;
+            Kid kid;
+            List<Parent> parent;
             if ( null == gift || gift.GiftId == 0)
             {
                 _logEngine.LogInfo($"NotificationApiController: NotifyParentsofNewGift", "Returning NOTFOUND");
                 return NotFound();
             }
+
             try
             {
-                var kid = _kidDataAccess.Get(gift.KidId);
+                kid = _kidDataAccess.Get(gift.KidId);
                 family = _familyDataAccess.Get(kid.FamilyId);
                 parent = _parentDataAccess.GetbyFamily(kid.FamilyId);
             }
@@ -84,10 +86,11 @@ namespace Services.ASPNETCore.Docker.Controllers
                 return StatusCode(500, "Unknow Failure: Logged");
             }
 
-            _emailEngine.Send(family.FamilyName, family.FamilyEmail, "Sample Message", "Hello Text", "RichardWysocki@gmail.com");
+
+            _emailEngine.Send(family.FamilyName, family.FamilyEmail, "Gift Registered for: " + kid.Name, "This Gift has been purchased: "+ gift.GiftName, "RichardWysocki@gmail.com");
             foreach (var p in parent)
             {
-                _emailEngine.Send(p.Name, p.Email, "Sample Message", "Hello Text", "RichardWysocki@gmail.com");
+                _emailEngine.Send(p.Name, p.Email, "Gift Registered for: " + kid.Name, "This Gift has been purchased: " + gift.GiftName, "RichardWysocki@gmail.com");
             }
 
             var getData = _giftDataAccess.Update(new Gift
