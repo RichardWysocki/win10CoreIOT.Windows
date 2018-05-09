@@ -87,10 +87,10 @@ namespace Services.ASPNETCore.Docker.Controllers
             }
 
 
-            _emailEngine.Send(family.FamilyName, family.FamilyEmail, "Gift Registered for: " + kid.Name, "This Gift has been purchased: "+ gift.GiftName, "RichardWysocki@gmail.com");
+            _emailEngine.Send(family.FamilyName, family.FamilyEmail, "Gift Registered for: " + kid.Name, "This Gift has been Setup: "+ gift.GiftName, "RichardWysocki@gmail.com");
             foreach (var p in parent)
             {
-                _emailEngine.Send(p.Name, p.Email, "Gift Registered for: " + kid.Name, "This Gift has been purchased: " + gift.GiftName, "RichardWysocki@gmail.com");
+                _emailEngine.Send(p.Name, p.Email, "Gift Registered for: " + kid.Name, "This Gift has been Setup: " + gift.GiftName, "RichardWysocki@gmail.com");
             }
 
             var getData = _giftDataAccess.Update(new Gift

@@ -90,7 +90,7 @@ namespace Services.ASPNETCore.Docker.Controllers
         {
             try
             {
-                _logEngine.LogInfo($"GiftApiController: /api/GiftApi/Delete/{id}", "Starting Method");
+                _logEngine.LogInfo($"GiftApiController: /api/GiftApi/Delete/{id}", "Starting Method"); 
                 _giftDataAccess.Delete(id);
                 _logEngine.LogInfo($"GiftApiController: /api/GiftApi/Delete/{id}", "Returning Method");
                 return NoContent();
