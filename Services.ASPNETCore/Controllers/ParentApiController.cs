@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using ServiceContracts.Contracts;
 using win10Core.Business.DataAccess.Interfaces;
+using win10Core.Business.Engine.Interface;
+using win10Core.Business.Model;
 
 namespace Services.ASPNETCore.Controllers
 {
@@ -10,51 +13,96 @@ namespace Services.ASPNETCore.Controllers
     public class ParentApiController : Controller
     {
         private readonly IParentDataAccess _parentDataAccess;
+        private readonly ILogEngine _logEngine;
 
-        public ParentApiController(IParentDataAccess parentDataAccess)
+        public ParentApiController(IParentDataAccess parentDataAccess, ILogEngine logEngine)
         {
             _parentDataAccess = parentDataAccess;
+            _logEngine = logEngine;
         }
         // GET: api/ParentApi
         [HttpGet]
-        public IEnumerable<ParentDTO> Get()
+        public IActionResult Get()
         {
+            _logEngine.LogInfo("ParentApiController: /api/ParentApi/Get", "Starting Method");
             var getData = _parentDataAccess.Get();
             var response = getData
                 .Select(c => new ParentDTO() { ParentId = c.ParentId, Name = c.Name, Email = c.Email, FamilyId = c.FamilyId}).ToList();
-            return response;   
-
+            _logEngine.LogInfo("ParentApiController: /api/ParentApi/Get", "Returning Method");
+            return Ok(response);   
         }
 
         // GET: api/ParentApi/5
         [HttpGet("{id}")]
-        public ParentDTO Get(int id)
+        public IActionResult Get(int id)
         {
-            var getData = _parentDataAccess.Get(id);
-            var response = new ParentDTO() { ParentId = getData.ParentId, FamilyId = getData.FamilyId, Name = getData.Name, Email = getData.Email };
-            return response;
+             try
+            {
+                _logEngine.LogInfo($"ParentApiController: /api/ParentApi/Get/{id}", "Starting Method");
+                var getData = _parentDataAccess.Get(id);
+                var response = new ParentDTO() { ParentId = getData.ParentId, FamilyId = getData.FamilyId, Name = getData.Name, Email = getData.Email };
+                _logEngine.LogInfo($"ParentApiController: /api/ParentApi/Get/{id}", "Returning Method");
+                return Ok(response);
+            }
+            catch (Exception e) when (e.Message == "Error getting Family record.")
+            {
+                _logEngine.LogInfo($"ParentApiController: /api/ParentApi/Get/{id}", "Returning NOTFOUND");
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                _logEngine.LogError("ParentApiController", $"/api/ParentApi/Get/{id}", e.Message);
+                return StatusCode(500, "Unknow Failure: Logged");
+            }
         }
 
         // POST: api/ParentApi
         [HttpPost]
-        public ParentDTO Post([FromBody] ParentDTO parent)
+        public IActionResult Post([FromBody] ParentDTO parent)
         {
-            var getData = _parentDataAccess.Insert(new win10Core.Business.Model.Parent() {Name = parent.Name, Email = parent.Email, FamilyId = parent.FamilyId});
+            _logEngine.LogInfo($"ParentApiController: /api/ParentApi/Post/{parent}", "Starting Method");
+            var getData = _parentDataAccess.Insert(new Parent() {Name = parent.Name, Email = parent.Email, FamilyId = parent.FamilyId});
             var response = new ParentDTO { ParentId = getData.ParentId, Name = getData.Name, Email = getData.Email, FamilyId = getData.FamilyId};
-            return response;
+            _logEngine.LogInfo($"ParentApiController: /api/ParentApi/Post/{parent}", "Returning Method");
+            return Created($"/api/ParentAPI/{response.ParentId}", response);
         }
 
         // PUT: api/ParentApi/
         [HttpPut]
-        public void Put([FromBody] ParentDTO parent)
+        public IActionResult Put([FromBody] ParentDTO parent)
         {
-            var getData = _parentDataAccess.Update(new win10Core.Business.Model.Parent() { ParentId = parent.ParentId,  Name = parent.Name, Email = parent.Email, FamilyId = parent.FamilyId});
+            //var getData = _parentDataAccess.Update(new win10Core.Business.Model.Parent() { ParentId = parent.ParentId,  Name = parent.Name, Email = parent.Email, FamilyId = parent.FamilyId});
+
+            _logEngine.LogInfo($"ParentApiController: /api/FamilyApi/Put/{parent}", "Starting Method");
+            var getDataUpdate = _parentDataAccess.Update(new Parent() { ParentId = parent.ParentId, Name = parent.Name, Email = parent.Email, FamilyId = parent.FamilyId });
+            if (getDataUpdate)
+            {
+                _logEngine.LogInfo($"ParentApiController: /api/ParentApi/Put/{parent}", "Returning Method");
+                return Accepted($"/api/ParentApi/{parent.ParentId}");
+            }
+            _logEngine.LogInfo($"ParentApiController: /api/ParentApi/Put/{parent}", "Returning NOTFOUND");
+            return NotFound();
         }
 
         // DELETE: api/ParentApi/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            try
+            {
+                _logEngine.LogInfo($"ParentApiController: /api/ParentApi/Delete/{id}", "Starting Method");
+                _parentDataAccess.Delete(id);
+                _logEngine.LogInfo($"ParentApiController: /api/ParentApi/Delete/{id}", "Returning Method");
+                return NoContent();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                _logEngine.LogError("ParentApiController", $"/api/ParentApi/Delete/{id}", e.Message);
+                _logEngine.LogInfo($"ParentApiController: /api/ParentApi/Delete/{id}", "Returning NOTFOUND");
+                return NotFound();
+            }
         }
     }
 }

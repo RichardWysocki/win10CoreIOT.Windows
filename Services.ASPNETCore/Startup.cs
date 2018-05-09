@@ -28,19 +28,8 @@ namespace Services.ASPNETCore
         public void ConfigureServices(IServiceCollection services) //, ILoggerFactory loggerFactory)
         {
 
-            // add configured instance of logging
-            services.AddSingleton(new LoggerFactory()
-                .AddConsole()
-                .AddDebug());
-
-            // add logging
-            services.AddLogging();
-            //services.AddLogging();
-            //loggerFactory.AddConsole();
-            //loggerFactory.AddDebug();
-
-            services.AddDbContext<DBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
+            services.AddDbContext<DBContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<IDBContext, DBContext>();
             services.AddTransient<IKidDataAccess, KidDataAccess>();
             services.AddTransient<ILogInfoDataAccess, LogInfoDataAccess>();
@@ -55,17 +44,16 @@ namespace Services.ASPNETCore
             services.AddTransient<IGiftEngine, GiftEngine>();
             services.AddTransient<ILogEngine, LogEngine>();
             services.AddTransient<IEmailEngine, EmailEngine>();
-            services.AddTransient<IEmailConfiguration, EmailConfiguration>();
-
-            //services.AddMvc();
-            //services.AddSwaggerGen(c =>
-            //{
-            //    c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
-            //});
+            services.AddSingleton<IEmailConfiguration>(new EmailConfiguration {
+                SmtpServer = Configuration["AppSettings:SmtpServer"],
+                SmtpPort = int.Parse(Configuration["AppSettings:SmtpPort"]),
+                SmtpServerPassword = Configuration["AppSettings:SmtpServerPassword"],
+                SmtpServerUserName = Configuration["AppSettings:SmtpServerUserName"]
+            });
+            //services.AddTransient<IEmailConfiguration, new EmailConfiguration { SmtpServer = Configuration.GetSection("AppSettings.SmtpPort") }>();
 
             services.AddMvc();
-
-
+            services.AddRouting();
             services.AddAutoMapper();
         }
 
@@ -81,7 +69,11 @@ namespace Services.ASPNETCore
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action?}/{id?}");
+                //routes.MapRoute(
+                //    name: "DefaultApi",
+                //    template: "api/{controller}/{action}/{id?}"
+                //    );
             });
 
         }

@@ -37,7 +37,7 @@ namespace Services.ASPNETCore.Controllers
 
             DateTime end = DateTime.Now;
             TimeSpan duration = end - start;
-            Console.WriteLine(duration.ToString());
+            Console.WriteLine("Running....");
             var getInsertData = _logInfoDataAccess.Insert(new LogInfo
             {
                 //LogInfoId = log.LogInfoId,

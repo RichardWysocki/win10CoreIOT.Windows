@@ -37,7 +37,7 @@ namespace Services.ASPNETCore.Docker.Controllers
 
             DateTime end = DateTime.Now;
             TimeSpan duration = end - start;
-            Console.WriteLine("Runn....");
+            Console.WriteLine("Running....");
             var getInsertData = _logInfoDataAccess.Insert(new LogInfo
             {
                 //LogInfoId = log.LogInfoId,
