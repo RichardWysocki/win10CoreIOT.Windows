@@ -46,12 +46,6 @@ namespace win10CoreIOT.Background
 
         private void Timer_Tick(ThreadPoolTimer timerTic)
         {
-
-            //var response = ReadTimestamp();
-            //Trace.WriteLine(response);
-            //var response2 = LoadFromJsonAsync();
-            //Trace.WriteLine(response2);
-            
             if (!worker.IsBusy)
                 worker.RunWorkerAsync();
 
@@ -59,8 +53,7 @@ namespace win10CoreIOT.Background
         }
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            _serviceCalls.SendData("LogInfo",
-                new LogInformation { Method = "StartupTask: Worker_DoWork", Message = "Get All Open Gifts" });
+            _serviceCalls.SendData("LogInfo", new LogInformation { Method = "StartupTask: Worker_DoWork", Message = "Get All Open Gifts" });
             // Running Thread
             var data = _serviceCalls.GetData<GiftDTO>(@"NotificationApi/GetNewRegisteredGifts/false");
             // Get All Open Gifts Requests
@@ -74,27 +67,22 @@ namespace win10CoreIOT.Background
                 {
                     Console.WriteLine(exception);
                     _serviceCalls.SendData("LogInfo", new LogInformation { Method = "StartupTask: Worker_DoWork", Message = exception.Message });
-                }
-                
+                } 
             }
             // Send Emal and Update Gifts
-            _serviceCalls.SendData("LogInfo",
-                new LogInformation { Method = "StartupTask: Worker_DoWork", Message = "End." });
+            _serviceCalls.SendData("LogInfo", new LogInformation { Method = "StartupTask: Worker_DoWork", Message = "End." });
         }
 
         private string GetWebAPISetting()
         {
             try
             {
-                //StorageFile sampleFile = await temporaryFolder.GetFileAsync("app.xml");
-                //String timestamp = await FileIO.ReadTextAsync(sampleFile);
                 string filePath = Path.Combine(Package.Current.InstalledLocation.Path, "app.json");
                 using (StreamReader file = File.OpenText(filePath))
                 using (JsonTextReader reader = new JsonTextReader(file))
                 {
-                    JObject jObject = (JObject)JToken.ReadFrom(reader);
-                    string attrib1 = jObject.GetValue("WebAPI").Value<string>();
-                    //jObject.First.ToString();
+                    var jObject = (JObject)JToken.ReadFrom(reader);
+                    var attrib1 = jObject.GetValue("WebAPI").Value<string>();
                     return attrib1;
                 }
                 // Data is contained in timestamp
@@ -105,38 +93,5 @@ namespace win10CoreIOT.Background
                 return ex.Message;
             }
         }
-
-        //private static string JsonFile = "app.json";    //your file name
-
-        ////public IList<string> LoadFromJsonAsync()
-        ////  {
-        ////    List<string> x = null;
-        ////    string filePath = Path.Combine(Package.Current.InstalledLocation.Path, "app.json");
-        ////    string jsonString = DeserializeFileAsync(filePath).Result;
-        ////    if (jsonString != null)
-        ////    {
-        ////        x = (List<string>)JsonConvert.DeserializeObject(jsonString, typeof(List<string>));
-        ////    }
-
-        ////    // return (List<string>)JsonConvert.DeserializeObject(JsonString, typeof(List<string>));
-        ////    return x;
-        ////}
-
-        //private static async Task<string> DeserializeFileAsync(string fileName)
-        //{
-        //    try
-        //    {
-        //        StorageFile localFile = await ApplicationData.Current.LocalFolder.GetFileAsync(fileName);
-        //        return await FileIO.ReadTextAsync(localFile);
-        //    }
-        //    catch (FileNotFoundException)
-        //    {
-        //        return null;
-        //    }
-        //}
-
-        
-
-
     }
 }
