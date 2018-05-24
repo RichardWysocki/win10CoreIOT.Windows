@@ -60,15 +60,26 @@ namespace win10CoreIOT.Background
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
             _serviceCalls.SendData("LogInfo",
-                new LogInformation { Method = "StartupTask: Timer_Tick", Message = "Get All Open Gifts" });
+                new LogInformation { Method = "StartupTask: Worker_DoWork", Message = "Get All Open Gifts" });
             // Running Thread
             var data = _serviceCalls.GetData<GiftDTO>(@"NotificationApi/GetNewRegisteredGifts/false");
             // Get All Open Gifts Requests
             foreach (var gift in data)
             {
-                _serviceCalls.SendData(@"NotificationApi/NotifyParentsofNewGift", gift);
+                try
+                {
+                    _serviceCalls.SendData(@"NotificationApi/NotifyParentsofNewGift", gift);
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception);
+                    _serviceCalls.SendData("LogInfo", new LogInformation { Method = "StartupTask: Worker_DoWork", Message = exception.Message });
+                }
+                
             }
             // Send Emal and Update Gifts
+            _serviceCalls.SendData("LogInfo",
+                new LogInformation { Method = "StartupTask: Worker_DoWork", Message = "End." });
         }
 
         private string GetWebAPISetting()

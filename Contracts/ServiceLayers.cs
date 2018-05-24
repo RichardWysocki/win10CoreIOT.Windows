@@ -31,11 +31,11 @@ namespace ServiceContracts
             string postBody = JsonConvert.SerializeObject(data);
             getData.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             HttpResponseMessage wcfResponse = getData.PostAsync(api, new StringContent(postBody, Encoding.UTF8, "application/json")).Result;
-
-
-            //var response = getData.PostAsJsonAsync(api, data).Result;
+        
             if (!wcfResponse.IsSuccessStatusCode)
-                throw new Exception("This didn't work!!!");
+                throw new Exception(wcfResponse.Content.ReadAsStringAsync().Result ?? "This didn't work!!!");
+            //IsSuccessStatusCode: A value that indicates if the HTTP response was successful. true if StatusCode was in the range 200-299; otherwise false.
+
         }
 
         public void SendDelete<T>(string api, int data)
@@ -43,7 +43,7 @@ namespace ServiceContracts
             var getData = _serviceSetting.GetHttpClient();
             var response = getData.DeleteAsync(api +"/"+ data).Result;
             if (!response.IsSuccessStatusCode)
-                throw new Exception("This didn't work!!!");
+                throw new Exception(response.Content.ReadAsStringAsync().Result ?? "This didn't work!!!");
         }
 
         public T GetItem<T>(string api, int id)
