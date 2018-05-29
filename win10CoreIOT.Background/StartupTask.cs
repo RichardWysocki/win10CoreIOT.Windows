@@ -2,12 +2,8 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
-using System.IO;
-using Windows.ApplicationModel;
 using Windows.ApplicationModel.Background;
 using Windows.System.Threading;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using ServiceContracts;
 using ServiceContracts.Contracts;
 
@@ -25,7 +21,8 @@ namespace win10CoreIOT.Background
 
         public StartupTask()
         {
-            _serviceCalls = new ServiceLayers(new ServiceSettings(GetWebAPISetting()));
+            var WebAPI = new ConfigSettings().GetWebAPISetting("WebAPI");
+            _serviceCalls = new ServiceLayers(new ServiceSettings(WebAPI));
             worker = new BackgroundWorker();
             worker.DoWork += Worker_DoWork;
         }
@@ -71,27 +68,6 @@ namespace win10CoreIOT.Background
             }
             // Send Emal and Update Gifts
             _serviceCalls.SendData("LogInfo", new LogInformation { Method = "StartupTask: Worker_DoWork", Message = "End." });
-        }
-
-        private string GetWebAPISetting()
-        {
-            try
-            {
-                string filePath = Path.Combine(Package.Current.InstalledLocation.Path, "app.json");
-                using (StreamReader file = File.OpenText(filePath))
-                using (JsonTextReader reader = new JsonTextReader(file))
-                {
-                    var jObject = (JObject)JToken.ReadFrom(reader);
-                    var attrib1 = jObject.GetValue("WebAPI").Value<string>();
-                    return attrib1;
-                }
-                // Data is contained in timestamp
-            }
-            catch (Exception ex)
-            {
-                // Timestamp not found
-                return ex.Message;
-            }
         }
     }
 }
