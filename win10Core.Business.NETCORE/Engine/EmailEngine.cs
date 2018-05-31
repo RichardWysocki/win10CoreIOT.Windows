@@ -10,11 +10,13 @@ namespace win10Core.Business.Engine
     {
         private readonly IEmailConfiguration _emailConfiguration;
         private readonly ILogErrorDataAccess _logErrorDataAccess;
+        private readonly ILogInfoDataAccess _logInfoDataAccess;
 
-        public EmailEngine(IEmailConfiguration emailConfiguration, ILogErrorDataAccess logErrorDataAccess)
+        public EmailEngine(IEmailConfiguration emailConfiguration, ILogErrorDataAccess logErrorDataAccess, ILogInfoDataAccess logInfoDataAccess)
         {
             _emailConfiguration = emailConfiguration;
             _logErrorDataAccess = logErrorDataAccess;
+            _logInfoDataAccess = logInfoDataAccess;
         }
 
         public void Send(string userName, string sender, string subject, string body, string[] recipients)
@@ -30,7 +32,7 @@ namespace win10Core.Business.Engine
         public string SendWithLog(string userName, string sender, string subject, string body,
             string[] recipients)
         {
-            //LogErrorBusiness.AddLogError("SendWithLog", "Message", "Source");
+            _logInfoDataAccess.Insert(new LogInfo { Message = $"Starting Email for {sender}", Method = "SendWithLog" });
 
             StringBuilder failedMessages = new StringBuilder();
             StringBuilder recipientList = new StringBuilder();
@@ -62,11 +64,13 @@ namespace win10Core.Business.Engine
                     Credentials = new System.Net.NetworkCredential(_emailConfiguration.SmtpServerUserName,
                         _emailConfiguration.SmtpServerPassword)
                 };
+                _logInfoDataAccess.Insert(new LogInfo { Message = $"SMTP Email for {_emailConfiguration.SmtpServerUserName}", Method = "SendWithLog" });
                 smtpMail.Send(message);
             }
 
             catch (Exception ex)
             {
+                _logInfoDataAccess.Insert(new LogInfo {Message = ex.Message, Method = "SendWithLog"});
                 _logErrorDataAccess.Insert(new LogError{LogErrorMessage = ex.Message, LogErrorMethod = "SendWithLog", LogErrorSource = ex.Source });
 
                 failedMessages.Append(recipientList);
