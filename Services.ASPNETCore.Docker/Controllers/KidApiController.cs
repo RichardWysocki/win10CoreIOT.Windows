@@ -35,7 +35,7 @@ namespace Services.ASPNETCore.Docker.Controllers
 
         // GET: api/KidApi/5
         [HttpGet("{id}")]
-        public IHttpActionResult Get(int id)
+        public IActionResult Get(int id)
         {
             try
             {
