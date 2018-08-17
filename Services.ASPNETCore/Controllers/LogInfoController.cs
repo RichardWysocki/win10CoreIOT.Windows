@@ -34,7 +34,7 @@ namespace Services.ASPNETCore.Controllers
             var response = getData
                 .Select(c => new LogInformation {LogInfoId = c.LogInfoId, Method = c.Method, Message = c.Message})
                 .ToList();
-            return response;
+            return response; 
         }
 
         // GET api/<controller>/5
