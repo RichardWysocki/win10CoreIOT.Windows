@@ -1,9 +1,12 @@
-﻿using AutoMapper;
+﻿using System.Text;
+using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using win10Core.Business.DataAccess;
 using win10Core.Business.DataAccess.Interfaces;
 using win10Core.Business.Engine;
@@ -46,6 +49,21 @@ namespace Services.ASPNETCore.Docker
             });
             //services.AddTransient<IEmailConfiguration, new EmailConfiguration { SmtpServer = Configuration.GetSection("AppSettings.SmtpPort") }>();
 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = Configuration["Jwt:Issuer"],
+                        ValidAudience = Configuration["Jwt:Issuer"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                    };
+                });
+
             services.AddMvc();
             services.AddRouting();
             services.AddAutoMapper();
@@ -60,6 +78,7 @@ namespace Services.ASPNETCore.Docker
             }
 
             // app.UseMvc();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
@@ -71,7 +90,6 @@ namespace Services.ASPNETCore.Docker
                 //    template: "api/{controller}/{action}/{id?}"
                 //    );
             });
-
 
             //var trackPackageRouteHandler = new RouteHandler(context =>
             //{
