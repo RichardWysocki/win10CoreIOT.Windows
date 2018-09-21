@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.AspNetCore.Swagger;
 using win10Core.Business.DataAccess;
 using win10Core.Business.DataAccess.Interfaces;
 using win10Core.Business.Engine;
@@ -65,6 +66,17 @@ namespace Services.ASPNETCore.Docker
                 });
 
             services.AddMvc();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info
+                {
+                    Version = "v1",
+                    Title = "My API",
+                    Description = "My First ASP.NET Core Web API",
+                    TermsOfService = "None",
+                    Contact = new Contact() { Name = "Talking Dotnet", Email = "contact@talkingdotnet.com", Url = "www.talkingdotnet.com" }
+                });
+            });
             services.AddRouting();
             services.AddAutoMapper();
         }
@@ -90,6 +102,14 @@ namespace Services.ASPNETCore.Docker
                 //    template: "api/{controller}/{action}/{id?}"
                 //    );
             });
+            if (env.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                });
+            }
 
             //var trackPackageRouteHandler = new RouteHandler(context =>
             //{
