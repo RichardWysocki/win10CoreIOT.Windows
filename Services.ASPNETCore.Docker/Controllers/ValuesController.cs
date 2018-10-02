@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using ServiceContracts.Contracts;
-using win10Core.Business.DataAccess;
-using win10Core.Business.Model;
+using win10Core.Business.Standard.DataAccess;
+using win10Core.Business.Standard.Model;
 
 namespace Services.ASPNETCore.Docker.Controllers
 {
@@ -21,7 +21,7 @@ namespace Services.ASPNETCore.Docker.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            DateTime start = DateTime.Now;
+             DateTime start = DateTime.Now;
             var getData = _logInfoDataAccess.Get();
             var response = getData
                 .Select(c => new LogInformation { LogInfoId = c.LogInfoId, Method = c.Method, Message = c.Message })

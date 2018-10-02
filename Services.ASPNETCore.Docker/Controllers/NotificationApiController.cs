@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using win10Core.Business.DataAccess.Interfaces;
-using win10Core.Business.Engine;
-using win10Core.Business.Engine.Interface;
-using win10Core.Business.Model;
+using win10Core.Business.Standard.DataAccess.Interface;
+using win10Core.Business.Standard.Engine.Interface;
+using win10Core.Business.Standard.Model;
 using GiftDTO = ServiceContracts.Contracts.GiftDTO;
 
 namespace Services.ASPNETCore.Docker.Controllers
@@ -66,7 +65,7 @@ namespace Services.ASPNETCore.Docker.Controllers
         {
             Family family;
             Kid kid;
-            List<Parent> parent;
+            List<Parent> parent; 
             if ( null == gift || gift.GiftId == 0)
             {
                 _logEngine.LogInfo($"NotificationApiController: NotifyParentsofNewGift", "Returning NOTFOUND");

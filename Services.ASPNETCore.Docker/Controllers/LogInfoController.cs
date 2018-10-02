@@ -4,9 +4,9 @@ using System.Linq;
 using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
 using ServiceContracts.Contracts;
-using win10Core.Business.DataAccess.Interfaces;
-using win10Core.Business.Engine.Interface;
-using win10Core.Business.Model;
+using win10Core.Business.Standard.DataAccess.Interface;
+using win10Core.Business.Standard.Engine.Interface;
+using win10Core.Business.Standard.Model;
 
 namespace Services.ASPNETCore.Docker.Controllers
 {

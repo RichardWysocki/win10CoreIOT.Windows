@@ -37,7 +37,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Contracts\ServiceContracts.csproj" />
-    <ProjectReference Include="..\win10Core.Business.NETCORE\win10Core.Business.NETCORE.csproj" />
+    <ProjectReference Include="..\win10Core.Business.Standard\win10Core.Business.Standard.csproj" />
   </ItemGroup>
 
 </Project>

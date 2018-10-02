@@ -2,8 +2,8 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using ServiceContracts.Contracts;
-using win10Core.Business.DataAccess.Interfaces;
-using win10Core.Business.Engine.Interface;
+using win10Core.Business.Standard.DataAccess.Interface;
+using win10Core.Business.Standard.Engine.Interface;
 
 namespace Services.ASPNETCore.Docker.Controllers
 {
@@ -61,7 +61,7 @@ namespace Services.ASPNETCore.Docker.Controllers
         public IActionResult Post([FromBody] FamilyDTO family)
         {
             _logEngine.LogInfo($"FamilyApiController: /api/FamilyApi/Post/{family}", "Starting Method");
-            var getData = _familyDataAccess.Insert(new win10Core.Business.Model.Family {FamilyName = family.FamilyName, FamilyEmail = family.FamilyEmail});
+            var getData = _familyDataAccess.Insert(new win10Core.Business.Standard.Model.Family {FamilyName = family.FamilyName, FamilyEmail = family.FamilyEmail});
             var response = new FamilyDTO { FamilyId = getData.FamilyId, FamilyName = getData.FamilyName, FamilyEmail = getData.FamilyEmail };
             _logEngine.LogInfo($"FamilyApiController: /api/FamilyApi/Post/{family}", "Returning Method");
             return Created($"/api/FamilyAPI/{response.FamilyId}" , response);
@@ -72,7 +72,7 @@ namespace Services.ASPNETCore.Docker.Controllers
         public IActionResult Put([FromBody] FamilyDTO family)
         {
             _logEngine.LogInfo($"FamilyApiController: /api/FamilyApi/Put/{family}", "Starting Method");
-            var getDataUpdate = _familyDataAccess.Update(new win10Core.Business.Model.Family { FamilyId = family.FamilyId, FamilyName = family.FamilyName, FamilyEmail = family.FamilyEmail });
+            var getDataUpdate = _familyDataAccess.Update(new win10Core.Business.Standard.Model.Family { FamilyId = family.FamilyId, FamilyName = family.FamilyName, FamilyEmail = family.FamilyEmail });
             if (getDataUpdate)
             {
                 _logEngine.LogInfo($"FamilyApiController: /api/FamilyApi/Put/{family}", "Returning Method");

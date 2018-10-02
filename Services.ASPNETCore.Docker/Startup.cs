@@ -8,11 +8,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
-using win10Core.Business.DataAccess;
-using win10Core.Business.DataAccess.Interfaces;
-using win10Core.Business.Engine;
-using win10Core.Business.Engine.Interface;
-using win10Core.Business.Model;
+using win10Core.Business.Standard.DataAccess;
+using win10Core.Business.Standard.DataAccess.Interface;
+using win10Core.Business.Standard.Engine;
+using win10Core.Business.Standard.Engine.Interface;
+using win10Core.Business.Standard.Model;
 
 namespace Services.ASPNETCore.Docker
 {
