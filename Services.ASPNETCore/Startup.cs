@@ -69,16 +69,6 @@ namespace Services.ASPNETCore
                     };
                 });
 
-            //services.AddCors(options =>
-            //{
-            //    options.AddPolicy("CorsPolicy",
-            //        builder => builder.AllowAnyOrigin()
-            //            .AllowAnyMethod()
-            //            .AllowAnyHeader()
-            //            .AllowCredentials()
-            //            .Build());
-            //});
-
             services.AddMvc();
             services.AddRouting();
             services.AddAutoMapper();
