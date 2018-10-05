@@ -17,6 +17,7 @@ namespace Services.ASPNETCore.Docker.Controllers
         {
             _logInfoDataAccess = new LogInfoDataAccess(myContext);
         }
+
         // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
@@ -26,7 +27,7 @@ namespace Services.ASPNETCore.Docker.Controllers
             var response = getData
                 .Select(c => new LogInformation { LogInfoId = c.LogInfoId, Method = c.Method, Message = c.Message })
                 .ToList();
-            //return response;
+
             var returnList = new List<string>();
             foreach (var item in response)
             {
