@@ -18,7 +18,6 @@ namespace Services.ASPNETCore.Docker.Controllers
         {
             _giftDataAccess = giftDataAccess;
             _logEngine = logEngine;
-
         }
 
         // GET: api/GiftApi

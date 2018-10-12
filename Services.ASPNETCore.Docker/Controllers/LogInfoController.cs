@@ -29,7 +29,6 @@ namespace Services.ASPNETCore.Docker.Controllers
             //_logEngine.LogError("1", "2", "3");
             //_logEngine.LogInfo("1", "2");
 
-
             var getData = _logInfoDataAccess.Get();
             var response = getData
                 .Select(c => new LogInformation {LogInfoId = c.LogInfoId, Method = c.Method, Message = c.Message})

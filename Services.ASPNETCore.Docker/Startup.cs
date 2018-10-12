@@ -1,12 +1,15 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Services.ASPNETCore.Docker.Model;
 using Swashbuckle.AspNetCore.Swagger;
 using win10Core.Business.Standard.DataAccess;
 using win10Core.Business.Standard.DataAccess.Interface;
@@ -49,6 +52,12 @@ namespace Services.ASPNETCore.Docker
                 SmtpServerUserName = Configuration["AppSettings:SmtpServerUserName"]
             });
             //services.AddTransient<IEmailConfiguration, new EmailConfiguration { SmtpServer = Configuration.GetSection("AppSettings.SmtpPort") }>();
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -66,6 +75,25 @@ namespace Services.ASPNETCore.Docker
                 });
 
             services.AddMvc();
+            // Configure Identity
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 8;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireLowercase = false;
+                // Lockout settings
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+                options.Lockout.MaxFailedAccessAttempts = 10;
+                // Cookie settings
+                //options.Cookies.ApplicationCookie.ExpireTimeSpan = TimeSpan.FromDays(150);
+                //options.Cookies.ApplicationCookie.LoginPath = "/Account/Login";
+                // User settings
+                options.User.RequireUniqueEmail = true;
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info
@@ -96,7 +124,7 @@ namespace Services.ASPNETCore.Docker
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action?}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
                 //routes.MapRoute(
                 //    name: "DefaultApi",
                 //    template: "api/{controller}/{action}/{id?}"

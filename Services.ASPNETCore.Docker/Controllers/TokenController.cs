@@ -3,9 +3,11 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Services.ASPNETCore.Docker.Model;
 
 namespace Services.ASPNETCore.Docker.Controllers
 {
@@ -13,12 +15,15 @@ namespace Services.ASPNETCore.Docker.Controllers
     [Route("api/Token")]
     public class TokenController : Controller
     {
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private IConfiguration _config;
 
-            private IConfiguration _config;
-
-            public TokenController(IConfiguration config)
+            public TokenController(IConfiguration config, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
             {
                 _config = config;
+                _userManager = userManager;
+                _signInManager = signInManager;
             }
 
             [AllowAnonymous]
@@ -61,7 +66,11 @@ namespace Services.ASPNETCore.Docker.Controllers
 
             private UserModel Authenticate(LoginModel login)
             {
-                UserModel user = null;
+                var userx = _userManager.FindByEmailAsync("RichardWysocki@gmail.com").Result;
+                //var user = new ApplicationUser() { UserName = "Richard" };
+                var result = _signInManager.CheckPasswordSignInAsync(userx, "Test1234$", false).Result;
+
+            UserModel user = null;
 
             if (login.Username == "mario" && login.Password == "secret")
             {

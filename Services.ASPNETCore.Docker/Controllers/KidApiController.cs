@@ -30,7 +30,6 @@ namespace Services.ASPNETCore.Docker.Controllers
                 .Select(c => new KidDTO() { KidId = c.KidId, Name = c.Name, Email = c.Email, FamilyId = c.FamilyId}).ToList();
             _logEngine.LogInfo("KidApiController: /api/KidApi/Get", "Returning Method");
             return Ok(response);   
-
         }
 
         // GET: api/KidApi/5
