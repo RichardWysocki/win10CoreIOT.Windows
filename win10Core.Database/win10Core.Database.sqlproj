@@ -175,6 +175,9 @@
     <Build Include="dbo\Stored Procedures\Customer_Delete.sql" />
     <Build Include="dbo\Stored Procedures\Client_List.sql" />
     <Build Include="dbo\Tables\Gift.sql" />
+    <Build Include="dbo\Tables\PurchasedGift.sql" />
+    <Build Include="dbo\Tables\AspNetUserTokens.sql" />
+    <Build Include="dbo\Tables\AspNetRoleClaims.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SqlSchemaCompare1.scmp" />
