@@ -24,8 +24,18 @@ namespace win10Core.Business.Standard.DataAccess
         public Family Get(int id)
         {
             if (id == 0)
-                throw new ArgumentException("Invalid id Paramter");
+                throw new ArgumentException("Invalid id Parameter");
             var family = _db.Family.SingleOrDefault(c => c.FamilyId == id);
+            if (family == null)
+                throw new Exception("Error getting Family record.");
+            return family;
+        }
+
+        public Family GetbyEmailAddress(string emailAddress)
+        {
+            if (string.IsNullOrWhiteSpace(emailAddress))
+                throw new ArgumentException("Invalid emailAddress Parameter");
+            var family = _db.Family.SingleOrDefault(c => c.FamilyEmail == emailAddress);
             if (family == null)
                 throw new Exception("Error getting Family record.");
             return family;

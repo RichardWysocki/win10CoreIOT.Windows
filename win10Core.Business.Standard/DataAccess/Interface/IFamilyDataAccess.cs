@@ -9,6 +9,8 @@ namespace win10Core.Business.Standard.DataAccess.Interface
 
             Family Get(int id);
 
+            Family GetbyEmailAddress(string emailAddress);
+
             Family Insert(Family insert);
 
             bool Update(Family update);
