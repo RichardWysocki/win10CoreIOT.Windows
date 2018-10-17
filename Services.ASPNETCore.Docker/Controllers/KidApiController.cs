@@ -53,7 +53,7 @@ namespace Services.ASPNETCore.Docker.Controllers
             {
                 Console.WriteLine(e);
                 _logEngine.LogError("KidApiController", $"/api/KidApi/Get/{id}", e.Message);
-                return StatusCode(500, "Unknow Failure: Logged");
+                return StatusCode(500, "Unknown Failure: Logged");
             }
         }
 

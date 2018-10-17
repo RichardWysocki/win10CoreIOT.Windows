@@ -61,10 +61,27 @@ namespace Services.ASPNETCore.Docker.Controllers
         public IActionResult Post([FromBody] FamilyDTO family)
         {
             _logEngine.LogInfo($"FamilyApiController: /api/FamilyApi/Post/{family}", "Starting Method");
-            var getData = _familyDataAccess.Insert(new win10Core.Business.Standard.Model.Family {FamilyName = family.FamilyName, FamilyEmail = family.FamilyEmail});
-            var response = new FamilyDTO { FamilyId = getData.FamilyId, FamilyName = getData.FamilyName, FamilyEmail = getData.FamilyEmail };
-            _logEngine.LogInfo($"FamilyApiController: /api/FamilyApi/Post/{family}", "Returning Method");
-            return Created($"/api/FamilyAPI/{response.FamilyId}" , response);
+            try
+            {
+                var getFamilybyEmail = _familyDataAccess.GetbyEmailAddress(family.FamilyEmail);
+                _logEngine.LogError("FamilyApiController", $"/api/FamilyApi/Post/{family}", $"Family already exists: {getFamilybyEmail.FamilyEmail}");
+                return StatusCode(500, "Failed to Create as this family already exists.");
+            }
+            catch (Exception e) when (e.Message == "Error getting Family record.")
+            {
+                var getData = _familyDataAccess.Insert(new win10Core.Business.Standard.Model.Family
+                    { FamilyName = family.FamilyName, FamilyEmail = family.FamilyEmail });
+                var response = new FamilyDTO
+                    { FamilyId = getData.FamilyId, FamilyName = getData.FamilyName, FamilyEmail = getData.FamilyEmail };
+                _logEngine.LogInfo($"FamilyApiController: /api/FamilyApi/Post/{family}", "Returning Method");
+                return Created($"/api/FamilyAPI/{response.FamilyId}", response);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                _logEngine.LogError("FamilyApiController", $"/api/FamilyApi/Post/{family}", e.Message);
+                return StatusCode(500, "Unknown Failure: Logged");
+            }
         }
 
         // PUT: api/FamilyApi/5
