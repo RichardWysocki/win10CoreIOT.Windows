@@ -7,6 +7,8 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
+using ServiceContracts;
+using ServiceContracts.Contracts;
 using universalwindows.library.Common;
 using universalwindows.library.Models;
 
@@ -18,12 +20,18 @@ namespace UniversalWindows
     public sealed partial class ManagementPage : Page
     {
         List<PersonModel> _savedUsers = new List<PersonModel>();
+        private static readonly ServiceLayers _serviceCalls = new ServiceLayers(new ServiceSettings("https://servicesaspnetcore.azurewebsites.net/api/"));
+
 
         public ManagementPage()
         {
             InitializeComponent();
             FilePath.Visibility = Visibility.Collapsed;
             SaveManageSettings.Visibility = Visibility.Collapsed;
+
+
+            _serviceCalls.SendData("LogInfo", new LogInformation { Method = "IOT APP: Universal Website", Message = "Test Website..." });
+
         }
 
         private void button_Click(object sender, RoutedEventArgs e)

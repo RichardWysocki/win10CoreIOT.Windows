@@ -160,6 +160,10 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Contracts\ServiceContracts.csproj">
+      <Project>{8c44cd29-eb50-4f5f-a18b-61a8799fb831}</Project>
+      <Name>ServiceContracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\universalwindows.library\universalwindows.library.csproj">
       <Project>{3107c213-abe1-4622-9965-7af5d4b13cde}</Project>
       <Name>universalwindows.library</Name>
