@@ -9,8 +9,8 @@ namespace Services.ControllersApi
 {
     public class GiftApiController : ApiController
     {
-        private IGiftDataAccess _giftDataAccess;
-        private IGiftEngine _giftEngine;
+        private readonly IGiftDataAccess _giftDataAccess;
+        private readonly IGiftEngine _giftEngine;
 
         public GiftApiController(IGiftDataAccess giftDataAccess, IGiftEngine giftEngine)
         {

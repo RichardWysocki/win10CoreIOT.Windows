@@ -17,7 +17,7 @@ namespace Services.ASPNETCore.Docker.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private IConfiguration _config;
+        private readonly IConfiguration _config;
 
             public TokenController(IConfiguration config, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
             {
