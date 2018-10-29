@@ -10,4 +10,9 @@
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.0.1916590" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Contracts\ServiceContracts.csproj" />
+    <ProjectReference Include="..\win10Core.Business.Standard\win10Core.Business.Standard.csproj" />
+  </ItemGroup>
+
 </Project>

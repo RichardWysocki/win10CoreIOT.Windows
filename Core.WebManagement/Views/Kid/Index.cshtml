@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Management.Models.KidViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.FamilyId)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.FamilyName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.FamilyId)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.FamilyName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.KidId }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.KidId })
+            </td>
+        </tr>
+    }
+
+</table>
+
