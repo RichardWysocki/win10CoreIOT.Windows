@@ -130,14 +130,14 @@ namespace Services.ASPNETCore.Docker
                 //    template: "api/{controller}/{action}/{id?}"
                 //    );
             });
-            if (env.IsDevelopment())
-            {
+            //if (env.IsDevelopment())
+            //{
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
                 });
-            }
+            //}
 
             //var trackPackageRouteHandler = new RouteHandler(context =>
             //{
