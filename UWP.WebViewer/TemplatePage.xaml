@@ -1,0 +1,48 @@
+﻿<Page x:Class="UWP.WebViewer.TemplatePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Loaded="Page_Loaded">
+    <Page.Resources>
+        <Flyout  x:Key="ImageMenuFlyout2" Placement="Bottom">
+            <Flyout.FlyoutPresenterStyle>
+                <Style TargetType="FlyoutPresenter">
+                    <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Disabled"/>
+                    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+                    <Setter Property="IsTabStop" Value="True"/>
+                    <Setter Property="TabNavigation" Value="Cycle"/>
+                </Style>
+            </Flyout.FlyoutPresenterStyle>
+            <StackPanel>
+                <Button Click="DeleteConfirmation_Click" Margin="0,5,0,0">
+                    Enter Management Console
+                </Button>
+            </StackPanel>
+        </Flyout>
+        <MenuFlyout x:Key="ImageMenuFlyout" Placement="Top">
+            <MenuFlyout.MenuFlyoutPresenterStyle>
+                <Style TargetType="MenuFlyoutPresenter">
+                    <Setter Property="BorderBrush" Value="CornflowerBlue"/>
+                    <Setter Property="BorderThickness" Value="5"/>
+                </Style>
+            </MenuFlyout.MenuFlyoutPresenterStyle>
+            <!--<MenuFlyoutItem Text="Stretch" IsEnabled="False"/>-->
+            <MenuFlyoutItem Text="Setup" Click="Reset_Click"/>
+        </MenuFlyout>
+    </Page.Resources>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <CommandBar.Content>
+                <Grid/>
+            </CommandBar.Content>
+            <AppBarButton Icon="Admin" Label="Admin" FlyoutBase.AttachedFlyout="{StaticResource ImageMenuFlyout2}" Click="AppBarButton_Click"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+    <Grid BorderThickness="20" CornerRadius="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <WebView Grid.Row="0" x:Name="Wv1" Height="Auto" Width="Auto"/>
+    </Grid>
+</Page>

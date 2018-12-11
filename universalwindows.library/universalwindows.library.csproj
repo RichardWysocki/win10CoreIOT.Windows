@@ -114,6 +114,7 @@
     <Compile Include="Common\PersonBusiness.cs" />
     <Compile Include="Common\StorageHelper.cs" />
     <Compile Include="Models\AppModel.cs" />
+    <Compile Include="Models\ConfigurationsModel.cs" />
     <Compile Include="Models\IValidationModel.cs" />
     <Compile Include="Models\PersonModel.cs" />
     <Compile Include="Models\ValidationModel.cs" />

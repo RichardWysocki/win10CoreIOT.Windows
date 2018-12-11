@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
+  <Identity Name="12620ConstantLearnings.TradeShowWonder" Publisher="CN=9E5EA470-1921-4475-B1C7-67B7B2FBE50A" Version="1.1.12.0" />
+  <mp:PhoneIdentity PhoneProductId="1084faca-4719-4241-889c-e09e6f0497b5" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Properties>
+    <DisplayName>TradeShow Wonder</DisplayName>
+    <PublisherDisplayName>ConstantLearnings</PublisherDisplayName>
+    <Logo>Assets\TSWStoreLogo.png</Logo>
+  </Properties>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+  </Dependencies>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="UniversalWindows.App">
+      <uap:VisualElements DisplayName="Kiosk Viewer" Square150x150Logo="Assets\TSWSquare150x150Logo.png" Square44x44Logo="Assets\TSWSquare44x44Logo.png" Description="Kiosk Viewer will highlight a will make you &quot;wonder&quot; why you haven't collected the names from tradeshows and events through paper or business cards.  You'll want to use this solution forever." BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\TSWWide310x150Logo.png">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo" />
+            <uap:ShowOn Tile="wide310x150Logo" />
+          </uap:ShowNameOnTiles>
+        </uap:DefaultTile>
+        <uap:SplashScreen Image="Assets\TSWSplashScreen.png" />
+      </uap:VisualElements>
+      <Extensions>
+        <uap:Extension Category="windows.fileOpenPicker">
+          <uap:FileOpenPicker>
+            <uap:SupportedFileTypes>
+              <uap:FileType>.png</uap:FileType>
+            </uap:SupportedFileTypes>
+          </uap:FileOpenPicker>
+        </uap:Extension>
+        <uap:Extension Category="windows.fileTypeAssociation">
+          <uap:FileTypeAssociation Name="images">
+            <uap:DisplayName>Image</uap:DisplayName>
+            <uap:SupportedFileTypes>
+              <uap:FileType>.png</uap:FileType>
+            </uap:SupportedFileTypes>
+          </uap:FileTypeAssociation>
+        </uap:Extension>
+      </Extensions>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+    <uap:Capability Name="removableStorage" />
+  </Capabilities>
+</Package>
