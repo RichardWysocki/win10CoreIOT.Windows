@@ -57,7 +57,7 @@ namespace Business.Test.DataAccess
             Assert.IsEmpty(response);
         }
 
-        static object[] RunCase =
+        static readonly object[] RunCase =
         {
             new object[] { true },
             new object[] { false }
