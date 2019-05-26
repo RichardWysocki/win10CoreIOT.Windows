@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Services.ASPNETCore.Docker.Controllers
@@ -8,13 +9,13 @@ namespace Services.ASPNETCore.Docker.Controllers
     public class SampleController : Controller
     {
 
-        [HttpGet(), Authorize]
+        [HttpGet(), Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public string Get()
         {
             return "Get value";
         }
 
-        [HttpGet("{id}"), Authorize]
+        [HttpGet("{id}")]
         public string Get(int id)
         {
             return $"value: {id}";

@@ -42,7 +42,7 @@ namespace Services.ASPNETCore.Docker.Controllers
                 return response;
             }
 
-        private string BuildToken(UserModel user)
+            private string BuildToken(UserModel user)
         {
 
             var claims = new[] {
