@@ -12,8 +12,6 @@ namespace UI_XUnit.TestProject
             var driver = new ChromeDriver(System.Environment.CurrentDirectory);
 
             var response = ConfigurationSettingBuilder.GetSetting("PageURL");
-
-
             try
             {
                 driver.Url = "http://www.google.com/";
