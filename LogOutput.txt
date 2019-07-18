@@ -426,4 +426,3 @@ Select CustomerID, FirstName, LastName from Customer
 
 Closed connection at 1/29/2018 10:36:00 AM -05:00
 
-
