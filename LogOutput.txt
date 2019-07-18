@@ -425,3 +425,5 @@ Select CustomerID, FirstName, LastName from Customer
 -- Completed in 1 ms with result: SqlDataReader
 
 Closed connection at 1/29/2018 10:36:00 AM -05:00
+
+
